@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: rental-house-database
+
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432
+
+  #schema_search_path: myapp,sharedapp,public
+  #min_messages: notice
+# test:
+#   <<: *default
+#   database: rails_7_with_vite_template_test
+
+# production:
+#   <<: *default
+#   database: rails_7_with_vite_template_production
+#   username: rails_7_with_vite_template
+#   password: <%= ENV["RAILS_7_WITH_VITE_TEMPLATE_DATABASE_PASSWORD"] %>

@@ -1,0 +1,37 @@
+{
+  "[ruby]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "rebornix.ruby"
+  },
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true
+    },
+    "reek": {
+      "useBundler": true
+    }
+  },
+  "ruby.rubocop.executePath": "",
+  "ruby.rubocop.configFilePath": ".rubocop.yml",
+  "ruby.format": "rubocop",
+  "ruby.rubocop.onSave": true,
+  "ruby.intellisense": "rubyLocate",
+  "files.eol": "\n",
+  "[erb]": {
+    "editor.defaultFormatter": "aliariff.vscode-erb-beautify",
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "*.html.erb": "erb"
+  },
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.includeLanguages": { "html.erb": "html", "erb": "html" },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "editor.fontSize": 14
+}

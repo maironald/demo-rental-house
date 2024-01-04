@@ -1,0 +1,11 @@
+en:
+  common:
+    create:
+      success: 'Created %{model} successfully'
+      failed: 'Unable to create %{model}'
+    update:
+      success: 'Updated %{model} successfully'
+      failed: 'Unable to update %{model}'
+    delete:
+      success: 'Deleted %{model} successfully'
+      failed: 'Unable to delete %{model}'

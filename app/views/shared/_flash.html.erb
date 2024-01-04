@@ -1,0 +1,14 @@
+<div class="flash-container">
+  <% flash.each do |type, msg| %>
+    <div id="flash" class="flex items-center p-4 rounded-lg <%= alert_variant_class(type) %>" data-controller='flash' data-flash-target='alert' role="alert">
+      <span class="sr-only">Info</span>
+      <div class="ml-3 text-sm font-medium text-gray-800 dark:text-gray-300">
+        <%= msg %>
+      </div>
+      <button class="ml-auto -mx-1.5 -my-1.5 bg-gray-50 text-gray-500 rounded-lg focus:ring-2 focus:ring-gray-400 p-1.5 hover:bg-gray-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white" type="button" data-dismiss-target="#flash" aria-label="Close">
+        <span class="sr-only">Dismiss</span>
+        <%= image_tag("icons/close.svg") %>
+      </button>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "rebornix.ruby",
+    "usernamehw.errorlens",
+    "aaron-bond.better-comments",
+    "hnw.vscode-auto-open-markdown-preview",
+    "streetsidesoftware.code-spell-checker",
+    "msjsdiag.debugger-for-chrome-nightly",
+    "dbaeumer.vscode-eslint",
+    "mhutchie.git-graph",
+    "bierner.github-markdown-preview",
+    "eamodio.gitlens",
+    "bierner.markdown-footnotes",
+    "bierner.markdown-preview-github-styles",
+    "bierner.markdown-mermaid",
+    "bierner.markdown-yaml-preamble",
+    "DavidAnson.vscode-markdownlint",
+    "johnpapa.vscode-peacock",
+    "esbenp.prettier-vscode",
+    "Gruntfuggly.todo-tree",
+    "bradlc.vscode-tailwindcss",
+    "Shopify.ruby-lsp"
+  ]
+}
