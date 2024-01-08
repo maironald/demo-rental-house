@@ -33,5 +33,15 @@
   },
   "editor.tabSize": 2,
   "files.trimTrailingWhitespace": true,
-  "editor.fontSize": 14
+  "editor.fontSize": 14,
+  "cSpell.words": [
+    "flowbite",
+    "fontawesome",
+    "fortawesome",
+    "hotwired",
+    "tailwindcss",
+    "timeoutable",
+    "validatable",
+    "viết"
+  ]
 }

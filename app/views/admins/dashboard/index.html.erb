@@ -1,3 +1,5 @@
+<% if current_user&.has_role?(:admin)%>
+<%= render "layouts/header"%>
 <div class="card" data-controller="dashboard">
   <button
     type="button"
@@ -352,3 +354,6 @@
     </div>
   </section>
 </div>
+<% else %>
+<div>You are not authorized in here</div>
+<% end %>

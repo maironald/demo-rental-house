@@ -1,6 +1,6 @@
+<%# the code below is being to render the a tag follow by the routes in the web, Ex: if you are in login page, you will get all a tag of sign up and passwords  %>
 <%- if controller_name != 'sessions' %>
-
-  <%= link_to "Log in", new_user_session_path %><br />
+  <%= link_to "Log in", new_user_session_path, class: "text-red-500" %>
 <% end %>
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <%= link_to "Sign up", new_user_registration_path %><br />
@@ -10,6 +10,12 @@
 <% end %>
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_user_authorize_path(resource_name, provider), data: { turbo: false } %><br />
+    <%= form_for "Login",
+      url: omniauth_authorize_path(resource_name, provider),
+      method: :post,
+      data: { turbo: false } do |f|
+    %>
+      <%= f.submit "Login", type: "image", src: url_for("/assets/icons/btn_google_signin_dark_pressed_web.png"), class: "text-red-500" %><br />
+    <% end %>
   <% end %>
 <% end %>

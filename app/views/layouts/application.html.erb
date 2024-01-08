@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      Let's learn rails!
+      rental House
     </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -11,13 +11,16 @@
     <%= javascript_include_tag '/entrypoints/application', "data-turbo-track": "reload", defer: true %>
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application' %>
+    <%= favicon_link_tag 'logo/logo.png' %>
   </head>
   <body data-controller='flash'>
-    <%= render 'layouts/header' %>
-    <%= render 'shared/flash' %>
+    <%if !user_signed_in?%>
+    <%= render "shared/flash" %>
     <div class="container-xl max-w-screen-xl mx-auto">
       <%= yield %>
     </div>
+    <%else%>
+      <%= yield %>
+    <%end%>
   </body>
 </html>
-
