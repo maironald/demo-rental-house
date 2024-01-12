@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_08_024127) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_11_100833) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "renters", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "identity"
+    t.string "address"
+    t.boolean "gender"
+    t.bigint "deposit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -22,6 +33,41 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_024127) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.integer "length"
+    t.integer "width"
+    t.bigint "price_room"
+    t.datetime "rental_period"
+    t.integer "electric_amount_old"
+    t.integer "electric_amount_new"
+    t.integer "water_amout_old"
+    t.integer "water_amout_new"
+    t.integer "limit_residents"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.bigint "renter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["renter_id"], name: "index_rooms_on_renter_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "rooms_services", id: false, force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.bigint "service_id", null: false
+    t.index ["room_id"], name: "index_rooms_services_on_room_id"
+    t.index ["service_id"], name: "index_rooms_services_on_service_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.bigint "price_service"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "timesheets", force: :cascade do |t|

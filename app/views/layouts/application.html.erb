@@ -12,6 +12,7 @@
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application' %>
     <%= favicon_link_tag 'logo/logo.png' %>
+    <%= javascript_include_tag '/pack/custom', "data-turbo-track": "reload", defer: true %>
   </head>
   <body data-controller='flash'>
     <%if !user_signed_in?%>

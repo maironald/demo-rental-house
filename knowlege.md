@@ -2,6 +2,8 @@
 
 This Knowledge would normally document for you to read all the knowledge in the project.
 
+* run the db seed by: rails db:seed:<file_name> . Ex: rails db:seed:03_rooms
+
 * Devise Helpers: rails generate devise:views => this code will create all the folder about the devise which you need in folder views.
 
   * :database_authenticatable: Handles authentication through a username/email and password.
@@ -22,7 +24,7 @@ This Knowledge would normally document for you to read all the knowledge in the 
 * if you want to see all the notification about devise, you can go to the config/locales/devise.en.yml to see the content.
 
 * Migration:
-  * You can create a file migrate with: rails generate migration <file_name>  Ex: rails generate migration add_name_address_phonenumber_to_users
+  * You can create a file migrate with: rails generate migration <file_name> <attribute:type> Ex: rails generate migration add_name_address_phonenumber_to_users
 
 * Rendering the layouts:
   * link_to: using to create a hyperlinks in HTML.
@@ -40,6 +42,45 @@ This Knowledge would normally document for you to read all the knowledge in the 
 
 * Google OAuth: EDITOR="code --wait" bin/rails credentials:edit => in this file, we can add more credentials key such as google_client_id, google_client_secret,...
 
+* resource vs resources in route config
+  * resource:
+    * Used when working with a singular resource, meaning there is only one instance of the resource.
+    * Does not include an index route because there is only one resource.
+    * The resource identifier is singular (no "s" at the end).
+    * Ex: resource :profile
+      * GET      /profile/new
+      * POST     /profile
+      * GET      /profile
+      * GET      /profile/edit
+      * PATCH    /profile
+      * PUT      /profile
+      * DELETE   /profile
+  * resources:
+    * Used when working with multiple instances of a resource.
+    * Creates routes similar to resource, but includes an additional index route to display a list of all resources.
+    * The resource identifier is plural (with an "s" at the end).
+    * Ex: resources :articles
+      * GET      /articles
+      * GET      /articles/new
+      * POST     /articles
+      * GET      /articles/:id
+      * GET      /articles/:id/edit
+      * PATCH    /articles/:id
+      * PUT      /articles/:id
+      * DELETE   /articles/:id
+
+* NOTE: when working with Ruby
+  * No using disable with rubocop. Ex: No using # rubocop:disable Rail HasManyOrHasOneDependent
+
+* Running a migration's down method is typically done by rolling back the migration using the db:rollback :
+  * EX: rails db:rollback STEP=1
+
+* Stimulus: => Javascript framework which is designed to enhance static or server-rendered HTML—the “HTML you already have”
+  * These JavaScript objects are called controllers.
+  * Aside from controllers, the three other major Stimulus concepts are
+    * actions: which connect controller methods to DOM events using data-action attributes.
+    * targets: which locate elements of significance within a controller.
+    * value: which read, write, and observe data attributes on the controller's element.
 
 * System dependencies
 

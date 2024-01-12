@@ -100,7 +100,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
   // autocomplete: {
   //   classes: true,
   // },

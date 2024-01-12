@@ -4,48 +4,48 @@
 # but typically amends the Tailwind classes of the various elements in the field layout. It tightly integrates with the
 # unstyled wrapper (aka `:plain`) Simple Form configuration (see `simple_form.rb`). The methods support the same syntax
 # as the original Simple Form methods but enhance it to support replacing defaylt Tailwind claseses.
-# rubocop: disable Naming/BlockForwarding, Lint/MissingCopEnableDirective, Style/ClassAndModuleChildren
 
-class Builders::TailwindFormBuilder < SimpleForm::FormBuilder
-  # This is the basic method for rendering `<input>` tags and their variants.
-  def input(attribute_name, options = {}, &block)
-    # The default Tailwind classes for the various parts of the Simple Form wrapper layout.
-    input_class = "block w-full sm:text-sm #{'text-gray-500 bg-gray-50' if options.dig(:input_html, :disabled)}"
-    input_wrapper_class = 'mt-1'
-    wrapper_class = ''
-    label_wrapper_class = ''
-    hint_class = 'mt-2 text-sm'
-    error_class = 'mt-2 text-sm'
+module Builders
+  class TailwindFormBuilder < SimpleForm::FormBuilder
+    # This is the basic method for rendering `<input>` tags and their variants.
+    def input(attribute_name, options = {}, &)
+      # The default Tailwind classes for the various parts of the Simple Form wrapper layout.
+      input_class = "block w-full sm:text-sm #{'text-gray-500 bg-gray-50' if options.dig(:input_html, :disabled)}"
+      input_wrapper_class = 'mt-1'
+      wrapper_class = ''
+      label_wrapper_class = ''
+      hint_class = 'mt-2 text-sm'
+      error_class = 'mt-2 text-sm'
 
-    case options[:as]
-    when :boolean
-      input_class = 'focus:ring-indigo-500'
+      case options[:as]
+      when :boolean
+        input_class = 'focus:ring-indigo-500'
 
-      options[:boolean_style] ||= :inline
-      options[:wrapper] ||= :plain_boolean
+        options[:boolean_style] ||= :inline
+        options[:wrapper] ||= :plain_boolean
 
-      input_wrapper_class = 'flex h-10'
+        input_wrapper_class = 'flex h-10'
 
-    when :file
-      input_class = 'block w-full file:px-4 file:py-2'
+      when :file
+        input_class = 'block w-full file:px-4 file:py-2'
 
-    when :date, :datetime
-      options[:html5] = options.fetch(:html5, true) # use HTML5 date/time inputs by default
+      when :date, :datetime
+        options[:html5] = options.fetch(:html5, true) # use HTML5 date/time inputs by default
+      end
+
+      options[:input_html] = arguments_with_updated_default_class(input_class, **(options[:input_html] || {}))
+      options[:input_wrapper_html] = arguments_with_updated_default_class(input_wrapper_class,
+                                                                          **(options[:input_wrapper_html] || {}))
+      options = convert_col_span_argument_to_class(**options)
+      options[:wrapper_html] = arguments_with_updated_default_class(wrapper_class,
+                                                                    **options[:wrapper_html] || {})
+      options[:label_wrapper_html] = arguments_with_updated_default_class(label_wrapper_class,
+                                                                          **(options[:label_wrapper_html] || {}))
+      options[:hint_html] = arguments_with_updated_default_class(hint_class, **(options[:hint_html] || {}))
+      options[:error_html] = arguments_with_updated_default_class(error_class, **(options[:error_html] || {}))
+
+      super(attribute_name, options, &block)
     end
-
-    options[:input_html] = arguments_with_updated_default_class(input_class, **(options[:input_html] || {}))
-    options[:input_wrapper_html] = arguments_with_updated_default_class(input_wrapper_class,
-                                                                        **(options[:input_wrapper_html] || {}))
-    options = convert_col_span_argument_to_class(**options)
-    options[:wrapper_html] = arguments_with_updated_default_class(wrapper_class,
-                                                                  **options[:wrapper_html] || {})
-    options[:label_wrapper_html] = arguments_with_updated_default_class(label_wrapper_class,
-                                                                        **(options[:label_wrapper_html] || {}))
-    options[:hint_html] = arguments_with_updated_default_class(hint_class, **(options[:hint_html] || {}))
-    options[:error_html] = arguments_with_updated_default_class(error_class, **(options[:error_html] || {}))
-
-    super(attribute_name, options, &block)
-  end
 
   # Renders the label for the given form field.
   # def label(attribute_name, *args, &block)
@@ -156,5 +156,6 @@ class Builders::TailwindFormBuilder < SimpleForm::FormBuilder
 
     kwargs[class_key] = (classes.split + kwargs[class_key].to_s.split).join(' ')
     kwargs
+  end
   end
 end

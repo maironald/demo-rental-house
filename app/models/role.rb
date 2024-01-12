@@ -30,7 +30,7 @@ class Role < ApplicationRecord
   validates :resource_type,
             inclusion: { in: Rolify.resource_types },
             allow_nil: true
-  validates :name, inclusion: { in: NAMES }, uniqueness: true
+  validates :name, inclusion: { in: NAMES }, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
 
   scopify
 end

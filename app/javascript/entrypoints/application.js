@@ -5,3 +5,4 @@ import 'flowbite/dist/flowbite.turbo';
 import '../controllers';
 import '../controllers/admins';
 import '../controllers/shared';
+import '../controllers/users';

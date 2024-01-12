@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class TimesheetsController < ApplicationController
+  # The before_action is used to avoid duplicating the same code in multiple places and ensure that the necessary setup is done consistently before executing those actions (4 actions: show, edit, update, destroy)
   before_action :set_timesheet, only: %i[show edit update destroy]
 
   def index

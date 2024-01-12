@@ -17,6 +17,18 @@ Rails.application.routes.draw do
     root 'dashboard#index'
   end
 
+  resource :users do
+    resources :rooms
+  end
+
+  resource :users do
+    resources :renters
+  end
+
+  resource :users do
+    resources :services
+  end
+
   # resources :users do
   #   resources :timesheets
   # end

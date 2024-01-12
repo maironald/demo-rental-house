@@ -1,0 +1,18 @@
+<%= simple_form_for @renter, method: (@renter.persisted? ? :put : :post), url: (@renter.persisted? ? users_renter_path : users_renters_path ) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+  <%= f.input :phone_number, as: :string, wrapper_html: {class: 'mb-4'}, label: "Phone Number:", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :identity, as: :string, wrapper_html: {class: 'mb-4'}, label: "Identity:", label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.input :address, as: :string, wrapper_html: {class: 'mb-4'}, label: "Address: ", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :gender, as: :radio_buttons, wrapper_html: {class: 'mb-4 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 text-white'}, collection: [['0', 'female'], ['1', 'male']], label_method: :second, value_method: :second, checked: (@renter&.gender? ? 'male': 'female') %>
+
+ <%= f.simple_fields_for :rooms do |room_fields| %>
+    <%= room_fields.input :name, wrapper_html: {class: "mb-4 flex"},label: "Room Name:", label_html: {class: 'pr-4'} do %>
+      <%= room_fields.select :id, @default_rooms.map{ |room| [room.name, room.id]}, include_blank: 'Select a default room', collection_html: {class: "p-4"}, label_html: {class: 'pr-4'} %>
+    <%end%>
+  <% end %>
+  <%= f.input :deposit, as: :float, wrapper_html: {class: 'mb-4'}, label: 'Deposit:', label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.submit 'Save' %>
+  <%= link_to 'Back', users_renters_path %>
+<% end %>
