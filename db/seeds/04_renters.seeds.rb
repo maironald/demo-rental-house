@@ -8,7 +8,7 @@ puts 'Create renters'
     renter.identity = "012345678#{n + 1}"
     renter.address = "Địa chỉ #{n + 1}, HCM"
     renter.status = 1
-    renter.gender = true
+    renter.gender = 'Nam'
     renter.deposit = n + 10_000
   end
 end

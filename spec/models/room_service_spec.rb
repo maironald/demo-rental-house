@@ -2,17 +2,21 @@
 
 # == Schema Information
 #
-# Table name: timesheets
+# Table name: room_services
 #
 #  id         :bigint           not null, primary key
-#  day        :date
-#  end_time   :datetime
-#  start_time :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  room_id    :bigint
+#  service_id :bigint
+#
+# Indexes
+#
+#  index_room_services_on_room_id     (room_id)
+#  index_room_services_on_service_id  (service_id)
 #
 require 'rails_helper'
 
-RSpec.describe Timesheet, type: :model do
+RSpec.describe RoomService, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

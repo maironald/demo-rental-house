@@ -2,9 +2,12 @@
 
 class RoomsController < ApplicationController
   before_action :set_room, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   def index
     @rooms = Room.all
+    @count_room_empty = current_user.rooms.where(renter_id: nil).count
+    @count_room_rented = current_user.rooms.where.not(renter_id: nil).count
   end
 
   def show; end
@@ -25,18 +28,16 @@ class RoomsController < ApplicationController
   end
 
   def update
-    @room = Room.find(params[:id])
     if @room.update(room_params)
-      format.html { redirect_to users_rooms_path, notice: 'Room was successfully edited.' }
+      redirect_to users_rooms_path, notice: 'Room was successfully edited.'
     else
       render :edit
     end
   end
 
   def destroy
-    @room = Room.find(params[:id])
     @room.destroy
-    format.html { redirect_to users_rooms_path, notice: 'Room was successfully deleted.' }
+    redirect_to users_rooms_path, notice: 'Room was successfully deleted.'
   end
 
   private

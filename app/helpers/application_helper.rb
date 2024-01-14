@@ -12,4 +12,11 @@ module ApplicationHelper
       object.errors.full_messages.to_sentence.capitalize
     end
   end
+
+  # controller_path is the name of the controller in routes.rb as a string
+  def active_link_class(patterns, options = { class: 'active' })
+    routeto = "#{controller_path}##{action_name}"
+    matched = patterns.any? { |pattern| (pattern.include?('#') ? (pattern == routeto) : (pattern == controller_path)) }
+    matched ? options[:class] : nil
+  end
 end

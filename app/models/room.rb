@@ -28,7 +28,7 @@
 #
 class Room < ApplicationRecord
   belongs_to :user
-  belongs_to :renter, optional: true
-  has_many :rooms_services, dependent: :destroy, class_name: 'RoomsService'
-  has_many :services, through: :rooms_services
+  has_one :renter, dependent: nil
+  has_many :room_services, dependent: :destroy
+  has_many :services, through: :room_services
 end

@@ -49,6 +49,9 @@ class User < ApplicationRecord
 
   has_many :rooms, dependent: :destroy
 
+  has_many :user_renters, dependent: :destroy
+  has_many :renters, through: :user_renters
+
   def self.from_omniauth(auth)
     # create a new user with provider and uid followed by google to add to the database.
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

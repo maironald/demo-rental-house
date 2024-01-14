@@ -31,6 +31,8 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection", "~>1.0"
 # install fontawesome
 
+gem 'sass-rails', '~> 6.0'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec_junit_formatter'

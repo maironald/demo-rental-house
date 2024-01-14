@@ -7,7 +7,7 @@ class CreateRenters < ActiveRecord::Migration[7.0]
       t.string :phone_number
       t.string :identity
       t.string :address
-      t.boolean :gender, default: false, null: false
+      t.string :gender, default: false, null: false
       t.integer :status
       t.bigint :deposit
 

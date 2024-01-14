@@ -43,5 +43,6 @@
     "timeoutable",
     "validatable",
     "viết"
-  ]
+  ],
+  "liveServer.settings.port": 5501
 }

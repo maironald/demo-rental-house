@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
-  before_action :authenticate_user!
-
   protected
 
   # the code below will help us to redirect to correct path after sign in (admin or user)

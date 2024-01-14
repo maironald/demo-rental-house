@@ -6,3 +6,4 @@ import '../controllers';
 import '../controllers/admins';
 import '../controllers/shared';
 import '../controllers/users';
+import '../entrypoints/application.scss';

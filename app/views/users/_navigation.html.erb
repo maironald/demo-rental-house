@@ -1,20 +1,20 @@
 <div class="navbar-title">
-    <a href=".#" id="site-title" class="site-title">QUẢN LÝ NHÀ TRỌ</a>
+    <a href=".#" id="site-title" class="site-title" data-navbar-target="siteTitle">QUẢN LÝ NHÀ TRỌ</a>
 </div>
-<div class="navbar-info" style="text-align: center; padding: 10px;">
+<div class="navbar-info">
     <h4>Rental House</h4>
 </div>
-<div class="profile" style="text-align: center; padding: 10px;">
+<div class="profile">
     <span class="div-greeting">Xin chào, <%= current_user.email%></span>
 </div>
-<div class="sidebar-menu" style="margin-top: 10px;"  data-controller="navigation">
+<div class="sidebar-menu">
     <div class="nav-side-menu">
         <div class="menu-seciton">
             <ul class="nav-side-menu">
-                <li><%= link_to users_root_path do %><i class="fa-solid fa-house"></i>Trang Chủ <%end%></li>
-                <li><%= link_to users_rooms_path do %><i class="fa-solid fa-building"></i>Phòng <%end%></li>
-                <li><%= link_to users_renters_path do%><i class="fa-solid fa-bolt"></i>Danh sách khách thuê<%end%></li>
-                <li><%= link_to users_services_path do %><i class="fa-solid fa-cubes"></i>Dịch vụ<%end%>
+                <li><%= link_to users_root_path, :class => active_link_class(['users/dashboard#index']) do %><i class="fa-solid fa-house"></i>Trang Chủ <%end%></li>
+                <li><%= link_to users_rooms_path, :class => active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit']) do %><i class="fa-solid fa-building"></i>Phòng <%end%></li>
+                <li><%= link_to users_renters_path, :class => active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit'])  do%><i class="fa-solid fa-bolt"></i>Danh sách khách thuê<%end%></li>
+                <li><%= link_to users_services_path, :class => active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])  do %><i class="fa-solid fa-cubes"></i>Dịch vụ<%end%>
                 </li>
                 <li><a href=""><i class="fa-solid fa-bolt"></i>Chỉ số điện</a></li>
                 <li><a href=""><i class="fa-solid fa-shower"></i>Chỉ số nước</a></li>

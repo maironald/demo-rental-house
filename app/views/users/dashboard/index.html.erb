@@ -1,14 +1,13 @@
 <%= render "shared/flash"%>
-<div class="main-container" style="background-color: wheat;" >
-        <div id="left-div" class="left-div" style="background-color: wheat;">
-            <div class="left-div-child" style="width: 100%;">
-                <%= render 'users/navigation'%>
+<div class="main-container" data-controller = "navbar">
+        <div id="left-div" class="left-div" data-navbar-target="leftDiv">
+            <div class="left-div-child">
+                <%= render 'users/navigation', locals: {stimulus_controller: "navbar"}%>
             </div>
         </div>
-        <div id="right-container" class="right-container">
-            <%= render 'users/topnav'%>
-            <div class="right-div"
-                style="background-color: rgb(232, 247, 253); display: flex; flex-direction: column; justify-content: space-around; width: 100%; flex-wrap: wrap;">
+        <div id="right-container" class="right-container" data-navbar-target="rightContainer">
+            <%= render 'users/topnav', locals: {stimulus_controller: "navbar"}%>
+            <div class="right-div">
                 <!-- table -->
                 <div class="w-full flex flex-wrap sm:flex-row sm:justify-around mb-10">
                     <div

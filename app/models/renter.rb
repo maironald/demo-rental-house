@@ -7,7 +7,7 @@
 #  id           :bigint           not null, primary key
 #  address      :string
 #  deposit      :bigint
-#  gender       :boolean
+#  gender       :string           default("f"), not null
 #  identity     :string
 #  name         :string
 #  phone_number :string
@@ -18,5 +18,14 @@ class Renter < ApplicationRecord
   has_many :rooms, dependent: nil
   accepts_nested_attributes_for :rooms
 
-  validates :name, presence: true
+  has_many :user_renters, dependent: :destroy
+  has_many :users, through: :user_renters
+
+  NAMES = %w[Nam Nữ].freeze
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :phone_number, presence: true, length: { maximum: 20 }
+  validates :identity, presence: true, length: { maximum: 20 }
+  validates :address, presence: true
+  validates :gender, inclusion: { in: NAMES }
+  validates :deposit, presence: true
 end

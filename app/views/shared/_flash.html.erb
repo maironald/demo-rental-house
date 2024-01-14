@@ -1,6 +1,6 @@
 <div class="flash-container">
   <% flash.each do |type, msg| %>
-    <div id="flash" class="flex items-center p-4 rounded-lg <%= alert_variant_class(type) %>" data-controller='flash' data-flash-target='alert' role="alert">
+    <div id="flash" class="flex items-center p-4 rounded-lg<%= alert_variant_class(type) %>" data-controller='flash' data-flash-target='alert' role="alert">
       <span class="sr-only">Info</span>
       <div class="ml-3 text-sm font-medium text-gray-800 dark:text-gray-300">
         <%= msg %>

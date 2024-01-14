@@ -2,6 +2,7 @@
 
 class ServicesController < ApplicationController
   before_action :set_service, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   def index
     @services = Service.all
@@ -18,14 +19,13 @@ class ServicesController < ApplicationController
   def create
     @service = Service.new(service_params)
     if @service.save
-      format.html { redirect_to users_services_path, notice: 'Service was successfully created.' }
+      redirect_to users_services_path, notice: 'Service was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    @service = Service.find(params[:id])
     if @service.update(service_params)
       respond_to do |format|
         format.html { redirect_to users_services_path, notice: 'Service was successfully edited.' }
@@ -36,7 +36,6 @@ class ServicesController < ApplicationController
   end
 
   def destroy
-    @service = Service.find(params[:id])
     @service.destroy
     respond_to do |format|
       format.html { redirect_to users_services_path, notice: 'Service was successfully deleted.' }
@@ -50,6 +49,6 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-    params.require(:service).permit(:name, :price_service, :note)
+    params.require(:service).permit(:name, :price, :note)
   end
 end
