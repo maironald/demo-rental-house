@@ -1,0 +1,124 @@
+/* click the button to open the nav */
+.site-title {
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 400;
+  font-size: 22px;
+  width: 100%;
+  color: #088bac !important;
+  margin-left: 0 !important;
+  line-height: 59px;
+  display: block;
+  height: 55px;
+  margin: 0;
+}
+.navbar-title {
+  text-align: center;
+  padding: 10px;
+}
+.navbar-info {
+  text-align: center;
+  padding: 10px;
+}
+.profile {
+  text-align: center;
+  padding: 10px;
+}
+.div-greeting {
+  padding: 25px 10px 10px;
+  width: 100%;
+}
+.sidebar-menu {
+  margin-top: 10px;
+}
+.nav-sm {
+  .navbar-title {
+    width: 70px;
+  }
+  .div-greeting {
+    display: none;
+  }
+  .menu-section {
+    margin: 0;
+  }
+  .nav-side-menu {
+    li {
+      a {
+        text-align: center !important;
+        font-weight: 400;
+        font-size: 15px;
+        padding: 10px 5px;
+        display: flex;
+        flex-direction: column;
+        i {
+          width: 100%;
+          text-align: center;
+          font-size: 25px;
+        }
+      }
+    }
+  }
+  .left-div {
+    width: 80px;
+  }
+  .sidebar-footer {
+    display: none;
+  }
+}
+
+.main-container {
+  display: flex;
+  height: 100%;
+}
+.nav-side-menu {
+  li {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    a {
+      text-decoration: none;
+      margin-bottom: 6px;
+      font-weight: 500;
+      position: relative;
+      display: block;
+      padding: 13px 15px 12px;
+      &:hover {
+        background-color: white;
+      }
+      &:active {
+        color: gray;
+      }
+      i {
+        width: 26px;
+        display: inline-block;
+        font-style: normal;
+      }
+    }
+    a.active {
+      border-right: 5px solid #1abb9c;
+      background-color: rgb(198, 228, 228);
+    }
+  }
+}
+.sidebar-footer {
+  bottom: 0;
+  display: flex;
+  position: fixed;
+  width: 230px;
+  z-index: 999;
+  background-color: blue;
+  a {
+    padding: 15px 0 3px;
+    text-align: center;
+    width: 50%;
+    font-size: 20px;
+    display: block;
+    float: left;
+    cursor: pointer;
+    height: 100%;
+    &:hover {
+      background-color: white;
+    }
+  }
+}

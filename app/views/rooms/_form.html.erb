@@ -1,0 +1,12 @@
+<%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? users_room_path : users_rooms_path ) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+  <%= f.input :length, as: :float, wrapper_html: {class: 'mb-4'}, label: "Length of Room:", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :width, as: :float, wrapper_html: {class: 'mb-4'}, label: "Width of Room:", label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.input :price_room, as: :float, wrapper_html: {class: 'mb-4'}, label: "Price of Room: ", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :limit_residents, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Limit of Residents: ", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :description, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Description:', label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.submit 'Save' %>
+  <%= link_to 'Back', users_rooms_path %>
+<% end %>

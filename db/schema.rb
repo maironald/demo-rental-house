@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_08_024127) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "renters", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "identity"
+    t.string "address"
+    t.string "gender", default: "f", null: false
+    t.bigint "deposit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -24,12 +35,58 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_024127) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "room_services", force: :cascade do |t|
+    t.bigint "room_id"
+    t.bigint "service_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_room_services_on_room_id"
+    t.index ["service_id"], name: "index_room_services_on_service_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.integer "length"
+    t.integer "width"
+    t.bigint "price_room"
+    t.datetime "rental_period"
+    t.integer "electric_amount_old"
+    t.integer "electric_amount_new"
+    t.integer "water_amout_old"
+    t.integer "water_amout_new"
+    t.integer "limit_residents"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.bigint "renter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["renter_id"], name: "index_rooms_on_renter_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "timesheets", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "day"
+  end
+
+  create_table "user_renters", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "renter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["renter_id"], name: "index_user_renters_on_renter_id"
+    t.index ["user_id"], name: "index_user_renters_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

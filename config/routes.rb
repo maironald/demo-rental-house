@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root 'home#index'
-  resources :timesheets
 
   # it will redirect to users dashboard with url 127:0:0:1/users
   namespace :users do
@@ -17,7 +16,15 @@ Rails.application.routes.draw do
     root 'dashboard#index'
   end
 
-  # resources :users do
-  #   resources :timesheets
-  # end
+  resource :users do
+    resources :rooms
+  end
+
+  resource :users do
+    resources :renters
+  end
+
+  resource :users do
+    resources :services
+  end
 end

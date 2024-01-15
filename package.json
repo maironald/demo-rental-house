@@ -6,7 +6,8 @@
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^7.3.0",
     "flatpickr": "^4.6.13",
-    "flowbite": "^1.8.1"
+    "flowbite": "^1.8.1",
+    "sass": "^1.69.7"
   },
   "scripts": {
     "start": "concurrently -i -k --kill-others-on-fail -p none 'RUBY_DEBUG_OPEN=true bin/rails s' 'bin/vite dev'",
@@ -19,13 +20,15 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
+    "daisyui": "^4.5.0",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "path": "^0.12.7",
     "postcss": "^8.4.30",
-    "prettier": "^3.0.1",
+    "prettier": "3.2.2",
+    "scss": "^0.2.4",
     "stimulus-vite-helpers": "^3.0.1",
     "tailwindcss": "^3.3.3",
     "vite": "^4.3.0",
