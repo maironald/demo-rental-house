@@ -33,5 +33,10 @@ module Rails7WithViteTemplate
       parsable_files = files.filter { |file| file.end_with?('.rb') }
       system("bundle exec rubocop -A --fail-level=E #{parsable_files.shelljoin}", exception: true)
     end
+
+    # if Rails.env.development?
+    #   ENV['GOOGLE_OAUTH_CLIENT_ID'] = "843282489929-cb07fsbh265io2g3n5tcgs6eudvulvej.apps.googleusercontent.com"
+    #   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = "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"
+    # end
   end
 end

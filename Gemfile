@@ -26,6 +26,10 @@ gem 'simple_form-tailwind'
 gem 'devise'
 gem 'rolify'
 gem 'seedbank'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection", "~>1.0"
+# install fontawesome
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
