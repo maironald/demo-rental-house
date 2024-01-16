@@ -16,7 +16,6 @@
 #
 class Renter < ApplicationRecord
   has_many :rooms, dependent: nil
-  accepts_nested_attributes_for :rooms
 
   has_many :user_renters, dependent: :destroy
   has_many :users, through: :user_renters

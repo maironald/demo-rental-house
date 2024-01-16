@@ -11,7 +11,7 @@
 #  length              :integer
 #  limit_residents     :integer
 #  name                :string
-#  price_room          :bigint
+#  price_room          :decimal(, )
 #  rental_period       :datetime
 #  water_amout_new     :integer
 #  water_amout_old     :integer
@@ -29,6 +29,8 @@
 class Room < ApplicationRecord
   belongs_to :user
   has_one :renter, dependent: nil
+  # accepts_nested_attributes_for :renter
+
   has_many :room_services, dependent: :destroy
   has_many :services, through: :room_services
 end

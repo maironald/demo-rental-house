@@ -13,9 +13,9 @@
                     <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
                         <h1 class="text-lg m-2 font-bold">Danh Sách Khách Hàng</h1>
                         <div class="m-2 flex">
-                            <%= button_to new_users_renter_path, method: :get, class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600" do %><i class="fa-solid fa-plus mr-2"></i>Thêm Khách Thuê<% end %>
+                            <%= button_to new_users_renter_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-plus mr-2"></i>Thêm Thông Tin Khách Hàng<% end %>
                             <button type="button"
-                                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:bg-red-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600"><i
+                                class="btn btn-danger btn-large"><i
                                     class="fa-solid fa-close mr-2"></i>Xóa Tất Cả</button>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                     </div>
                     <!-- table -->
                     <div
-                        class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-h-[400px] sm:max-w-full">
+                        class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] lg:max-h-[400px] lg:max-w-full">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px]">
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -105,11 +105,11 @@
                                       <%= renter.deposit%>
                                     </td>
                                     <td class="px-6 py-4">
-                                      <%= Room.find_by(renter_id: renter.id)? "Đang ở #{Room.find_by(renter_id: renter.id).name}" : "Đã rời"%>
+                                      <%= Room.find_by(renter_id: renter.id)? "Đang ở #{Room.find_by(renter_id: renter.id).name}" : "Chưa Có Phòng"%>
                                     </td>
                                     <td class="px-6 py-4 flex justify-center items-center h-full">
-                                        <%= button_to "Edit",edit_users_renter_path(renter), method: :get, class: "text-white w-[80px] bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600", remote: true %>
-                                        <%= button_to "Delete", users_renter_path(renter), method: :delete, class: "text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:bg-red-800 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
+                                        <%= button_to "Edit",edit_users_renter_path(renter), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                                        <%= button_to "Delete", users_renter_path(renter), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
                                     </td>
                                 </tr>
                               <%end%>

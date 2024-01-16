@@ -27,4 +27,12 @@ Rails.application.routes.draw do
   resource :users do
     resources :services
   end
+
+  resources :rooms do
+    member do
+      get 'show_renters'
+      put 'add_renter_to_room'
+      delete 'destroy_renter_from_room'
+    end
+  end
 end
