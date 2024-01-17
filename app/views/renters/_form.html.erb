@@ -1,4 +1,4 @@
-<%= simple_form_for @renter, method: (@renter.persisted? ? :put : :post), url: (@renter.persisted? ? users_renter_path : users_renters_path ) do |f| %>
+<%= simple_form_for @renter, method: (@renter.persisted? ? :put : :post), url: (@renter.persisted? ? renter_path : renters_path ) do |f| %>
   <%= f.error_notification %>
 
   <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
@@ -8,5 +8,5 @@
   <%= f.input :gender, as: :radio_buttons, wrapper_html: {class: 'mb-4 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 text-white'}, collection: ['Nam', 'Nữ'], value: @renter_name_collections %>
   <%= f.input :deposit, as: :float, wrapper_html: {class: 'mb-4'}, label: 'Deposit:', label_html: {class: 'mb-2 fw-bold'} %>
   <%= f.submit 'Save' %>
-  <%= link_to 'Back', users_renters_path %>
+  <%= link_to 'Back', renters_path %>
 <% end %>

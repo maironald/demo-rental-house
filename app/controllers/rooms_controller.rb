@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RoomsController < ApplicationController
-  before_action :set_room, only: %i[show edit update destroy show_renters]
+  before_action :set_room, only: %i[show edit update destroy show_renters show_all_services]
   before_action :authenticate_user!
 
   def index
@@ -21,7 +21,7 @@ class RoomsController < ApplicationController
   def create
     @room = current_user.rooms.build(room_params)
     if @room.save
-      redirect_to users_rooms_path, notice: 'Room was successfully created.'
+      redirect_to rooms_path, notice: 'Room was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class RoomsController < ApplicationController
 
   def update
     if @room.update(room_params)
-      redirect_to users_rooms_path, notice: 'Room was successfully edited.'
+      redirect_to rooms_path, notice: 'Room was successfully edited.'
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class RoomsController < ApplicationController
 
   def destroy
     @room.destroy
-    redirect_to users_rooms_path, notice: 'Room was successfully deleted.'
+    redirect_to rooms_path, notice: 'Room was successfully deleted.'
   end
 
 
@@ -46,18 +46,38 @@ class RoomsController < ApplicationController
     @renters_not_in_room = current_user.renters.where.not(id: @renter_in_rooms)
   end
 
-  def add_renter
+  def add_renter_to_room
     @renter_room = Room.where(id: params[:id]).update(renter_id: params[:room][:renter_id])
     if(@renter_room)
-      redirect_to users_rooms_path, notice: 'You have just add renter to room successfully.'
+      redirect_to rooms_path, notice: 'You have just add renter to room successfully.'
     end
   end
 
-  def destroy_renter
+  def destroy_renter_from_room
     @renter = Room.where(id: params[:id]).update(renter_id: nil)
     if(@renter)
-      redirect_to users_rooms_path, notice: 'You have just remove renter from room successfully.'
+      redirect_to rooms_path, notice: 'You have just remove renter from room successfully.'
     end
+  end
+
+  def show_all_services
+    @services = current_user.services.all
+  end
+
+  def add_services_to_room
+    @room = Room.find(params[:id])
+    RoomService.where(room_id: params[:id]).destroy_all
+    if !params[:room].nil?
+      @service_ids = params[:room][:service_ids]
+      @service_ids.each do |id|
+        @service = Service.find(id)
+        @room.services << @service
+        flash[:success] = 'Service added to room successfully.'
+      end
+    else
+      flash[:notice] = 'Please select at least one service.'
+    end
+    redirect_to rooms_path
   end
 
   private
@@ -67,6 +87,6 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :length, :width, :price_room, :limit_residents, :description)
+    params.require(:room).permit(:name, :length, :width, :price_room, :limit_residents, :description,:electric_amount_new, :electric_amount_old, :water_amout_new, :water_amout_old, :service_ids)
   end
 end

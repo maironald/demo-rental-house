@@ -11,9 +11,9 @@
                 <!-- table -->
                 <div class="flex flex-col border m-2 border-slate-700 pb-8 mb-10">
                     <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-                        <h1 class="text-lg m-2 font-bold">Danh Sách Dịch Vụ</h1>
+                        <h1 class="text-2xl m-2 font-bold">Danh Sách Dịch Vụ</h1>
                         <div class="m-2 flex">
-                            <%= button_to new_users_service_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ<% end %>
+                            <%= button_to new_service_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ<% end %>
                             <button type="button"
                                 class="btn btn-danger btn-large"><i
                                     class="fa-solid fa-close mr-1"></i>Xóa tất cả</button>
@@ -67,8 +67,8 @@
                                       <%= service.note%>
                                     </td>
                                     <td class="px-6 py-4 flex justify-center">
-                                        <%= button_to "Edit",edit_users_service_path(service), method: :get, class: "btn btn-primary btn-large", remote: true %>
-                                        <%= button_to "Delete", users_service_path(service), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>
+                                        <%= button_to "Edit",edit_service_path(service), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                                        <%= button_to "Delete", service_path(service), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>
                                     </td>
                                 </tr>
                               <%end%>

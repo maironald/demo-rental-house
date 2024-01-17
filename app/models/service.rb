@@ -10,8 +10,11 @@
 #  price      :decimal(, )
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :bigint           not null
 #
 class Service < ApplicationRecord
   has_many :room_services, dependent: :destroy
   has_many :rooms, through: :room_services
+
+  belongs_to :user
 end

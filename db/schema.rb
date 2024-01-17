@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_15_093746) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_17_052956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invoices", force: :cascade do |t|
+    t.string "name"
+    t.decimal "total_price", precision: 10, scale: 2, default: "0.0"
+    t.decimal "paid_money", precision: 10, scale: 2, default: "0.0"
+    t.bigint "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_invoices_on_room_id"
+  end
 
   create_table "renters", force: :cascade do |t|
     t.string "name"
@@ -50,10 +60,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_093746) do
     t.integer "width"
     t.decimal "price_room"
     t.datetime "rental_period"
-    t.integer "electric_amount_old"
-    t.integer "electric_amount_new"
-    t.integer "water_amout_old"
-    t.integer "water_amout_new"
+    t.integer "electric_amount_old", default: 0
+    t.integer "electric_amount_new", default: 0
+    t.integer "water_amout_old", default: 0
+    t.integer "water_amout_new", default: 0
     t.integer "limit_residents"
     t.text "description"
     t.bigint "user_id", null: false
@@ -70,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_093746) do
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "timesheets", force: :cascade do |t|
@@ -116,6 +127,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_15_093746) do
     t.string "uid"
     t.string "avatar_url"
     t.string "provider"
+    t.decimal "electric_price", default: "1000.0", null: false
+    t.decimal "water_price", default: "1000.0", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

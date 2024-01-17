@@ -1,0 +1,8 @@
+<%= simple_form_for current_user, method: :put, url: electric_waters_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :electric_price, as: :decimal, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+  <%= f.input :water_price, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Phone Number:", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.submit 'Save' %>
+  <%= link_to 'Back', electric_waters_path%>
+<% end %>
