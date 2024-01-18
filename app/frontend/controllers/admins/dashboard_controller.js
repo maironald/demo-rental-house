@@ -3,13 +3,7 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   static targets = ['priceContent'];
 
-  connect() {
-    let a = 'aaaa';
-    console.log(
-      "🚀 ~ file: dashboard_controller.js:7 ~ extends ~ connect ~ a = 'aaaa' :",
-      a
-    );
-  }
+  connect() {}
 
   showPriceContent(event) {
     if (this.priceContentTarget.classList.contains('hidden')) {
