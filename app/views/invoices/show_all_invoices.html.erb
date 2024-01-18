@@ -11,7 +11,7 @@
                 <!-- table -->
                 <div class="flex flex-col border m-2 border-slate-700 pb-8 mb-10">
                     <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-                        <h1 class="text-2xl m-2 font-bold">Danh Sách Các Hóa Đơn</h1>
+                        <h1 class="text-2xl m-2 font-bold">Danh Sách Hóa Đơn Theo Từng Phòng</h1>
                         <div class="m-2 flex">
                             <button type="button"
                                 class="btn btn-danger btn-large"><i
@@ -96,8 +96,8 @@
                                       <%= Renter.find_by(id: Room.find_by(id: invoice.room_id).renter_id).name%>
                                     </td>
                                     <td class="px-6 py-4 flex justify-center items-center h-full">
-                                        <%= button_to "Edit", edit_invoice_path(invoice), method: :get, class: "btn btn-primary btn-large", remote: true %>
-                                        <%= button_to "Delete", invoice_path(invoice), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa hóa đơn này?" }, remote: true%>
+                                        <%= button_to "Edit", edit_room_invoice_path(Room.find_by(id: invoice.room_id), invoice), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                                        <%= button_to "Delete", room_invoice_path(Room.find_by(id: invoice.room_id),invoice), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa hóa đơn này?" }, remote: true%>
                                     </td>
                                 </tr>
                               <%end%>

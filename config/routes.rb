@@ -28,19 +28,13 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :rooms do
     member do
       # room and renter
       get 'show_renters'
       put 'add_renter_to_room'
       delete 'destroy_renter_from_room'
-
-      # room and service
-      get 'show_all_services'
-      post 'add_services_to_room'
-
-      resources :invoices
     end
+    resources :invoices
   end
 end

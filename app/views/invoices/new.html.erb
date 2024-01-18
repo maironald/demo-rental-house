@@ -2,18 +2,15 @@
   <h1>Tên khách hàng: <%= @renter.nil? ? "trống" : @renter.name%></h1>
   <h1>Tên Phòng: <%= @room.name%></h1>
   <h1>Giá: <%= @room.price_room%></h1>
+  <h1>Các loại phí khác cần thu: </h1>
   <h1>Tổng giá điến sử dụng: <%= @total_electric_price%></h1>
   <h1>Tổng giá nước sử dụng: <%= @total_water_price%></h1>
-  <h1>Các dịch vụ khác đã sử dụng: </h1>
-  <% if @services.empty?%>
-    <h1> Bạn không sử dụng dịch vụ nào cả!!</h1>
-  <% else %>
-    <ul>
-      <% @services.each do |service|%>
-        <% @total_price +=service.price%>
-        <li><%= service.name %>: <%= service.price%></li>
-      <%end%>
-    <ul>
-  <%end%>
+  <h1>Phí Internet: <%= @settings.price_internet%> </h1>
+  <h1>Phí giữ xe: <%= @settings.price_security%></h1>
+  <h1>Phí vệ sinh: <%= @settings.price_trash%></h1>
+
+  <ul>
+
+  <ul>
   <%= render 'form', locals: {renter: @renter, total_price: @total_price}%>
 </div>

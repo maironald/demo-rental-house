@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class ElectricWatersController < ApplicationController
   before_action :authenticate_user!
@@ -7,15 +8,16 @@ class ElectricWatersController < ApplicationController
   end
 
   def new; end
+
   def edit
-    @electric_price = current_user.electric_price
-    @water_price = current_user.water_price
+    @electric_price = current_user.setting.price_electric
+    @water_price = current_user.setting.price_water
   end
 
   def update
-    if current_user.update(electric_water_params)
+    if current_user.setting.update(electric_water_params)
       respond_to do |format|
-        format.html { redirect_to electric_waters_path, notice: "You change the value of water and electric successfully." }
+        format.html { redirect_to electric_waters_path, notice: 'You change the value of water and electric successfully.' }
       end
     else
       render :edit
@@ -25,6 +27,6 @@ class ElectricWatersController < ApplicationController
   private
 
   def electric_water_params
-    params.require(:user).permit(:electric_price, :water_price)
+    params.require(:setting).permit(:price_electric, :price_water, :price_security, :price_internet, :price_trash)
   end
 end

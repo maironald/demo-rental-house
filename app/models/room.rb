@@ -31,8 +31,5 @@ class Room < ApplicationRecord
   has_one :renter, dependent: nil
   # accepts_nested_attributes_for :renter
 
-  has_many :room_services, dependent: :destroy
-  has_many :services, through: :room_services
-
   has_many :invoices, dependent: :destroy
 end

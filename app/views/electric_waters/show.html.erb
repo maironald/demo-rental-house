@@ -11,19 +11,16 @@
                 <!-- table -->
                 <div class="flex flex-col border m-2 border-slate-700 pb-8 mb-10">
                     <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-                        <h1 class="text-2xl m-2 font-bold">Bảng Thống Kê Chỉ Số Điện Và Nước</h1>
-                        <div class="m-2 flex">
-                          <%= button_to edit_electric_waters_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-pen mr-2"></i>Chỉnh sửa phí điện và nước<% end %>
-                        </div>
+                      <h1 class="text-2xl m-2 font-bold">Bảng Thống Kê Chỉ Số Điện Và Nước</h1>
+                      <div class="m-2">
+                        <h1 class="font-bold text-red-600 m-2">*Giá điện (tính theo 1Kwh): <%= current_user.setting.price_electric%> VND</h1>
+                        <h1 class="font-bold text-red-600 m-2">*Giá nước (tính theo 1m3): <%= current_user.setting.price_water%> VND</h1>
+                      </div>
                     </div>
                     <div class="flex justify-between">
                       <div class="m-4">
                           Tìm phòng:
                           <input type="text" id="search" placeholder="Nhập tên phòng" class="w-[200px] m-2 p-2">
-                      </div>
-                      <div class="m-2">
-                        <h1 class="font-bold text-red-600 m-2">*Giá điện (tính theo 1Kwh): <%= current_user.electric_price%> VND</h1>
-                        <h1 class="font-bold text-red-600 m-2">*Giá nước (tính theo 1m3): <%= current_user.water_price%> VND</h1>
                       </div>
                     </div>
                     <!-- table -->

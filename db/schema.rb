@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_17_052956) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_18_080423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,15 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_17_052956) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "room_services", force: :cascade do |t|
-    t.bigint "room_id"
-    t.bigint "service_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_room_services_on_room_id"
-    t.index ["service_id"], name: "index_room_services_on_service_id"
-  end
-
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.integer "length"
@@ -81,6 +72,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_17_052956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.decimal "price_water", default: "0.0"
+    t.decimal "price_electric", default: "0.0"
+    t.decimal "price_internet", default: "0.0"
+    t.decimal "price_trash", default: "0.0"
+    t.decimal "price_security", default: "0.0"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "timesheets", force: :cascade do |t|
@@ -127,8 +130,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_17_052956) do
     t.string "uid"
     t.string "avatar_url"
     t.string "provider"
-    t.decimal "electric_price", default: "1000.0", null: false
-    t.decimal "water_price", default: "1000.0", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -143,4 +144,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_17_052956) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "settings", "users"
 end

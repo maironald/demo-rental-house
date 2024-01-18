@@ -39,7 +39,7 @@
       </div>
   </div>
   <div class="flex justify-end m-2">
-      <%# <button type="button" class="btn btn-primary btn-large"></i>Sửa phòng</button> %>
+      <%= button_to edit_electric_waters_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-pen mr-2"></i>Tùy chỉnh các loại phí<% end %>
       <button type="button" class="btn btn-danger btn-large mr-4"><i class="fa-solid fa-close mr-1"></i>Xóa Tất Cả</button>
   </div>
   <div class="flex flex-wrap w-full">
@@ -47,14 +47,13 @@
       <div class="border border-gray-300 flex flex-col justify-around p-2 m-2">
           <span><i class="fa-solid fa-home ml-1 mr-2"></i><%= room.name %></span>
            <%= button_to show_renters_room_path(room.id), method: :get, class: "btn btn-primary btn-large w-full" do %><i class="fa-solid <%= room.renter_id? ? "fa-pen": "fa-plus"%> mr-2"></i><%= room.renter_id? ? "Cập Nhật Khách" : "Thêm Khách"  %><% end %>
-           <%= button_to show_all_services_room_path(room.id), method: :get, class: "btn btn-primary btn-large w-full" do %><i class="fa-solid fa-pencil-square mr-2"></i>Chọn Dịch Vụ<% end %>
           <span><i class="fa-solid fa-user ml-1 mr-2"></i><%= Renter.find_by(id: room.renter_id)&.name%></span>
           <span><i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{room.price_room} VND"%></span>
           <div class="flex">
               <%= button_to edit_room_path(room), method: :get, class: "btn btn-primary btn-large", remote: true do %><i class="fa-solid fa-pen"></i> Sửa Phòng<% end %>
               <%= button_to room_path(room), method: :delete, class: "btn btn-danger btn-large w-[150px]", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa phòng này?" }, remote: true do %><i class="fa-solid fa-trash"></i> Xóa<% end %>
           </div>
-          <%= button_to new_invoice_path(room), method: :get, class: "btn btn-primary btn-large w-full" do %><i class="fa-solid fa-pencil-square mr-2"></i>Xuất Hóa Đơn<% end %>
+          <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-primary btn-large w-full" do %><i class="fa-solid fa-pencil-square mr-2"></i>Xuất Hóa Đơn<% end %>
       </div>
     <%end%>
   </div>

@@ -12,7 +12,6 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
-#  electric_price         :decimal(, )      default(1000.0), not null
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0), not null
@@ -30,7 +29,6 @@
 #  uid                    :string
 #  unconfirmed_email      :string
 #  unlock_token           :string
-#  water_price            :decimal(, )      default(1000.0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -55,6 +53,8 @@ class User < ApplicationRecord
   has_many :renters, through: :user_renters
 
   has_many :services, dependent: :destroy
+
+  has_one :setting, dependent: :destroy
 
   def self.from_omniauth(auth)
     # create a new user with provider and uid followed by google to add to the database.
