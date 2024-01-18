@@ -4,6 +4,8 @@ class InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :calculate_total_price, only: %i[new create edit update]
   before_action :set_total_price_param, only: %i[create update]
+  before_action :set_room, only: %i[create]
+  before_action :set_invoice, only: %i[destroy update]
 
   def index; end
 
@@ -19,7 +21,6 @@ class InvoicesController < ApplicationController
   end
 
   def create
-    @room = Room.find(params[:room_id])
     @invoice = @room.invoices.build(invoice_params)
     if @invoice.save
       respond_to do |format|
@@ -35,7 +36,6 @@ class InvoicesController < ApplicationController
   end
 
   def update
-    @invoice = Invoice.find(params[:id])
     if @invoice.update(invoice_params)
       respond_to do |format|
         format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully edited' }
@@ -46,7 +46,6 @@ class InvoicesController < ApplicationController
   end
 
   def destroy
-    @invoice = Invoice.find(params[:id])
     @invoice.destroy
     respond_to do |format|
       format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully deleted.' }
@@ -57,6 +56,14 @@ class InvoicesController < ApplicationController
 
   def invoice_params
     params.require(:invoice).permit(:name, :total_price, :paid_money)
+  end
+
+  def set_room
+    @room = Room.find(params[:room_id])
+  end
+
+  def set_invoice
+    @invoice = Invoice.find(params[:id])
   end
 
   def set_total_price_param
