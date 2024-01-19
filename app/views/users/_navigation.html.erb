@@ -1,33 +1,79 @@
 <div class="navbar-title">
-    <%= link_to users_root_path, id: "site-title", class: "site-title", data: {navbar_target: "siteTitle"} do %><i class="fa-solid fa-house mr-1"></i>QUẢN LÝ NHÀ TRỌ <%end%>
+  <%= link_to users_root_path, id: "site-title", class: "site-title", data: {navbar_target: "siteTitle"} do %>
+    <i class="fa-solid fa-house mr-1"></i>
+    QUẢN LÝ NHÀ TRỌ
+  <%end%>
 </div>
 <div class="navbar-info">
-    <h4>Rental House</h4>
+  <h4>Rental House</h4>
 </div>
 <div class="profile">
-    <span class="div-greeting">Xin chào, <%= current_user.email%></span>
+  <span class="div-greeting">Xin chào, <%= current_user.email%></span>
 </div>
 <div class="sidebar-menu">
-    <div class="nav-side-menu">
-        <div class="menu-seciton">
-            <ul class="nav-side-menu">
-                <li><%= link_to users_root_path, :class => active_link_class(['users/dashboard#index']) do %><i class="fa-solid fa-house"></i>Trang Chủ <%end%></li>
-                <li><%= link_to rooms_path, :class => active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit']) do %><i class="fa-solid fa-building"></i>Phòng <%end%></li>
-                <li><%= link_to renters_path, :class => active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit'])  do%><i class="fa-solid fa-bolt"></i>Danh sách khách thuê<%end%></li>
-                <li><%= link_to services_path, :class => active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])  do %><i class="fa-solid fa-cubes"></i>Dịch vụ chi<%end%>
-                </li>
-                <li><%= link_to electric_waters_path, :class => active_link_class(['electric_waters#show'])  do %><i class="fa-solid fa-fire-flame-simple"></i>Chỉ số điện và nước<%end%>
-                </li>
-                <li><%= link_to show_all_invoices_invoices_path, :class => active_link_class(['invoices#show_all_invoices'])  do %><i class="fa-solid fa-calculator"></i>Tính tiền<%end%>
-                </li>
-                <li><a href="./canhan.html"><i class="fa-solid fa-user"></i>Thông tin cá nhân</a></li>
-                <li><a href=""><i class="fa-solid fa-key"></i>Đổi mật khẩu</a></li>
-                <li><%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" } do %><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất <%end%></li>
-            </ul>
-        </div>
+  <div class="nav-side-menu">
+    <div class="menu-seciton">
+      <ul class="nav-side-menu">
+        <li>
+          <%= link_to users_root_path, class: active_link_class(['users/dashboard#index']) do %>
+            <i class="fa-solid fa-house"></i>
+            Trang Chủ
+          <% end %>
+        </li>
+        <li>
+          <%= link_to rooms_path, class: active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit']) do %>
+            <i class="fa-solid fa-building"></i>
+            Phòng
+          <%end%>
+        </li>
+        <li>
+          <%= link_to renters_path, class: active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit', 'members#index'])  do%>
+            <i class="fa-solid fa-bolt"></i>
+            Danh sách khách thuê
+          <%end%>
+        </li>
+        <li>
+          <%= link_to services_path, class: active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])  do %>
+            <i class="fa-solid fa-cubes"></i>
+            Dịch vụ chi
+          <%end%>
+        </li>
+        <li>
+          <%= link_to electric_waters_path, class: active_link_class(['electric_waters#show'])  do %>
+            <i class="fa-solid fa-fire-flame-simple"></i>Chỉ số điện và nước<%end%>
+        </li>
+        <li>
+          <%= link_to show_all_invoices_invoices_path, class: active_link_class(['invoices#show_all_invoices'])  do %>
+            <i class="fa-solid fa-calculator"></i>
+            Tính tiền
+          <%end%>
+        </li>
+        <li>
+          <a href="./canhan.html">
+            <i class="fa-solid fa-user"></i>
+            Thông tin cá nhân</a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fa-solid fa-key"></i>
+            Đổi mật khẩu
+          </a>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" } do %>
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Đăng xuất
+          <%end%>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
 <div class="sidebar-footer">
-    <a href=""><i class="fa-solid fa-key"></i></a>
-    <%= link_to destroy_user_session_path, data: { turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?", turbo_method: :delete }  do  %><i class="fa-solid fa-right-from-bracket"></i><%end%>
+  <a href="">
+    <i class="fa-solid fa-key"></i>
+  </a>
+  <%= link_to destroy_user_session_path, data: { turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?", turbo_method: :delete }  do  %>
+    <i class="fa-solid fa-right-from-bracket"></i>
+  <%end%>
 </div>
