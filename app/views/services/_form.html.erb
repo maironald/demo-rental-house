@@ -1,9 +1,9 @@
-<%= simple_form_for @service, method: (@service.persisted? ? :put : :post), url: (@service.persisted? ? users_service_path : users_services_path ) do |f| %>
+<%= simple_form_for @service, method: (@service.persisted? ? :put : :post), url: (@service.persisted? ? service_path : services_path ) do |f| %>
   <%= f.error_notification %>
 
   <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
   <%= f.input :price, as: :float, wrapper_html: {class: 'mb-4'}, label: "Price of Service: ", label_html: {class: 'mb-2 fw-bold'}%>
   <%= f.input :note, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Description:', label_html: {class: 'mb-2 fw-bold'} %>
   <%= f.submit 'Save' %>
-   <%= link_to 'Back', users_services_path %>
+   <%= link_to 'Back', services_path %>
 <%end%>

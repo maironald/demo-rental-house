@@ -1,0 +1,9 @@
+<%= simple_form_for @invoice, method: (@invoice.persisted? ? :put : :post) , url: (@invoice.persisted? ? room_invoice_path : room_invoices_path ) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+  <%= f.input :total_price, as: :decimal, input_html: { value: @total_price, disabled: true}, wrapper_html: {class: 'mb-4'}, label: "Total Price:", label_html: {class: 'mb-2 fw-bold'}, default_value: @total_price%>
+  <%= f.input :paid_money, as: :string, wrapper_html: {class: 'mb-4'}, label: "Paid Money:", label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.submit 'Save', disabled: @renter.nil? ? true : false  %>
+  <%= link_to 'Back', @invoice.persisted? ? show_all_invoices_invoices_path : rooms_path %>
+<% end %>

@@ -17,14 +17,26 @@ Rails.application.routes.draw do
   end
 
   resource :users do
-    resources :rooms
+    member do
+      resources :rooms
+      resources :renters do
+        resources :members
+      end
+      resources :services
+      resource :electric_waters, only: %i[show edit update]
+      resource :invoices, only: %i[show_all_invoices] do
+        get 'show_all_invoices'
+      end
+    end
   end
 
-  resource :users do
-    resources :renters
-  end
-
-  resource :users do
-    resources :services
+  resources :rooms do
+    member do
+      # room and renter
+      get 'show_renters'
+      put 'add_renter_to_room'
+      delete 'destroy_renter_from_room'
+    end
+    resources :invoices
   end
 end

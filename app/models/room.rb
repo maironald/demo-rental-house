@@ -6,15 +6,15 @@
 #
 #  id                  :bigint           not null, primary key
 #  description         :text
-#  electric_amount_new :integer
-#  electric_amount_old :integer
+#  electric_amount_new :integer          default(0)
+#  electric_amount_old :integer          default(0)
 #  length              :integer
 #  limit_residents     :integer
 #  name                :string
-#  price_room          :bigint
+#  price_room          :decimal(, )
 #  rental_period       :datetime
-#  water_amout_new     :integer
-#  water_amout_old     :integer
+#  water_amout_new     :integer          default(0)
+#  water_amout_old     :integer          default(0)
 #  width               :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -29,6 +29,7 @@
 class Room < ApplicationRecord
   belongs_to :user
   has_one :renter, dependent: nil
-  has_many :room_services, dependent: :destroy
-  has_many :services, through: :room_services
+  # accepts_nested_attributes_for :renter
+
+  has_many :invoices, dependent: :destroy
 end

@@ -16,10 +16,11 @@
 #
 class Renter < ApplicationRecord
   has_many :rooms, dependent: nil
-  accepts_nested_attributes_for :rooms
 
   has_many :user_renters, dependent: :destroy
   has_many :users, through: :user_renters
+
+  has_many :members, dependent: :destroy
 
   NAMES = %w[Nam Nữ].freeze
   validates :name, presence: true, length: { maximum: 50 }

@@ -17,9 +17,9 @@ class ServicesController < ApplicationController
   def edit; end
 
   def create
-    @service = Service.new(service_params)
+    @service = current_user.services.build(service_params)
     if @service.save
-      redirect_to users_services_path, notice: 'Service was successfully created.'
+      redirect_to services_path, notice: 'Service was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class ServicesController < ApplicationController
   def update
     if @service.update(service_params)
       respond_to do |format|
-        format.html { redirect_to users_services_path, notice: 'Service was successfully edited.' }
+        format.html { redirect_to services_path, notice: 'Service was successfully edited.' }
       end
     else
       render :edit
@@ -38,7 +38,7 @@ class ServicesController < ApplicationController
   def destroy
     @service.destroy
     respond_to do |format|
-      format.html { redirect_to users_services_path, notice: 'Service was successfully deleted.' }
+      format.html { redirect_to services_path, notice: 'Service was successfully deleted.' }
     end
   end
 

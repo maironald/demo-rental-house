@@ -28,7 +28,7 @@ class RentersController < ApplicationController
       @user_renter.save
       # Room.where(id: @room_info.id).update(renter_id: @renter.id)
       respond_to do |format|
-        format.html { redirect_to users_renters_path, notice: 'Renter was successfully created.' }
+        format.html { redirect_to renters_path, notice: 'Renter was successfully created.' }
       end
     else
       render :new, status: :unprocessable_entity
@@ -39,7 +39,7 @@ class RentersController < ApplicationController
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
     if @renter.update(renter_params)
       respond_to do |format|
-        format.html { redirect_to users_renters_path, notice: "Renter was successfully edited but You didn't change the room." }
+        format.html { redirect_to renters_path, notice: "Renter was successfully edited but You didn't change the room." }
       end
     else
       render :edit
@@ -49,7 +49,7 @@ class RentersController < ApplicationController
   def destroy
     @renter.destroy
     respond_to do |format|
-      format.html { redirect_to users_renters_path, notice: 'Renter was successfully deleted.' }
+      format.html { redirect_to renters_path, notice: 'Renter was successfully deleted.' }
     end
   end
 

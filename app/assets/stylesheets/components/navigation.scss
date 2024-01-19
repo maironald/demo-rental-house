@@ -4,9 +4,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
   width: 100%;
-  color: #088bac !important;
+  color: #2308ac !important;
   margin-left: 0 !important;
   line-height: 59px;
   display: block;
@@ -84,7 +84,7 @@
       display: block;
       padding: 13px 15px 12px;
       &:hover {
-        background-color: white;
+        background-color: rgb(147, 147, 239);
       }
       &:active {
         color: gray;
@@ -96,8 +96,8 @@
       }
     }
     a.active {
-      border-right: 5px solid #1abb9c;
-      background-color: rgb(198, 228, 228);
+      border-right: 5px solid #1328cb;
+      background-color: white;
     }
   }
 }
