@@ -6,6 +6,7 @@ export default class extends Controller {
   connect() {
     this.check = true;
   }
+
   navbarCloseOpen(event) {
     event.preventDefault();
     if (window.innerWidth > 991) {
@@ -21,8 +22,7 @@ export default class extends Controller {
         this.siteTitleTarget.innerText = 'QLNT';
         this.check = false;
       }
-    } else {
-      if (!this.check) {
+    } else if (!this.check) {
         this.leftDivTarget.style.display = 'none';
         this.rightContainerTarget.style.marginLeft = '0';
         this.check = true;
@@ -33,8 +33,8 @@ export default class extends Controller {
         this.siteTitleTarget.innerText = 'QLNT';
         this.check = false;
       }
-    }
   }
+
   tagInBody() {
     return this.element.querySelector('body');
   }
