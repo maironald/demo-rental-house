@@ -46,9 +46,11 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :trackable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
+  # callbacks
   after_create :assign_default_role
   after_create :skip_confirmation
 
+  # associations
   has_many :rooms, dependent: :destroy
   has_many :user_renters, dependent: :destroy
   has_many :renters, through: :user_renters
@@ -69,8 +71,6 @@ class User < ApplicationRecord
   # Temp skip confirm until setup send mail service
   def skip_confirmation
     self.confirmed_at = Time.current
-    self.skip_confirmation!
-    self.confirm
   end
 
   def assign_default_role

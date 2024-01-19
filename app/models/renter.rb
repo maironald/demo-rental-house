@@ -20,11 +20,10 @@ class Renter < ApplicationRecord
   has_many :user_renters, dependent: :destroy
   has_many :users, through: :user_renters
 
-  NAMES = %w[Nam Nữ].freeze
+  GENDERS = %w[male female].freeze
   validates :name, presence: true, length: { maximum: 50 }
   validates :phone_number, presence: true, length: { maximum: 20 }
   validates :identity, presence: true, length: { maximum: 20 }
-  validates :address, presence: true
-  validates :gender, inclusion: { in: NAMES }
-  validates :deposit, presence: true
+  validates :address, :gender, :deposit, presence: true
+  validates :gender, inclusion: { in: GENDERS }
 end
