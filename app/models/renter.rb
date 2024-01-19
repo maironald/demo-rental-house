@@ -20,6 +20,8 @@ class Renter < ApplicationRecord
   has_many :user_renters, dependent: :destroy
   has_many :users, through: :user_renters
 
+  has_many :members, dependent: :destroy
+
   NAMES = %w[Nam Nữ].freeze
   validates :name, presence: true, length: { maximum: 50 }
   validates :phone_number, presence: true, length: { maximum: 20 }

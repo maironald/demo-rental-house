@@ -13,7 +13,7 @@
             <ul class="nav-side-menu">
                 <li><%= link_to users_root_path, :class => active_link_class(['users/dashboard#index']) do %><i class="fa-solid fa-house"></i>Trang Chủ <%end%></li>
                 <li><%= link_to rooms_path, :class => active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit']) do %><i class="fa-solid fa-building"></i>Phòng <%end%></li>
-                <li><%= link_to renters_path, :class => active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit'])  do%><i class="fa-solid fa-bolt"></i>Danh sách khách thuê<%end%></li>
+                <li><%= link_to renters_path, :class => active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit', 'members#index'])  do%><i class="fa-solid fa-bolt"></i>Danh sách khách thuê<%end%></li>
                 <li><%= link_to services_path, :class => active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])  do %><i class="fa-solid fa-cubes"></i>Dịch vụ chi<%end%>
                 </li>
                 <li><%= link_to electric_waters_path, :class => active_link_class(['electric_waters#show'])  do %><i class="fa-solid fa-fire-flame-simple"></i>Chỉ số điện và nước<%end%>
