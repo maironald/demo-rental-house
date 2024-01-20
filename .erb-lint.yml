@@ -1,0 +1,21 @@
+---
+EnableDefaultLinters: true
+linters:
+  ErbSafety:
+    enabled: true
+    better_html_config: .better-html.yml
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+  SpaceAroundErbTag:
+    enabled: true
+  RightTrim:
+    enabled: true
+    enforced_style: "-"
+  SelfClosingTag:
+    enabled: true
+    enforced_style: "always"
+  Style/FrozenStringLiteralComment:
+    enable: false

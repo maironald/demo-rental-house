@@ -1,6 +1,5 @@
 <%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? room_path : rooms_path ) do |f| %>
   <%= f.error_notification %>
-
   <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
   <%= f.input :length, as: :float, wrapper_html: {class: 'mb-4'}, label: "Length of Room:", label_html: {class: 'mb-2 fw-bold'}%>
   <%= f.input :width, as: :float, wrapper_html: {class: 'mb-4'}, label: "Width of Room:", label_html: {class: 'mb-2 fw-bold'} %>

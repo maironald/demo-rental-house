@@ -46,6 +46,8 @@ group :development do
   gem 'spring'
   gem 'web-console'
   gem 'htmlbeautifier'
+  gem 'erb_lint', require: false
+  gem 'better_html'
 end
 
 group :test do

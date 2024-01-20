@@ -2,9 +2,7 @@
   <h1 class="text-[25px]">Thêm Khách Thuê Vào Phòng</h1>
   <%= simple_form_for @room, method: :put, url: add_renter_to_room_room_path(@room.id) do |f| %>
     <!-- other form fields -->
-
     <%= f.input :renter_id, label: "Danh sách khách thuê", wrapper_html: {class: 'mb-4'}, collection_html: {class: 'p-4'}, label_html: {class: 'mb-2 text-white text-[10px]'}, as: :radio_buttons, collection: @renters_not_in_room.each{|renter| [renter.name, renter.id]} %>
-
     <%= f.button :submit, "Thêm" %>
     <%= link_to 'Tạo mới khách thuê', new_renter_path %>
     <hr class="m-4">

@@ -1,6 +1,5 @@
 <%= simple_form_for @member, method: (@member.persisted? ? :put : :post), url: (@member.persisted? ? renter_member_path : renter_members_path ) do |f| %>
   <%= f.error_notification %>
-
   <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
   <%= f.input :phone_number, as: :string, wrapper_html: {class: 'mb-4'}, label: "Phone Number:", label_html: {class: 'mb-2 fw-bold'}%>
   <%= f.input :identity, as: :string, wrapper_html: {class: 'mb-4'}, label: "Identity:", label_html: {class: 'mb-2 fw-bold'} %>

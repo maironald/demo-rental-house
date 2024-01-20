@@ -2,7 +2,7 @@
   <%= link_to users_root_path, id: "site-title", class: "site-title", data: {navbar_target: "siteTitle"} do %>
     <i class="fa-solid fa-house mr-1"></i>
     QUẢN LÝ NHÀ TRỌ
-  <%end%>
+  <% end %>
 </div>
 <div class="navbar-info">
   <h4>Rental House</h4>
@@ -24,29 +24,31 @@
           <%= link_to rooms_path, class: active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit']) do %>
             <i class="fa-solid fa-building"></i>
             Phòng
-          <%end%>
+          <% end %>
         </li>
         <li>
           <%= link_to renters_path, class: active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit', 'members#index'])  do%>
             <i class="fa-solid fa-bolt"></i>
             Danh sách khách thuê
-          <%end%>
+          <% end %>
         </li>
         <li>
           <%= link_to services_path, class: active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])  do %>
             <i class="fa-solid fa-cubes"></i>
             Dịch vụ chi
-          <%end%>
+          <% end %>
         </li>
         <li>
           <%= link_to electric_waters_path, class: active_link_class(['electric_waters#show'])  do %>
-            <i class="fa-solid fa-fire-flame-simple"></i>Chỉ số điện và nước<%end%>
+            <i class="fa-solid fa-fire-flame-simple"></i>
+            Chỉ số điện và nước
+          <% end %>
         </li>
         <li>
           <%= link_to show_all_invoices_invoices_path, class: active_link_class(['invoices#show_all_invoices'])  do %>
             <i class="fa-solid fa-calculator"></i>
             Tính tiền
-          <%end%>
+          <% end %>
         </li>
         <li>
           <a href="./canhan.html">
@@ -63,7 +65,7 @@
           <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" } do %>
             <i class="fa-solid fa-right-from-bracket"></i>
             Đăng xuất
-          <%end%>
+          <% end %>
         </li>
       </ul>
     </div>
@@ -75,5 +77,5 @@
   </a>
   <%= link_to destroy_user_session_path, data: { turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?", turbo_method: :delete }  do  %>
     <i class="fa-solid fa-right-from-bracket"></i>
-  <%end%>
+  <% end %>
 </div>
