@@ -70,55 +70,21 @@
 .main-container {
   display: flex;
   height: 100%;
+  background-color: #9bc9dc;
 }
-.nav-side-menu {
+#logo-sidebar {
   li {
-    position: relative;
-    display: block;
-    cursor: pointer;
     a {
-      text-decoration: none;
-      margin-bottom: 6px;
-      font-weight: 500;
-      position: relative;
-      display: block;
-      padding: 13px 15px 12px;
       &:hover {
-        background-color: rgb(147, 147, 239);
+        background-color: rgb(207, 223, 241);
       }
       &:active {
         color: gray;
       }
-      i {
-        width: 26px;
-        display: inline-block;
-        font-style: normal;
-      }
     }
     a.active {
       border-right: 5px solid #1328cb;
-      background-color: white;
-    }
-  }
-}
-.sidebar-footer {
-  bottom: 0;
-  display: flex;
-  position: fixed;
-  width: 230px;
-  z-index: 999;
-  background-color: blue;
-  a {
-    padding: 15px 0 3px;
-    text-align: center;
-    width: 50%;
-    font-size: 20px;
-    display: block;
-    float: left;
-    cursor: pointer;
-    height: 100%;
-    &:hover {
-      background-color: white;
+      background-color: rgb(152, 198, 233);
     }
   }
 }

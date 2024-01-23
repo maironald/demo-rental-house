@@ -93,7 +93,7 @@
                                       <%= Room.find_by(id: invoice.room_id).name%>
                                     </td>
                                     <td class="px-6 py-4">
-                                      <%= Renter.find_by(id: Room.find_by(id: invoice.room_id).renter_id).name%>
+                                      <%= Renter.find_by(room_id: Room.find_by(id: invoice.room_id).id).name%>
                                     </td>
                                     <td class="px-6 py-4 flex justify-center items-center h-full">
                                         <%= button_to "Edit", edit_room_invoice_path(Room.find_by(id: invoice.room_id), invoice), method: :get, class: "btn btn-primary btn-large", remote: true %>

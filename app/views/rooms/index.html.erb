@@ -1,64 +1,14 @@
-<div class="main-container">
-  <div id="left-div" class="left-div">
-    <div class="left-div-child">
-      <%= render 'users/navigation'%>
-    </div>
-  </div>
-  <div id="right-container" class="right-container">
-    <%= render 'users/topnav'%>
-    <div class="right-div">
-      <!-- table -->
-      <div class="flex flex-col border m-2 border-slate-700 pb-8 mb-10">
-        <h1 class="text-2xl font-bold ml-4 mt-2 mb-4">Danh sách phòng</h1>
-        <div class="flex">
-          <div class="sm:flex-row flex flex-col">
-            <div class="flex items-center m-2 ">
-              <select id="countries"
-                  class="bg-gray-50 max-w-[130px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Tất cả</option>
-                <option value="US">Còn trống</option>
-                <option value="CA">Đã cho thuê</option>
-              </select>
-            </div>
-            <input type="text" id="search" placeholder="Nhập số phòng.." class="w-[200px] m-2 p-2">
-            <button type="submit"
-              class="btn btn-primary btn-large">
-              <%= vite_image_tag "images/icons/glass.svg", class: 'w-4 h-4'%>
-              <span class="ml-2">Tìm Kiếm</span>
-              <span class="sr-only">Search</span>
-            </button>
-          </div>
-        </div>
-        <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-          <div class="m-2">
-            <p>Còn trống: <%= @count_room_empty%> | Đã cho thuê: <%= @count_room_rented%></p>
-          </div>
-          <div class="m-2 flex">
-            <%= button_to renters_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-users mr-2"></i>Khách Thuê<%end%>
-            <%= button_to new_room_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-list-ol mr-2"></i>Thêm Phòng<% end %>
-          </div>
-        </div>
-        <div class="flex justify-end m-2">
-          <%= button_to edit_electric_waters_path, method: :get, class: "btn btn-primary btn-large" do %><i class="fa-solid fa-pen mr-2"></i>Tùy chỉnh các loại phí<% end %>
-          <button type="button" class="btn btn-danger btn-large mr-4"><i class="fa-solid fa-close mr-1"></i>Xóa Tất Cả</button>
-        </div>
-        <div class="flex flex-wrap w-full">
-          <%current_user.rooms.each do |room|%>
-            <div class="border border-gray-300 flex flex-col justify-around p-2 m-2">
-              <span><i class="fa-solid fa-home ml-1 mr-2"></i><%= room.name %></span>
-              <%= button_to show_renters_room_path(room.id), method: :get, class: "btn btn-primary btn-large w-full" do %><i class="fa-solid <%= room.renter_id? ? "fa-pen": "fa-plus"%> mr-2"></i><%= room.renter_id? ? "Cập Nhật Khách" : "Thêm Khách"  %><% end %>
-              <span><i class="fa-solid fa-user ml-1 mr-2"></i><%= Renter.find_by(id: room.renter_id)&.name%></span>
-              <span><i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{room.price_room} VND"%></span>
-              <div class="flex">
-                <%= button_to edit_room_path(room), method: :get, class: "btn btn-primary btn-large", remote: true do %><i class="fa-solid fa-pen"></i> Sửa Phòng<% end %>
-                <%= button_to room_path(room), method: :delete, class: "btn btn-danger btn-large w-[150px]", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa phòng này?" }, remote: true do %><i class="fa-solid fa-trash"></i> Xóa<% end %>
-              </div>
-              <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-primary btn-large w-full" do %><i class="fa-solid fa-pencil-square mr-2"></i>Xuất Hóa Đơn<% end %>
-            </div>
-          <%end%>
-        </div>
+<div class="relative">
+  <%= render "shared/flash"%>
+  <div>
+    <%= render 'users/navigation'%>
+    <div class="sm:ml-64">
+      <%= render 'users/topnav'%>
+      <div class="right-div">
+        <!-- table -->
+        <%= render 'table'%>
+        <%= render 'users/footer'%>
       </div>
-      <%= render 'users/footer'%>
     </div>
   </div>
 </div>

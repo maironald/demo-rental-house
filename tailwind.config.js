@@ -1,4 +1,13 @@
 module.exports = {
+  mode: "jit",
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
   content: [
     "./app/views/**/*.{slim,erb,jbuilder,turbo_stream,js}",
     "./app/decorators/**/*.rb",
@@ -7,6 +16,7 @@ module.exports = {
     "./app/assets/javascripts/**/*.js",
     "./config/initializers/**/*.rb",
     "./lib/components/**/*.rb",
+    "./node_modules/flowbite/**/*.js",
   ],
   variants: {
     extend: {

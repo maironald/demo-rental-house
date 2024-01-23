@@ -52,8 +52,6 @@ class User < ApplicationRecord
 
   # associations
   has_many :rooms, dependent: :destroy
-  has_many :user_renters, dependent: :destroy
-  has_many :renters, through: :user_renters
   has_many :services, dependent: :destroy
   has_one :setting, dependent: :destroy
 

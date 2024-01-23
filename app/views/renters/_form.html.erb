@@ -1,11 +1,12 @@
-<%= simple_form_for @renter, method: (@renter.persisted? ? :put : :post), url: (@renter.persisted? ? renter_path : renters_path ) do |f| %>
+<%= simple_form_for @renter , method: (@renter.persisted? ? :put : :post), url: (@renter.persisted? ? renter_path : room_renters_path ), html: { data: { controller: 'disable-input' } } do |f| %>
   <%= f.error_notification %>
   <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
-  <%= f.input :phone_number, as: :string, wrapper_html: {class: 'mb-4'}, label: "Phone Number:", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :identity, as: :string, wrapper_html: {class: 'mb-4'}, label: "Identity:", label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.input :phone_number, as: :string, wrapper_html: {class: 'mb-4'}, label: "Phone Number:", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+  <%= f.input :identity, as: :string, wrapper_html: {class: 'mb-4'}, label: "Identity:", label_html: {class: 'mb-2 fw-bold'}, required: true %>
   <%= f.input :address, as: :string, wrapper_html: {class: 'mb-4'}, label: "Address: ", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :gender, as: :radio_buttons, wrapper_html: {class: 'mb-4 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 text-white'}, collection: ['Nam', 'Nữ'], value: @renter_name_collections %>
-  <%= f.input :deposit, as: :float, wrapper_html: {class: 'mb-4'}, label: 'Deposit:', label_html: {class: 'mb-2 fw-bold'} %>
+  <%= f.input :gender, as: :radio_buttons, wrapper_html: {class: 'mb-4 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 text-white'}, collection: [['Nam',renter_name_collections[0]], ['Nữ',renter_name_collections[1]]], checked: renter_name_collections[0]  %>
+  <%= f.input :deposit, as: :decimal, wrapper_html: {class: 'mb-4'}, label: 'Deposit:', label_html: {class: 'mb-2 fw-bold'}, input_html: { 'data-disable-input-target' => 'inputToDisable' } %>
+  <%= f.input :renter_type, as: :radio_buttons, label: "Type: ", wrapper_html: {class: 'mb-4 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 text-white'}, collection: [['Người đứng tên', renter_type_collections[0]],['Người ở cùng',renter_type_collections[1]]], checked: renter_type_collections[0], input_html: {'data-action' => 'change->disable-input#updateDisableState', 'data-disable-input-target' => 'inputUpdateState'} %>
   <%= f.submit 'Save' %>
-  <%= link_to 'Back', renters_path %>
+  <%= link_to 'Back', @renter.persisted? ? renters_path : rooms_path%>
 <% end %>

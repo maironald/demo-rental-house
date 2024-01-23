@@ -1,0 +1,26 @@
+<div class="max-w-md p-6 bg-blue-600 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-controller="datepicker">
+  <h1 class="text-[25px]">Danh sách khách thuê</h1>
+    <% if @renter_in_rooms.empty? %>
+      <p>Hiện tại phòng đang trống!!</p>
+    <%else%>
+      <h1>
+        Người đứng tên:
+        <span class="<%= @renter_main&.name.nil? && "text-red-500 font-bold"%>">
+          <%= @renter_main&.name.nil? ? "trống" : @renter_main.name%>
+        </span>
+      </h1>
+      <h1>Danh sách người ở cùng: </h1>
+      <ul>
+        <% @renter_in_rooms.each_with_index do |renter, index|%>
+          <% if renter.renter_type != "main"  %>
+            <li>Ngừoi <%= "#{index} : #{renter.name}"%></li>
+          <%end%>
+        <%end%>
+      </ul>
+    <% end %>
+    <hr class="m-4">
+    <div class="flex justify-between">
+      <%= link_to 'THÊM KHÁCH THUÊ', new_room_renter_path() %>
+      <%= link_to 'QUAY LẠI', rooms_path%>
+    </div>
+</div>

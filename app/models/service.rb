@@ -10,8 +10,12 @@
 #  price      :decimal(, )
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  user_id    :bigint
 #
 class Service < ApplicationRecord
   belongs_to :user
+
+  # validations
+  validates :name, presence: true
+  validates :price, presence: true
 end

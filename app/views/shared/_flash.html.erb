@@ -1,14 +1,17 @@
-<div class="flash-container">
-  <% flash.each do |type, msg| %>
-    <div id="flash" class="flex items-center p-4 rounded-lg<%= alert_variant_class(type) %>" data-controller='flash' data-flash-target='alert' role="alert">
-      <span class="sr-only">Info</span>
-      <div class="ml-3 text-sm font-medium text-gray-800 dark:text-gray-300">
-        <%= msg %>
+<div class="fixed z-10 top-3 left-[40%] h-[200px]">
+  <div id="toast-success" class="flex items-center max-w-96 p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" data-controller='flash' data-flash-target='alert' data-action="click->flash#closeAlert" role="alert">
+    <% flash.each do |type, msg| %>
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 <%= alert_variant_class(type) %>">
+        <%= vite_image_tag(choose_image_variant(type))%>
+        <span class="sr-only">Info</span>
       </div>
-      <button class="ml-auto -mx-1.5 -my-1.5 bg-gray-50 text-gray-500 rounded-lg focus:ring-2 focus:ring-gray-400 p-1.5 hover:bg-gray-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white" type="button" data-dismiss-target="#flash" aria-label="Close">
+      <div class="ms-3 text-base font-normal text-gray-800 dark:text-gray-300">
+          <%= msg %>
+      </div>
+      <button class="ms-auto -mx-1.5 -my-1.5 ml-6 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" type="button" data-dismiss-target="#flash" aria-label="Close">
         <span class="sr-only">Dismiss</span>
         <%= vite_image_tag("images/icons/close.svg") %>
       </button>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
