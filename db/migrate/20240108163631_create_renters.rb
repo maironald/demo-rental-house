@@ -9,6 +9,8 @@ class CreateRenters < ActiveRecord::Migration[7.0]
       t.string :address
       t.string :gender, default: false, null: false
       t.bigint :deposit
+      t.string :type, null: false
+      t.references :room
 
       t.timestamps
     end

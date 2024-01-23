@@ -7,6 +7,7 @@ module.exports = {
     "./app/assets/javascripts/**/*.js",
     "./config/initializers/**/*.rb",
     "./lib/components/**/*.rb",
+    "./node_modules/flowbite/**/*.js",
   ],
   variants: {
     extend: {

@@ -5,9 +5,8 @@ class RentersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # get all the renters id who have rented a room by current user
-    @renter_id = UserRenter.where(user_id: current_user.id).pluck(:renter_id)
-    @renters = Renter.where(id: @renter_id)
+    # get all the renters id who have rented a room through current user
+    @renters = Renter.all
   end
 
   def show; end
@@ -21,14 +20,15 @@ class RentersController < ApplicationController
   end
 
   def create
-    @renter = Renter.new(renter_params)
+    @room = Room.find_by(id: params[:room_id])
+    @renter = @room.renters.build(renter_params)
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
+
+    # Find the main renter of the room to replace another new main renter in the same room.
+    Renter.find_by(room_id: params[:room_id], renter_type: 'main')&.update(renter_type: 'member')
     if @renter.save
-      @user_renter = UserRenter.new(user_id: current_user.id, renter_id: @renter.id)
-      @user_renter.save
-      # Room.where(id: @room_info.id).update(renter_id: @renter.id)
       respond_to do |format|
-        format.html { redirect_to renters_path, notice: 'Renter was successfully created.' }
+        format.html { redirect_to rooms_path, notice: 'Renter was successfully created.' }
       end
     else
       render :new, status: :unprocessable_entity
@@ -39,10 +39,10 @@ class RentersController < ApplicationController
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
     if @renter.update(renter_params)
       respond_to do |format|
-        format.html { redirect_to renters_path, notice: "Renter was successfully edited but You didn't change the room." }
+        format.html { redirect_to renters_path, notice: 'Renter was successfully edited.' }
       end
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -53,6 +53,18 @@ class RentersController < ApplicationController
     end
   end
 
+  def destroy_all
+    Renter.destroy_all
+    respond_to do |format|
+      format.html { redirect_to renters_path, notice: 'Renter was successfully deleted all.' }
+    end
+  end
+
+  def show_renters
+    @renter_in_rooms = Renter.where(room_id: params[:room_id])
+    @renter_main = Renter.find_by(room_id: params[:room_id], renter_type: 'main')
+  end
+
   private
 
   def set_renter
@@ -60,6 +72,6 @@ class RentersController < ApplicationController
   end
 
   def renter_params
-    params.require(:renter).permit(:name, :phone_number, :identity, :address, :gender, :deposit)
+    params.require(:renter).permit(:name, :phone_number, :identity, :address, :gender, :renter_type, :deposit)
   end
 end

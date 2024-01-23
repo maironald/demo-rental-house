@@ -1,79 +1,59 @@
-<div class="navbar-title">
-  <%= link_to users_root_path, id: "site-title", class: "site-title", data: {navbar_target: "siteTitle"} do %>
-    <i class="fa-solid fa-house mr-1"></i>
-    QUẢN LÝ NHÀ TRỌ
-  <%end%>
-</div>
-<div class="navbar-info">
-  <h4>Rental House</h4>
-</div>
-<div class="profile">
-  <span class="div-greeting">Xin chào, <%= current_user.email%></span>
-</div>
-<div class="sidebar-menu">
-  <div class="nav-side-menu">
-    <div class="menu-seciton">
-      <ul class="nav-side-menu">
+<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+   <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+      <%= link_to users_root_path, class: "flex items-center ps-2.5 mb-5" do %>
+        <%= vite_image_tag("images/logo/logo.png", class: "h-20 w-10 me-3 sm:h-7", alt: "Flowbite Logo")%>
+        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Rental House</span>
+      <%end%>
+      <h1 class="text-xl m-6 ml-0 font-serif">Xin chào, <%= current_user.email%></h1>
+      <ul class="space-y-2 font-medium">
         <li>
-          <%= link_to users_root_path, class: active_link_class(['users/dashboard#index']) do %>
-            <i class="fa-solid fa-house"></i>
-            Trang Chủ
+          <%= link_to users_root_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['users/dashboard#index'])}" do %>
+            <%= vite_image_tag("images/navigation/dashboard.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Trang Chủ</span>
           <% end %>
         </li>
         <li>
-          <%= link_to rooms_path, class: active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit']) do %>
-            <i class="fa-solid fa-building"></i>
-            Phòng
+          <%= link_to rooms_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['rooms#index', 'rooms#show', 'rooms#new', 'rooms#edit'])}" do %>
+            <%= vite_image_tag("images/navigation/home.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Phòng</span>
           <%end%>
         </li>
         <li>
-          <%= link_to renters_path, class: active_link_class(['renters#index', 'renters#show', 'renters#new', 'renters#edit', 'members#index'])  do%>
-            <i class="fa-solid fa-bolt"></i>
-            Danh sách khách thuê
+          <%= link_to renters_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['renters#index'])}"  do%>
+            <%= vite_image_tag("images/navigation/renter.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Khách Thuê</span>
+          <%end%>
+        </li>
+         <li>
+          <%= link_to services_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])}"  do %>
+            <%= vite_image_tag("images/navigation/services.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Dịch vụ chi</span>
           <%end%>
         </li>
         <li>
-          <%= link_to services_path, class: active_link_class(['services#index', 'services#show', 'services#new', 'services#edit'])  do %>
-            <i class="fa-solid fa-cubes"></i>
-            Dịch vụ chi
+          <%= link_to electric_waters_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['electric_waters#show'])}"  do %>
+            <%= vite_image_tag("images/navigation/energy.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Chỉ số điện và nước</span>
           <%end%>
         </li>
         <li>
-          <%= link_to electric_waters_path, class: active_link_class(['electric_waters#show'])  do %>
-            <i class="fa-solid fa-fire-flame-simple"></i>Chỉ số điện và nước<%end%>
-        </li>
-        <li>
-          <%= link_to show_all_invoices_invoices_path, class: active_link_class(['invoices#show_all_invoices'])  do %>
-            <i class="fa-solid fa-calculator"></i>
-            Tính tiền
+          <%= link_to show_all_invoices_invoices_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['invoices#show_all_invoices'])}"  do %>
+            <%= vite_image_tag("images/navigation/invoice.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Hóa đơn thu</span>
           <%end%>
         </li>
         <li>
-          <a href="./canhan.html">
-            <i class="fa-solid fa-user"></i>
-            Thông tin cá nhân</a>
+          <%= link_to show_all_invoices_invoices_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['invoices#show_all_invoices'])}"  do %>
+            <%= vite_image_tag("images/navigation/invoice.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Đổi mật khẩu</span>
+          <%end%>
         </li>
         <li>
-          <a href="">
-            <i class="fa-solid fa-key"></i>
-            Đổi mật khẩu
-          </a>
-        </li>
-        <li>
-          <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" } do %>
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Đăng xuất
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" }, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>
+             <%= vite_image_tag("images/navigation/signout.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+            <span class="ms-3">Đăng xuất</span>
           <%end%>
         </li>
       </ul>
-    </div>
-  </div>
-</div>
-<div class="sidebar-footer">
-  <a href="">
-    <i class="fa-solid fa-key"></i>
-  </a>
-  <%= link_to destroy_user_session_path, data: { turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?", turbo_method: :delete }  do  %>
-    <i class="fa-solid fa-right-from-bracket"></i>
-  <%end%>
-</div>
+   </div>
+</aside>

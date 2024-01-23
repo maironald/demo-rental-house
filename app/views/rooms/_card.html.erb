@@ -1,0 +1,34 @@
+<div class="flex flex-col justify-around p-2 m-2 mr-10">
+  <div class="card lg:w-96 md:w-72 sm:w-full bg-base-100 shadow-xl">
+    <figure class="bg-yellow-200">
+      <%= vite_image_tag("images/room/logo_room4.jpg",class: "object-cover w-full h-full", alt: "logo_room")%>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title"><i class="fa-solid fa-home ml-1 mr-2"></i><%= room.name %></h2>
+      <p><%= room.description%></p>
+      <%= button_to show_renters_room_renters_path(room.id), method: :get, class: "btn bg-blue-300 btn-large w-[155px] sm:w-full" do %>
+        <i class="fa-solid <%= !Renter.find_by(room_id: room.id).nil? ? "fa-pen": "fa-plus"%> mr-2"></i>
+        <%= !Renter.find_by(room_id: room.id).nil? ? "Cập Nhật Khách" : "Thêm Khách"  %>
+      <% end %>
+      <p>
+        <i class="fa-solid fa-user ml-1 mr-2"></i>
+        <span class="<%= Renter.find_by(room_id: room.id, renter_type: 'main')&.name.nil? && "text-red-500 font-bold" %>">
+          <%= Renter.find_by(room_id: room.id, renter_type: 'main')&.name.nil? ? "(trống)" : Renter.find_by(room_id: room.id, renter_type: 'main')&.name%>
+        </span>
+      </p>
+      <%# <div class="card-actions justify-end">
+        <button class="btn btn-primary">Buy Now</button>
+      </div> %>
+      <span>
+        <i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{room.price_room} VND"%>
+      </span>
+      <div class="flex justify-center flex-col sm:flex-row w-full">
+          <%= button_to edit_room_path(room), method: :get, class: "btn btn-primary btn-large w-[155px]", remote: true do %><i class="fa-solid fa-pen mr-2"></i> Sửa Phòng<% end %>
+          <%= button_to room_path(room), method: :delete, class: "btn btn-danger btn-large w-[155px]", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa phòng này? (lưu ý: xóa phòng sẽ xóa tất cả khách trong phòng!!)" }, remote: true do %><i class="fa-solid fa-trash mr-2"></i> Xóa<% end %>
+      </div>
+      <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-success btn-large w-[155px] sm:w-full text-white" do %>
+        <i class="fa-solid fa-pencil-square mr-2"></i>Xuất Hóa Đơn
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -28,8 +28,28 @@
 #
 class Room < ApplicationRecord
   belongs_to :user
-  has_one :renter, dependent: nil
+  has_many :renters, dependent: :destroy
   # accepts_nested_attributes_for :renter
 
   has_many :invoices, dependent: :destroy
+
+  # validations
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :length, presence: true, numericality: { less_than_or_equal_to: 20_000 }
+  validates :width, presence: true, numericality: { less_than_or_equal_to: 20_000 }
+  validates :price_room, presence: true
+  validates :limit_residents, presence: true, numericality: { only_integer: true }
+  validates :description, presence: true
+
+  def calculate_electric_amount
+    electric_amount_new - electric_amount_old
+  end
+
+  def calculate_water_amount
+    water_amout_new - water_amout_old
+  end
+
+  def check_electric_water_amount
+    calculate_electric_amount.negative? || calculate_water_amount.negative?
+  end
 end

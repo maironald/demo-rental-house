@@ -25,7 +25,6 @@
   </head>
   <body data-controller='flash'>
     <%if !user_signed_in?%>
-    <%= render "shared/flash" %>
     <div class="container-xl max-w-screen-xl mx-auto">
       <%= yield %>
     </div>
