@@ -1,6 +1,5 @@
 <%= simple_form_for @renter , method: (@renter.persisted? ? :put : :post), url: (@renter.persisted? ? renter_path : room_renters_path ), html: { data: { controller: 'disable-input' } } do |f| %>
   <%= f.error_notification %>
-
   <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
   <%= f.input :phone_number, as: :string, wrapper_html: {class: 'mb-4'}, label: "Phone Number:", label_html: {class: 'mb-2 fw-bold'}, required: true%>
   <%= f.input :identity, as: :string, wrapper_html: {class: 'mb-4'}, label: "Identity:", label_html: {class: 'mb-2 fw-bold'}, required: true %>
