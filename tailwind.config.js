@@ -1,4 +1,13 @@
 module.exports = {
+  mode: "jit",
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
   content: [
     "./app/views/**/*.{slim,erb,jbuilder,turbo_stream,js}",
     "./app/decorators/**/*.rb",
