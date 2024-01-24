@@ -12,6 +12,5 @@
   <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "New Electric Amount: ", label_html: {class: 'mb-2 fw-bold'}%>
   <%= f.input :limit_residents, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Limit of Residents: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
   <%= f.input :description, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Description:', label_html: {class: 'mb-2 fw-bold'} %>
-  <%= f.submit 'Save' %>
-  <%= link_to 'Back', rooms_path %>
+  <%= f.submit 'Lưu' %>
 <% end %>

@@ -7,8 +7,10 @@
       <div class="right-div">
         <!-- table -->
         <%= render 'table'%>
+        <%= button_to "Toggle Modal", method: :get, data: { modal_target: "static-modal", modal_toggle: "modal"} , class: "block"%>
         <%= render 'users/footer'%>
       </div>
     </div>
   </div>
 </div>
+<%= render "shared/modal" %>

@@ -20,9 +20,14 @@ class RoomsController < ApplicationController
   def create
     @room = current_user.rooms.build(room_params)
     if @room.check_electric_water_amount
-      flash[:notice] = 'Room was created failed because the amount old is bigger than the amount new.'
+      respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
     elsif @room.save
-      redirect_to rooms_path, notice: 'Room was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.prepend('rooms', partial: 'rooms/table', locals: { room: @room })
+        end
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +35,7 @@ class RoomsController < ApplicationController
 
   def update
     if @room.check_electric_water_amount
-      flash[:notice] = 'Room was created failed because the amount old is bigger than the amount new.'
+      respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
     elsif @room.update(room_params)
       redirect_to rooms_path, notice: 'Room was successfully edited.'
     else

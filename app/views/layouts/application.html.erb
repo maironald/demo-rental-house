@@ -25,6 +25,7 @@
   </head>
   <body data-controller='flash'>
     <%if !user_signed_in?%>
+    <%= turbo_frame_tag 'modal'%>
     <div class="container-xl max-w-screen-xl mx-auto">
       <%= yield %>
     </div>
