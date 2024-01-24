@@ -154,6 +154,34 @@ link Simple Form: <https://github.com/heartcombo/simple_form>
     - connect(): Anytime the controller is connected to the DOM
     - disconnect(): Anytime the controller is disconnected from the DOM.
 
+## Knowledge about Turbo
+
+- turbo_stream:
+
+  - Use turbo.stream when you want to change or add multiple elements in the Turbo Frame, not just the first element
+  - Ex: When you perform an action and want to update the entire list or elements in a specific part of the page, you can use turbo.stream to change multiple element.
+    format.turbo_stream do
+    render turbo_stream.update('my_frame', partial: 'items/list', locals: { items: @updated_items })
+    end
+
+- turbo.prepend:
+
+  - Using turbo.prepend when you want to add a new element to the first index of the list in the Turbo Frame.
+  - This is often used when there is a new event and you want to insert it at the beginning of the list without having to reload the entire list.
+  - Ex: Add a new comment to the first index of the list comment.
+    format.turbo_stream do
+    render turbo_stream.prepend('comments_frame', partial: 'comments/comment', locals: { comment: @new_comment })
+    end
+
+- turbo.replace:
+
+  - Using 'turbo.replace' when you want to replace all the content of Turbo Frame with a new content.
+  - This usually uses when you want to reload all the content in Turbo Frame.
+  - Ex: When you want to act, and replace all the list or content in Turbo Frame.
+    format.turbo_stream do
+    render turbo_stream.replace('items_frame', partial: 'items/list', locals: { items: @updated_items })
+    end
+
 - System dependencies
 
 - Configuration

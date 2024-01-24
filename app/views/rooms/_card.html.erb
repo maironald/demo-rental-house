@@ -23,7 +23,10 @@
         <i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{room.price_room} VND"%>
       </span>
       <div class="flex justify-center flex-col sm:flex-row w-full">
-          <%= button_to edit_room_path(room), method: :get, class: "btn btn-primary btn-large w-[155px]", remote: true do %><i class="fa-solid fa-pen mr-2"></i> Sửa Phòng<% end %>
+          <%= button_to edit_room_path(room), method: :get, class: "btn btn-primary btn-large w-[155px]", remote: true do %>
+            <i class="fa-solid fa-pen mr-2"></i>
+            Sửa Phòng
+          <% end %>
           <%= button_to room_path(room), method: :delete, class: "btn btn-danger btn-large w-[155px]", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa phòng này? (lưu ý: xóa phòng sẽ xóa tất cả khách trong phòng!!)" }, remote: true do %><i class="fa-solid fa-trash mr-2"></i> Xóa<% end %>
       </div>
       <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-success btn-large w-[155px] sm:w-full text-white" do %>
