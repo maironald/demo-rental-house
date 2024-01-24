@@ -11,7 +11,7 @@
     <%= vite_javascript_tag 'application', data: {"turbo-track": "reload"}, defer: true %>
     <%= favicon_link_tag 'images/logo/logo.png' %>
   </head>
-  <body data-controller='flash'>
+  <body data-controller="flash">
     <% if !user_signed_in? %>
       <div class="container-xl max-w-screen-xl mx-auto">
         <%= yield %>
