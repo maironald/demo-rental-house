@@ -1,0 +1,2 @@
+<%= turbo_stream.update "modal-title", "Danh sách khách trong phòng" %>
+<%= turbo_stream.update "modal-body", partial: "list_renters", locals: { renter_in_rooms: @renter_in_rooms, renter_main: @renter_main  } %>

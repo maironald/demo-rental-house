@@ -88,7 +88,7 @@
               </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="renter-list">
           <% @renters.each do |renter|%>
             <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
@@ -119,7 +119,7 @@
                   <%= renter.renter_type == "main" ? "Người đứng tên" : "Người cùng phòng"%>
                 </td>
                 <td class="px-6 py-4 flex justify-center items-center h-full">
-                    <%= button_to "Edit", edit_renter_path(renter), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                    <%= button_to "Edit", edit_renter_path(renter), method: :get, class: "btn btn-primary btn-large", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
                     <%= button_to "Delete", renter_path(renter), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
                 </td>
             </tr>
@@ -128,3 +128,4 @@
     </table>
   </div>
 </div>
+<%= render "shared/modal"%>

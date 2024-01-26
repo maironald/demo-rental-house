@@ -25,6 +25,10 @@ class InvoicesController < ApplicationController
     if @invoice.save
       respond_to do |format|
         format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully created.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('my_modal_4')]
+        end
       end
     else
       render :new, status: :unprocessable_entity
@@ -38,7 +42,11 @@ class InvoicesController < ApplicationController
   def update
     if @invoice.update(invoice_params)
       respond_to do |format|
-        format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully edited' }
+        format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully edited.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('my_modal_4')]
+        end
       end
     else
       render :edit

@@ -24,8 +24,9 @@ class RoomsController < ApplicationController
     elsif @room.save
       respond_to do |format|
         format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
+        # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: turbo_stream.prepend('rooms', partial: 'rooms/table', locals: { room: @room })
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end
       end
     else
@@ -37,7 +38,12 @@ class RoomsController < ApplicationController
     if @room.check_electric_water_amount
       respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
     elsif @room.update(room_params)
-      redirect_to rooms_path, notice: 'Room was successfully edited.'
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: 'Room was successfully edited.' }
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
+        end
+      end
     else
       render :edit, status: :unprocessable_entity
     end

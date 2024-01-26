@@ -1,0 +1,9 @@
+<%= simple_form_for @room, method: :put, url: room_electric_waters_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: 'Chỉ số điện cũ:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+  <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới:", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ:", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới:", label_html: {class: 'mb-2 fw-bold'}%>
+  <%= f.submit 'Save', class: 'btn w-1/2 btn-primary' %>
+<% end %>

@@ -19,7 +19,7 @@
         <%end%>
       </li>
       <li>
-        <%= link_to renters_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['renters#index'])}"  do%>
+        <%= link_to renters_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['renters#index'])}" do%>
           <%= vite_image_tag("images/navigation/renter.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
           <span class="ms-3">Khách Thuê</span>
         <%end%>
@@ -40,12 +40,6 @@
         <%= link_to show_all_invoices_invoices_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['invoices#show_all_invoices'])}"  do %>
           <%= vite_image_tag("images/navigation/invoice.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
           <span class="ms-3">Hóa đơn thu</span>
-        <%end%>
-      </li>
-      <li>
-        <%= link_to show_all_invoices_invoices_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['invoices#show_all_invoices'])}"  do %>
-          <%= vite_image_tag("images/navigation/invoice.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
-          <span class="ms-3">Đổi mật khẩu</span>
         <%end%>
       </li>
       <li>

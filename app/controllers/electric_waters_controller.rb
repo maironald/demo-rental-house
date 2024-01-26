@@ -2,31 +2,36 @@
 
 class ElectricWatersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_room, only: %i[edit update]
 
   def show
-    @rooms = Room.all
+    @rooms = current_user.rooms
   end
 
   def new; end
 
-  def edit
-    @electric_price = current_user.setting.price_electric
-    @water_price = current_user.setting.price_water
-  end
+  def edit; end
 
   def update
-    if current_user.setting.update(electric_water_params)
+    if @room.update(electric_water_params)
       respond_to do |format|
         format.html { redirect_to electric_waters_path, notice: 'You change the value of water and electric successfully.' }
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('amount-list', partial: 'electric_waters/table', locals: { rooms: @rooms }), turbo_stream.remove('my_modal_4')]
+        end
       end
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   private
 
   def electric_water_params
-    params.require(:setting).permit(:price_electric, :price_water, :price_security, :price_internet, :price_trash)
+    params.require(:room).permit(:electric_amount_old, :electric_amount_new, :water_amout_old, :water_amout_new)
+  end
+
+  def set_room
+    @room = Room.find(params[:room_id])
   end
 end

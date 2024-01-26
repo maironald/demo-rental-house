@@ -1,0 +1,2 @@
+<%= turbo_stream.update "modal-title", "Xuất hóa đơn" %>
+<%= turbo_stream.update "modal-body", partial: "invoice_room", locals: { total_electric_price: @total_electric_price, total_water_price: @total_water_price, settings: @settings, renter: @renter, total_price: @total_price } %>

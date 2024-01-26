@@ -1,4 +1,4 @@
-<div class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-6  pb-8 mb-10 mr-4 ml-4">
+<div id="amount-list" class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-6  pb-8 mb-10 mr-4 ml-4">
     <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
       <h1 class="text-2xl m-2 font-bold">Bảng Thống Kê Chỉ Số Điện Và Nước</h1>
       <div class="m-2">
@@ -64,7 +64,7 @@
                       <%= room.electric_amount_new - room.electric_amount_old%>
                     </td>
                     <td class="px-6 py-4 flex justify-center items-center h-full">
-                        <%= button_to "Edit", edit_room_path(room), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                        <%= button_to "Edit", edit_room_electric_waters_path(room), method: :get, class: "btn btn-primary btn-large", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()"  %>
                     </td>
                 </tr>
               <%end%>
@@ -113,7 +113,7 @@
                       <%= room.water_amout_new - room.water_amout_old%>
                     </td>
                     <td class="px-6 py-4 flex justify-center items-center h-full">
-                        <%= button_to "Edit", edit_room_path(room), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                        <%= button_to "Edit", edit_room_electric_waters_path(room), method: :get, class: "btn btn-primary btn-large", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()"  %>
                     </td>
                 </tr>
               <%end%>
@@ -122,3 +122,4 @@
       </div>
     </div>
 </div>
+<%= render "shared/modal"%>

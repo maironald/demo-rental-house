@@ -25,10 +25,14 @@ class RentersController < ApplicationController
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
 
     # Find the main renter of the room to replace another new main renter in the same room.
-    Renter.find_by(room_id: params[:room_id], renter_type: 'main')&.update(renter_type: 'member')
+    Renter.find_by(room_id: params[:room_id], renter_type: 'main')&.update(renter_type: 'member') if renter_params[:renter_type] == 'main'
     if @renter.save
       respond_to do |format|
         format.html { redirect_to rooms_path, notice: 'Renter was successfully created.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
+        end
       end
     else
       render :new, status: :unprocessable_entity
@@ -40,6 +44,10 @@ class RentersController < ApplicationController
     if @renter.update(renter_params)
       respond_to do |format|
         format.html { redirect_to renters_path, notice: 'Renter was successfully edited.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('my_modal_4')]
+        end
       end
     else
       render :edit, status: :unprocessable_entity

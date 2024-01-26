@@ -1,4 +1,4 @@
-<div class="max-w-md p-6 bg-blue-600 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-controller="datepicker">
+<div class="max-w-lg p-6 bg-blue-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-controller="datepicker">
   <h1 class="text-[25px]">Danh sách khách thuê</h1>
     <% if @renter_in_rooms.empty? %>
       <p>Hiện tại phòng đang trống!!</p>
@@ -19,8 +19,7 @@
       </ul>
     <% end %>
     <hr class="m-4">
-    <div class="flex justify-between">
-      <%= link_to 'THÊM KHÁCH THUÊ', new_room_renter_path() %>
-      <%= link_to 'QUAY LẠI', rooms_path%>
+    <div class="flex justify-between btn btn-primary">
+      <%= link_to 'THÊM KHÁCH THUÊ', new_room_renter_path(), data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
     </div>
 </div>

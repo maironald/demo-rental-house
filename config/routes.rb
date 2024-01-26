@@ -20,14 +20,19 @@ Rails.application.routes.draw do
     member do
       resources :rooms
       resources :services
-      resource :electric_waters, only: %i[show edit update]
+      resource :electric_waters, only: %i[show]
       resource :invoices, only: %i[show_all_invoices] do
         get 'show_all_invoices'
       end
     end
   end
 
+  resource :user do
+    resource :settings
+  end
+
   resources :rooms do
+    resource :electric_waters, only: %i[edit update]
     resources :invoices
     resources :renters, only: %i[new create]
     resource :renters, only: %i[index] do

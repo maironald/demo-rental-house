@@ -2,7 +2,9 @@
   <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
     <h1 class="text-2xl m-2 font-bold">Danh Sách Dịch Vụ Đã Chi</h1>
     <div class="m-2 flex">
-        <%= button_to new_service_path, method: :get, class: "btn btn-success btn-large" do %><i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ<% end %>
+        <%= button_to new_service_path, method: :get, class: "btn btn-success btn-large", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
+          <i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ
+        <% end %>
         <button type="button" class="btn btn-danger btn-large"><i
                 class="fa-solid fa-close mr-1"></i>
                 Xóa tất cả
@@ -50,7 +52,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="service-list">
             <% @services.each do |service|%>
               <tr
                   class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -65,55 +67,15 @@
                     <%= service.note%>
                   </td>
                   <td class="px-6 py-4 flex justify-center">
-                      <%= button_to "Edit",edit_service_path(service), method: :get, class: "btn btn-primary btn-large", remote: true %>
+                      <%= button_to "Edit",edit_service_path(service), method: :get, class: "btn btn-primary btn-large", remote: true,  data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
                       <%= button_to "Delete", service_path(service), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>
                   </td>
               </tr>
             <%end%>
           </tbody>
-          <div class="flex flex-col items-center">
-          <!-- Help text -->
-          <span class="text-sm text-gray-700 dark:text-gray-400">
-            Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Entries
-          </span>
-          <div class="inline-flex mt-2 xs:mt-0">
-              <!-- Buttons -->
-              <button class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                  <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
-                  </svg>
-                  Prev
-              </button>
-              <button class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                  Next
-                  <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="flex flex-col items-center">
-            <!-- Help text -->
-            <span class="text-sm text-gray-700 dark:text-gray-400">
-                Showing <span class="font-semibold text-gray-900 dark:text-white">1</span> to <span class="font-semibold text-gray-900 dark:text-white">10</span> of <span class="font-semibold text-gray-900 dark:text-white">100</span> Entries
-            </span>
-            <div class="inline-flex mt-2 xs:mt-0">
-              <!-- Buttons -->
-              <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                  <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
-                  </svg>
-                  Prev
-              </button>
-              <button class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                Next
-                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-              </button>
-            </div>
-          </div>
         </table>
       </div>
+      <%= render "users/pagination"%>
   </div>
 </div>
+<%= render "shared/modal"%>
