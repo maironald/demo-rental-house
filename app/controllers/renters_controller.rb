@@ -6,7 +6,23 @@ class RentersController < ApplicationController
 
   def index
     # get all the renters id who have rented a room through current user
-    @renters = Renter.all
+    @room_ids = current_user.rooms.pluck(:id)
+    @renters =  if params[:search].present?
+                  @renters = Renter.where('renters.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
+                else
+                  @renters = Renter.where(room_id: @room_ids)
+                end
+
+    selected_value = params[:selected_value]
+    if selected_value == 'main'
+      @renters = @renters.where(renter_type: 'main')
+    elsif selected_value == 'member'
+      @renters = @renters.where(renter_type: 'member')
+    else
+      @renters
+    end
+
+    @pagy, @renters = pagy(@renters, items: 9)
   end
 
   def show; end

@@ -5,7 +5,8 @@ class ServicesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @services = Service.all
+    @services = current_user.services.all
+    @pagy, @services = pagy(@services, items: 9)
   end
 
   def show; end

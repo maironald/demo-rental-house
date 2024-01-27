@@ -1,0 +1,30 @@
+.pagy {
+  @apply flex justify-center mt-8 w-full;
+}
+
+.page {
+  @apply text-white bg-blue-500 px-3 py-2 rounded mx-1 hover:bg-gray-100 hover:text-gray-700;
+}
+.pagy-nav.pagination {
+  @apply flex flex-wrap;
+}
+
+.page.active {
+  @apply opacity-50 text-white;
+}
+.disabled {
+  @apply opacity-50 text-gray-700;
+}
+
+.page.current {
+  @apply font-bold;
+}
+
+.gap {
+  @apply mx-1;
+}
+
+.page.prev,
+.page.next {
+  @apply text-white bg-blue-500 px-3 py-2 rounded mx-2;
+}

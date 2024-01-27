@@ -6,7 +6,7 @@ export default class extends Controller {
   connect() {
     setTimeout(() => {
       this.closeAlert();
-    }, 5000);
+    }, 3000);
   }
 
   closeAlert() {

@@ -5,8 +5,28 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @rooms = current_user.rooms.all
     count_people_in_room
+    @rooms = if params[:search].present?
+               current_user.rooms.where('name LIKE ?', "%#{params[:search]}%")
+             else
+               current_user.rooms.all
+             end
+
+    selected_value = params[:selected_value]
+    @room_ids = Renter.distinct.pluck(:room_id)
+    if selected_value == 'rented'
+      @rooms = @rooms.where(id: @room_ids)
+    elsif selected_value == 'empty'
+      @rooms = @rooms.where.not(id: @room_ids)
+    else
+      @rooms
+    end
+
+    @total_rooms = @rooms.count
+    @pagy, @rooms = pagy(@rooms, items: 9)
+
+    # @room_ids = Renter.distinct.pluck(:room_id)
+    # @rooms = (@rooms.where if params[:status] == 'US')
   end
 
   def show; end
@@ -39,7 +59,7 @@ class RoomsController < ApplicationController
       respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
     elsif @room.update(room_params)
       respond_to do |format|
-        format.html { redirect_to rooms_path, notice: 'Room was successfully edited.' }
+        redirect_to rooms_path, notice: 'Room was successfully edited.'
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end

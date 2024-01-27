@@ -8,16 +8,17 @@
         </div>
     </div>
     <div class="m-4">
-      <form>
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-        <div class="relative w-[300px] sm:w-[350px]">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
-            </div>
-            <input type="search" id="default-search" class="block w-full p-4 pr-20 mr-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên khách hàng..." required>
-            <button type="submit" class="text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+      <%= form_with(url: show_all_invoices_invoices_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
+        <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Còn nợ", "unpaid"],["Hết nợ", "paid"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
+        <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
+        <div class="relative w-[300px] sm:w-[350px] ml-2">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
+          </div>
+          <%= form.text_field :search, type: "search", id: 'default-search', class: "block w-full p-4 pr-20 mr-4 mt-2 lg:mt-0 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Nhập tên hóa đơn..." %>
+          <%= form.submit "Tìm", class: "text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
         </div>
-      </form>
+      <% end %>
     </div>
     <!-- table -->
     <div
@@ -27,11 +28,14 @@
             class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" class="px-6 py-3">
-                  Invoice Name
+                  Ngày Tạo
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Mã hóa đơn
               </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                    Total Price
+                    Tổng tiền
                     <a href="#">
                       <%= vite_image_tag 'images/icons/arrange.svg' , class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                     </a>
@@ -39,7 +43,7 @@
               </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                    Paid Money
+                    Tiền khách trả
                     <a href="#">
                       <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                     </a>
@@ -47,7 +51,7 @@
               </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                    Remaining
+                    Còn lại
                     <a href="#">
                       <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                     </a>
@@ -55,7 +59,7 @@
               </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                    Room
+                    Phòng
                     <a href="#">
                       <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                     </a>
@@ -63,7 +67,7 @@
               </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                    Renter
+                    Người thuê
                     <a href="#">
                       <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                     </a>
@@ -80,6 +84,9 @@
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row"
                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <%= invoice.created_at.strftime('%d-%m-%Y') %>
+                </th>
+                <td class="px-6 py-4">
                   <%= invoice.name %>
                 </th>
                 <td class="px-6 py-4">
@@ -106,5 +113,6 @@
         </tbody>
       </table>
     </div>
+    <%== render "users/pagination", locals: {pagy: @pagy} %>
   </div>
 <%= render "shared/modal"%>
