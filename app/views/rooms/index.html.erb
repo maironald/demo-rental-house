@@ -1,70 +1,14 @@
-
-<div class="main-container">
-  <div id="left-div" class="left-div">
-    <div class="left-div-child">
-        <%= render 'users/navigation'%>
+<div class="relative">
+  <%= render "shared/flash"%>
+  <div>
+    <%= render 'users/navigation'%>
+    <div class="sm:ml-64">
+      <%= render 'users/topnav'%>
+      <div class="right-div">
+        <!-- table -->
+        <%= render 'table'%>
+        <%= render 'users/footer'%>
+      </div>
     </div>
   </div>
-  <div id="right-container" class="right-container">
-    <%= render 'users/topnav'%>
-    <div class="right-div">
-      <!-- table -->
-      <div class="flex flex-col border m-2 border-slate-700 pb-8 mb-10">
-        <h1 class="text-md m-2">Danh sách phòng</h1>
-        <div class="flex">
-          <div class="sm:flex-row flex flex-col">
-            <div class="flex items-center m-2 ">
-              <select id="countries"
-                  class="bg-gray-50 max-w-[130px] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option selected>Tất cả</option>
-                  <option value="US">Còn trống</option>
-                  <option value="CA">Đã cho thuê</option>
-              </select>
-           </div>
-            <input type="text" id="search" placeholder="Nhập số phòng.." class="w-[200px] m-2 p-2">
-            <button type="submit"
-              class="h-[50px] flex items-center m-2 w-[120px] p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-              </svg>
-              <span class="ml-2">Tìm Kiếm</span>
-              <span class="sr-only">Search</span>
-          </button>
-      </div>
-  </div>
-  <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-      <div class="m-2">
-          <p>Còn trống: <%= @count_room_empty%> | Đã cho thuê: <%= @count_room_rented%></p>
-      </div>
-      <div class="m-2 flex">
-        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600"><i class="fa-solid fa-users mr-1"></i>Khách Thuê</button>
-        <%= button_to new_users_room_path, method: :get, class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600" do %><i class="fa-solid fa-list-ol mr-1"></i>Thêm Phòng<% end %>
-      </div>
-  </div>
-  <div class="flex justify-end m-2">
-      <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600"><i class="fa-solid fa-pencil mr-1"></i>Sửa phòng</button>
-      <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:bg-red-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600"><i class="fa-solid fa-close mr-1"></i>Xóa Hết Phòng</button>
-  </div>
-  <div class="flex flex-wrap w-full">
-    <%current_user.rooms.each do |room|%>
-      <div class="h-[240px] border border-gray-300 flex flex-col justify-around p-2 m-2">
-          <span><i class="fa-solid fa-home ml-1"></i><%= room.name %></span>
-          <button type="button" class="p-5 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600">Thêm khách</button>
-          <i class="fa-solid fa-user ml-1"></i>
-          <span><i class="fa-solid fa-home ml-1"></i><%= "#{room.price_room} VND"%></span>
-          <div class="flex">
-              <%= button_to edit_users_room_path(room), method: :get, class: "text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-blue-800 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600", remote: true do %><i class="fa-solid fa-trash"></i> Chỉnh sửa<% end %>
-              <%= button_to users_room_path(room), method: :delete, class: "text-white w-[120px] bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:bg-red-800 font-medium text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa phòng này?" }, remote: true do %><i class="fa-solid fa-trash"></i> Xóa<% end %>
-          </div>
-      </div>
-    <%end%>
-  </div>
-  </div>
-
-
-            <%= render 'users/footer'%>
-        </div>
-    </div>
 </div>

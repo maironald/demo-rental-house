@@ -7,20 +7,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= vite_stylesheet_tag 'application', data: { "turbo-track": "reload" } %>
-    <%= javascript_include_tag '/entrypoints/application', "data-turbo-track": "reload", defer: true %>
     <%= vite_client_tag %>
-    <%= vite_javascript_tag 'application' %>
-    <%= favicon_link_tag 'logo/logo.png' %>
+    <%= vite_javascript_tag 'application', data: {"turbo-track": "reload"}, defer: true %>
+
   </head>
-  <body data-controller='flash'>
-    <%if !user_signed_in?%>
-    <%= render "shared/flash" %>
-    <div class="container-xl max-w-screen-xl mx-auto">
+  <body data-controller="flash">
+    <% if !user_signed_in? %>
+      <div class="container-xl max-w-screen-xl mx-auto">
+        <%= yield %>
+      </div>
+    <% else %>
       <%= yield %>
-    </div>
-    <%else%>
-      <%= yield %>
-    <%end%>
+    <% end %>
   </body>
 </html>

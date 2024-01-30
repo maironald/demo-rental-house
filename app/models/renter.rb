@@ -6,26 +6,33 @@
 #
 #  id           :bigint           not null, primary key
 #  address      :string
-#  deposit      :bigint
+#  deposit      :decimal(, )
 #  gender       :string           default("f"), not null
 #  identity     :string
 #  name         :string
 #  phone_number :string
+#  renter_type  :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  room_id      :bigint
+#
+# Indexes
+#
+#  index_renters_on_room_id  (room_id)
 #
 class Renter < ApplicationRecord
-  has_many :rooms, dependent: nil
-  accepts_nested_attributes_for :rooms
+  # constants
+  GENDERS = %w[male female].freeze
+  TYPES = %w[main member].freeze
 
-  has_many :user_renters, dependent: :destroy
-  has_many :users, through: :user_renters
+  # associations
+  has_one :rooms, dependent: nil
 
-  NAMES = %w[Nam Nữ].freeze
+  # validations
   validates :name, presence: true, length: { maximum: 50 }
   validates :phone_number, presence: true, length: { maximum: 20 }
   validates :identity, presence: true, length: { maximum: 20 }
-  validates :address, presence: true
-  validates :gender, inclusion: { in: NAMES }
-  validates :deposit, presence: true
+  validates :address, :gender, presence: true
+  validates :gender, inclusion: { in: GENDERS }
+  validates :renter_type, inclusion: { in: TYPES }
 end

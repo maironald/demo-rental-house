@@ -17,9 +17,15 @@ class ServicesController < ApplicationController
   def edit; end
 
   def create
-    @service = Service.new(service_params)
+    @service = current_user.services.build(service_params)
     if @service.save
-      redirect_to users_services_path, notice: 'Service was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to services_path, notice: 'Service was successfully created.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('service-list', partial: 'services/table', locals: { service: @service }), turbo_stream.remove('my_modal_4')]
+        end
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,17 +34,21 @@ class ServicesController < ApplicationController
   def update
     if @service.update(service_params)
       respond_to do |format|
-        format.html { redirect_to users_services_path, notice: 'Service was successfully edited.' }
+        format.html { redirect_to services_path, notice: 'Service was successfully created.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('service-list', partial: 'services/table', locals: { service: @service }), turbo_stream.remove('my_modal_4')]
+        end
       end
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @service.destroy
     respond_to do |format|
-      format.html { redirect_to users_services_path, notice: 'Service was successfully deleted.' }
+      format.html { redirect_to services_path, notice: 'Service was successfully deleted.' }
     end
   end
 

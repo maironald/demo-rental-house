@@ -1,0 +1,30 @@
+.left-div {
+  background-color: #9bc9dc;
+  .left-div-child {
+    width: 100%;
+  }
+  min-height: 100%;
+  width: 230px;
+  padding: 0;
+  position: absolute;
+  display: flex;
+  z-index: 1;
+}
+.right-div {
+  width: 100%;
+  flex-wrap: wrap;
+}
+.right-container {
+  margin-left: 230px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+// @media screen and (max-width: 991px) {
+//   .left-div {
+//     display: none;
+//   }
+//   .right-container {
+//     margin-left: 0px;
+//   }
+// }

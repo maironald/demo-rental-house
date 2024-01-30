@@ -5,9 +5,8 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @rooms = Room.all
-    @count_room_empty = current_user.rooms.where(renter_id: nil).count
-    @count_room_rented = current_user.rooms.where.not(renter_id: nil).count
+    @rooms = current_user.rooms.all
+    count_people_in_room
   end
 
   def show; end
@@ -20,24 +19,39 @@ class RoomsController < ApplicationController
 
   def create
     @room = current_user.rooms.build(room_params)
-    if @room.save
-      redirect_to users_rooms_path, notice: 'Room was successfully created.'
+    if @room.check_electric_water_amount
+      respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
+    elsif @room.save
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
+        # format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
+        end
+      end
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    if @room.update(room_params)
-      redirect_to users_rooms_path, notice: 'Room was successfully edited.'
+    if @room.check_electric_water_amount
+      respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
+    elsif @room.update(room_params)
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: 'Room was successfully edited.' }
+        format.turbo_stream do
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
+        end
+      end
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @room.destroy
-    redirect_to users_rooms_path, notice: 'Room was successfully deleted.'
+    redirect_to rooms_path, notice: 'Room was successfully deleted.'
   end
 
   private
@@ -47,6 +61,12 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :length, :width, :price_room, :limit_residents, :description)
+    params.require(:room).permit(:name, :length, :width, :price_room, :limit_residents, :description, :electric_amount_new, :electric_amount_old, :water_amout_new, :water_amout_old)
+  end
+
+  def count_people_in_room
+    @room_total = current_user.rooms.count
+    @room_used = Renter.where(room_id: current_user.rooms.pluck(:id), renter_type: 'main').count
+    @room_left = @room_total - @room_used
   end
 end

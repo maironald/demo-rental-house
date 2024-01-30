@@ -1,0 +1,90 @@
+/* click the button to open the nav */
+.site-title {
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 400;
+  font-size: 20px;
+  width: 100%;
+  color: #2308ac !important;
+  margin-left: 0 !important;
+  line-height: 59px;
+  display: block;
+  height: 55px;
+  margin: 0;
+}
+.navbar-title {
+  text-align: center;
+  padding: 10px;
+}
+.navbar-info {
+  text-align: center;
+  padding: 10px;
+}
+.profile {
+  text-align: center;
+  padding: 10px;
+}
+.div-greeting {
+  padding: 25px 10px 10px;
+  width: 100%;
+}
+.sidebar-menu {
+  margin-top: 10px;
+}
+.nav-sm {
+  .navbar-title {
+    width: 70px;
+  }
+  .div-greeting {
+    display: none;
+  }
+  .menu-section {
+    margin: 0;
+  }
+  .nav-side-menu {
+    li {
+      a {
+        text-align: center !important;
+        font-weight: 400;
+        font-size: 15px;
+        padding: 10px 5px;
+        display: flex;
+        flex-direction: column;
+        i {
+          width: 100%;
+          text-align: center;
+          font-size: 25px;
+        }
+      }
+    }
+  }
+  .left-div {
+    width: 80px;
+  }
+  .sidebar-footer {
+    display: none;
+  }
+}
+
+.main-container {
+  display: flex;
+  height: 100%;
+  background-color: #9bc9dc;
+}
+#logo-sidebar {
+  li {
+    a {
+      &:hover {
+        background-color: rgb(207, 223, 241);
+      }
+      &:active {
+        color: gray;
+      }
+    }
+    a.active {
+      border-right: 5px solid #1328cb;
+      background-color: rgb(152, 198, 233);
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<div class="p-4 sm:p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-18 pb-8 mb-10 mr-4 ml-4">
+  <h1 class="text-2xl font-bold ml-4 mt-2 mb-4">Danh sách phòng</h1>
+  <div class="flex">
+    <div class="lg:flex-row flex flex-col">
+      <div class="flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2">
+        <select id="countries"
+          class="bg-gray-50 max-w-[130px] h-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>
+            Tất cả
+          </option>
+          <option value="US">
+            Còn trống
+          </option>
+          <option value="CA">
+            Đã cho thuê
+          </option>
+        </select>
+      </div>
+      <form class="w-[250px] md:w-full">
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative w-[300px] sm:w-[350px]">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
+        </div>
+        <input type="search" id="default-search" class="block w-full p-4 pr-20 mr-4 mt-2 lg:mt-0 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập phòng..." required>
+        <button type="submit" class="text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Search
+        </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
+    <div class="m-2 flex items-center">
+        <p class="text-lg">
+          Còn trống: <span class="font-bold text-red-600"><%= @room_left%></span>  |  Đã cho thuê: <span class="font-bold text-red-600"><%= @room_used%></span>
+        </p>
+    </div>
+    <div class="m-2 flex">
+      <%= button_to renters_path, method: :get, class: "btn btn-primary btn-large" do %>
+        <i class="fa-solid fa-users mr-2"></i>
+        Khách Thuê
+      <%end%>
+      <%= button_to new_room_path, method: :get, class: "btn btn-primary btn-large", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+        <i class="fa-solid fa-list-ol mr-2"></i>
+        Thêm Phòng
+      <% end %>
+    </div>
+  </div>
+  <div class="flex justify-end m-2 mr-6">
+      <%= button_to edit_user_settings_path, method: :get, class: "btn bg-blue-300 btn-large", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+        <i class="fa-solid fa-pen mr-2"></i>
+        Tùy chỉnh các loại phí
+      <% end %>
+  </div>
+  <div id="room-list" class="flex flex-wrap w-full">
+    <%if current_user.rooms.empty?%>
+      <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
+        <h1 class="text-3xl text-red-500">HIỆN TẠI CHƯA CÓ PHÒNG NÀO. CẦN THÊM PHÒNG!!!</h1>
+      </div>
+    <%else%>
+      <%current_user.rooms.each do |room|%>
+        <%= render 'card', room: room%>
+      <%end%>
+    <%end%>
+  </div>
+  <%= render "users/pagination"%>
+</div>
+<%= render "shared/modal"%>

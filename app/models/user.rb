@@ -45,28 +45,32 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable,
          :omniauthable, omniauth_providers: [:google_oauth2]
+
+  # callbacks
   after_create :assign_default_role
+  after_create :skip_confirmation
 
+  # associations
   has_many :rooms, dependent: :destroy
-
-  has_many :user_renters, dependent: :destroy
-  has_many :renters, through: :user_renters
+  has_many :services, dependent: :destroy
+  has_one :setting, dependent: :destroy
 
   def self.from_omniauth(auth)
-    # create a new user with provider and uid followed by google to add to the database.
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.fullname = auth.info.name # assuming the user model has a name.
-      user.avatar_url = auth.info.image # assuming the user model has a image.
-      # If you are using the confirmable and the provider(s) you use validate emails, uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
+      user.fullname = auth.info.name
+      user.avatar_url = auth.info.image
     end
   end
 
   private
 
-  # Add default role to user when you register an account
+  # Temp skip confirm until setup send mail service
+  def skip_confirmation
+    self.confirmed_at = Time.current
+  end
+
   def assign_default_role
     add_role(:user)
   end

@@ -1,0 +1,36 @@
+<div class="main-container">
+    <%= render "shared/flash"%>
+        <div id="left-div" class="left-div">
+            <div class="left-div-child" >
+                <%= render 'users/navigation'%>
+            </div>
+        </div>
+        <div id="right-container" class="right-container">
+            <%= render 'users/topnav'%>
+            <div class="right-div">
+                <!-- table -->
+                <div class="flex flex-col border m-2 border-slate-700 pb-8 mb-10">
+                    <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
+                        <h1 class="text-2xl m-2 font-bold">Danh Sách Các Hóa Đơn</h1>
+                        <div class="m-2 flex">
+                            <button type="button"
+                                class="btn btn-danger btn-large"><i
+                                    class="fa-solid fa-close mr-2"></i>Xóa Tất Cả</button>
+                        </div>
+                    </div>
+                    <div class="m-4">
+                        Tìm:
+                        <input type="text" id="search" placeholder="Nhập mã hóa đơn.." class="w-[200px] m-2 p-2">
+                    </div>
+                    <!-- table -->
+                    <div
+                        class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] lg:max-h-[400px] lg:max-w-full">
+                        <%= render 'table'%>
+                    </div>
+                </div>
+
+
+                <%= render 'users/footer'%>
+            </div>
+        </div>
+    </div>

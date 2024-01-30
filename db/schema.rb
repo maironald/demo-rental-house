@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_22_182500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invoices", force: :cascade do |t|
+    t.string "name"
+    t.decimal "total_price", precision: 10, scale: 2, default: "0.0"
+    t.decimal "paid_money", precision: 10, scale: 2, default: "0.0"
+    t.bigint "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_invoices_on_room_id"
+  end
 
   create_table "renters", force: :cascade do |t|
     t.string "name"
@@ -20,9 +30,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
     t.string "identity"
     t.string "address"
     t.string "gender", default: "f", null: false
-    t.bigint "deposit"
+    t.decimal "deposit"
+    t.string "renter_type", null: false
+    t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_renters_on_room_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -48,12 +61,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
     t.string "name"
     t.integer "length"
     t.integer "width"
-    t.bigint "price_room"
+    t.decimal "price_room"
     t.datetime "rental_period"
-    t.integer "electric_amount_old"
-    t.integer "electric_amount_new"
-    t.integer "water_amout_old"
-    t.integer "water_amout_new"
+    t.integer "electric_amount_old", default: 0
+    t.integer "electric_amount_new", default: 0
+    t.integer "water_amout_old", default: 0
+    t.integer "water_amout_new", default: 0
     t.integer "limit_residents"
     t.text "description"
     t.bigint "user_id", null: false
@@ -70,6 +83,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
     t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.decimal "price_water", default: "0.0"
+    t.decimal "price_electric", default: "0.0"
+    t.decimal "price_internet", default: "0.0"
+    t.decimal "price_trash", default: "0.0"
+    t.decimal "price_security", default: "0.0"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "timesheets", force: :cascade do |t|
@@ -78,15 +104,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "day"
-  end
-
-  create_table "user_renters", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "renter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["renter_id"], name: "index_user_renters_on_renter_id"
-    t.index ["user_id"], name: "index_user_renters_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -130,4 +147,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_12_170850) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "settings", "users"
 end

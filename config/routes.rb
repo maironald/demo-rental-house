@@ -17,14 +17,35 @@ Rails.application.routes.draw do
   end
 
   resource :users do
-    resources :rooms
+    member do
+      resources :rooms
+      resources :services
+      resource :electric_waters, only: %i[show]
+      resource :invoices, only: %i[show_all_invoices] do
+        get 'show_all_invoices'
+      end
+    end
   end
 
-  resource :users do
-    resources :renters
+  resource :user do
+    resource :settings
   end
 
-  resource :users do
-    resources :services
+  resources :rooms do
+    resource :electric_waters, only: %i[edit update]
+    resources :invoices
+    resources :renters, only: %i[new create]
+    resource :renters, only: %i[index] do
+      member do
+        # room and renter
+        get 'show_renters'
+      end
+    end
+  end
+
+  resources :renters, only: %i[destroy index update edit show] do
+    collection do
+      delete 'destroy_all', to: 'renters#destroy_all'
+    end
   end
 end

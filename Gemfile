@@ -14,22 +14,18 @@ gem 'rails', '~> 7.0.6'
 gem 'rails_seeds'
 gem 'redis', '~> 4.0'
 gem 'slim-rails'
-gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'tailwindcss-rails'
-gem 'vite_rails'
-gem 'vite_ruby'
+gem 'vite_rails', '~> 3.0'
 gem 'simple_form'
 gem 'simple_form-tailwind'
 gem 'devise'
 gem 'rolify'
 gem 'seedbank'
-gem "omniauth"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection", "~>1.0"
-# install fontawesome
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~>1.0'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -50,6 +46,8 @@ group :development do
   gem 'spring'
   gem 'web-console'
   gem 'htmlbeautifier'
+  gem 'erb_lint', require: false
+  gem 'better_html'
 end
 
 group :test do
