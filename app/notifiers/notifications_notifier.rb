@@ -5,13 +5,18 @@
 # Notifications.with(record: @post, message: "New post").deliver(User.all)
 
 class NotificationsNotifier < ApplicationNotifier
-  deliver_by :email do |config|
-    config.mailer = 'UserMailer'
-    config.method = 'new_comment'
-    # define the user who will receive the notification
-    config.params = ->(recipient) { { user: recipient } }
-    # config.args = :email_args
-    # config.wait = 5.minutes # it will wait 5 minutes and after that, it will run the job for this recipient to send them an email.
+  # deliver_by :email do |config|
+  #   config.mailer = 'UserMailer'
+  #   config.method = 'new_comment'
+  #   # define the user who will receive the notification
+  #   config.params = ->(recipient) { { user: recipient } }
+  #   # config.args = :email_args
+  #   # config.wait = 5.minutes # it will wait 5 minutes and after that, it will run the job for this recipient to send them an email.
+  # end
+  deliver_by :action_cable do |config|
+    config.channel = 'Noticed::NotificationsChannel'
+    config.stream = -> { recipient }
+    config.message = -> { params.merge(user_id: recipient.id) }
   end
   # notification_methods do
   #   def title

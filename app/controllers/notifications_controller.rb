@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class NotificationsController < ApplicationController
+class NotificationsController < BaseController
   before_action :authenticate_user!
   def index
     @notifications = Noticed::Event.where(type: 'NotificationsNotifier')

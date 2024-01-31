@@ -229,7 +229,9 @@ see video at: <https://www.youtube.com/watch?v=SzX-aBEqnAc>
     ]
     }
 
--
+## Realtime Notification with ActionCable
+
+- "rails generate channel Notifications": to create a channel
 
 - Then type "Comment.last.notification_mentions"
 

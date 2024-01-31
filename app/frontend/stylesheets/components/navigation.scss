@@ -72,6 +72,11 @@
   height: 100%;
   background-color: #9bc9dc;
 }
+
+.menu {
+  flex-wrap: nowrap;
+}
+
 #logo-sidebar {
   li {
     a {

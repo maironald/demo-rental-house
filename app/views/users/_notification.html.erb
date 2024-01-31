@@ -6,7 +6,7 @@
       </div>
     </div>
   </div>
-  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 sm:w-96">
+  <ul id="notifications" tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 sm:w-96 max-h-[400px] overflow-y-auto flex-wrap-none">
     <% user_notifications.each do |notification| %>
       <li class="<%= notification.read_at.nil? ? "": "opacity-60"%>">
         <%= link_to users_notification_path(notification.event_id), data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()", class: "block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do%>
