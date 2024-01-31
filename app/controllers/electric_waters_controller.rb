@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class ElectricWatersController < ApplicationController
-  before_action :authenticate_user!
+class ElectricWatersController < BaseController
   before_action :set_room, only: %i[edit update]
 
   def show

@@ -1,18 +1,22 @@
 <div class="dropdown dropdown-hover dropdown-end">
   <div tabindex="0" role="button" class="m-2">
-    <div class="avatar online">
+    <div class="avatar <%= check_unread_noti ? "online": "offlice"%>">
       <div class="rounded-full">
         <%= vite_image_tag("images/dashboard/bell.png", class: "w-full h-full object-cover rounded-full")%>
       </div>
     </div>
   </div>
-  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-    <li><a>Item 1</a></li>
-    <li>
-      <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" }, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>
-        <%= vite_image_tag("images/navigation/signout.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
-        <span class="ms-3">Đăng xuất</span>
-      <%end%>
-    </li>
+  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 sm:w-96">
+    <% user_notifications.each do |notification| %>
+      <li class="<%= notification.read_at.nil? ? "": "opacity-60"%>">
+        <%= link_to users_notification_path(notification.event_id), data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()", class: "block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do%>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= user_content_notification(notification.event_id).params[:message][:title].to_s%></h5>
+          <div class="flex justify-between">
+            <p class="font-normal text-gray-700 dark:text-gray-400"><%= notification.read_at.nil? ? "Mới": "Đã xem: #{notification.read_at.strftime("%d-%m-%Y")}"%></p>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Đã nhận: <%= notification.created_at.strftime("%d-%m-%Y")%></p>
+          </div>
+        <%end%>
+      </li>
+    <%end%>
   </ul>
 </div>

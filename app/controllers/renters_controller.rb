@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
-class RentersController < ApplicationController
+class RentersController < BaseController
   before_action :set_renter, only: %i[show edit update destroy]
-  before_action :authenticate_user!
 
   def index
     # get all the renters id who have rented a room through current user
     @room_ids = current_user.rooms.pluck(:id)
-    @renters =  if params[:search].present?
-                  @renters = Renter.where('renters.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
-                else
-                  @renters = Renter.where(room_id: @room_ids)
-                end
+    @renters = if params[:search].present?
+                 Renter.where('renters.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
+               else
+                 Renter.where(room_id: @room_ids)
+               end
 
     selected_value = params[:selected_value]
     if selected_value == 'main'

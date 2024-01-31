@@ -22,8 +22,8 @@
     </div>
     <!-- table -->
     <div
-        class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] lg:max-h-[400px] lg:max-w-full">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px]">
+        class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
         <thead
             class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -113,6 +113,6 @@
         </tbody>
       </table>
     </div>
-    <%== render "users/pagination", locals: {pagy: @pagy} %>
+    <%== render "shared/pagination", locals: {pagy: @pagy} %>
   </div>
 <%= render "shared/modal"%>

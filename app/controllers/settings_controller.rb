@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class SettingsController < ApplicationController
-  before_action :authenticate_user!
+class SettingsController < BaseController
   before_action :set_setting, only: %i[edit update]
   def edit; end
 

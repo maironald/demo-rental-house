@@ -189,9 +189,49 @@ link Simple Form: <https://github.com/heartcombo/simple_form>
 
 ## Knowledge about gem Notifier
 
+see video at: <https://www.youtube.com/watch?v=SzX-aBEqnAc>
+
 - install the gem notification: "bundle add noticed"
 - Generate then run the migrations: "rails noticed:install:migrations" and "rails db:migrate"
+- Generate Notifier: "rails generate noticed:notifier NewCommentNotifier"
+- In Migration, it will create 2 tables: noticed_events and noticed_notifications
+
+  - noticed_events: represents an event in your application. For example: when you create a notification, you can specify the type of event, the source of event, and any attached data (payload).
+  - noticed_notification: represents a notification to a user. When you want to send a notification to user, you create an instance of "Noticed:Notification" and associate it with a "Noticed::Event". For example: when you have created "Noticed::Event" done, it will define whom you want to send the notification to.
+
+- In file "new_comment_notifier": you can add "config.params = -> (recipient) {{user: recipient }}" into deliver_by.
+
+- You need add the record and recipient like this into the User Model:
+
+  - has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Noticed::Notification"
+  - has_many :notification_mentions, as: :record, dependent: :destroy, class_name: "Noticed::Event"
+
+- And need add the record like this into Notification Model:
+
+  - has_many :notification_mentions, as: :record, dependent: :destroy, class_name: "Noticed::Event"
+
+- After that, you go to "rails c" and create the first notifications with the code "NewCommentNotifier.with(record: @post, message: "New post").deliver(User.all)" (in that: message is params) ,
+- Another way you can do: "NewCommentNotifier.with(record: @post, foo: :bar ).deliver(User.all)" (in that: foo is params) => this is another way but it will save in db like below:
+
+  - {
+    "foo": {
+    "value": "bar",
+    "\_aj_serialized": "ActiveJob::Serializers::SymbolSerializer"
+    },
+    "\_aj_symbol_keys": [
+    "foo"
+    ]
+    }
+  - {
+    "message": "New post",
+    "\_aj_symbol_keys": [
+    "message"
+    ]
+    }
+
 -
+
+- Then type "Comment.last.notification_mentions"
 
 - System dependencies
 

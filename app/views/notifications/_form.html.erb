@@ -1,0 +1,6 @@
+<%= form_with(url: admins_notifications_path, method: 'post', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
+
+  <%= form.text_field :title, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Tiêu đề:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true %>
+  <%= form.text_area :body, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Nội dung:', label_html: {class: 'mb-2 fw-bold'}, required: true%>
+  <%= form.submit 'Lưu', class: "btn btn-primary w-1/2"%>
+<% end %>

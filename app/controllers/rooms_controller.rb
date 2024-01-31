@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class RoomsController < ApplicationController
+class RoomsController < BaseController
   before_action :set_room, only: %i[show edit update destroy]
-  before_action :authenticate_user!
 
   def index
     count_people_in_room

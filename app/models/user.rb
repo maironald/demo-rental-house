@@ -55,6 +55,9 @@ class User < ApplicationRecord
   has_many :services, dependent: :destroy
   has_one :setting, dependent: :destroy
 
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: 'Noticed::Notification'
+  has_many :notification_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -72,6 +75,18 @@ class User < ApplicationRecord
   end
 
   def assign_default_role
-    add_role(:user)
+    # Check if the user is an admin (you can modify this condition based on your requirements)
+    if admin_condition_met?
+      add_role(:admin)
+    else
+      # Assign the 'user' role by default
+      add_role(:user)
+    end
+  end
+
+  def admin_condition_met?
+    # Implement your logic to determine if the user should have the 'admin' role
+    # For example, you might check if the user's email matches an admin email pattern
+    email.starts_with?('admin')
   end
 end
