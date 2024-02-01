@@ -36,20 +36,10 @@ class InvoicesController < BaseController
 
   def show_all_invoices
     @room_ids = current_user.rooms.pluck(:id)
-    @invoices = if params[:search].present?
-                  Invoice.where('invoices.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
-                else
-                  Invoice.where(room_id: @room_ids)
-                end
-
-    selected_value = params[:selected_value]
-    if selected_value == 'unpaid'
-      @invoices = @invoices.total_price_greater_than_paid_money
-    elsif selected_value == 'paid'
-      @invoices = @invoices.total_price_equal_with_paid_money
-    else
-      @invoices
-    end
+    @invoices = Invoice.where(room_id: @room_ids)
+    @invoices = @invoices.search_by_name(params[:search], @room_ids) if params[:search]
+    @invoices = @invoices.total_price_greater_than_paid_money if params[:selected_value] == 'unpaid'
+    @invoices = @invoices.total_price_equal_with_paid_money if params[:selected_value] == 'paid'
 
     @pagy, @invoices = pagy(@invoices, items: 9)
   end

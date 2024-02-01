@@ -2,7 +2,7 @@
   <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
     <h1 class="text-2xl m-2 font-bold">Danh Sách Khách Hàng</h1>
     <div class="m-2 flex">
-        <%= button_to destroy_all_renters_path, method: :get, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa tất cả không?"} do %><i
+        <%= button_to destroy_all_renters_path, method: :get, class: "btn btn-danger", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa tất cả không?"} do %><i
                 class="fa-solid fa-close mr-2"></i>Xóa Tất Cả<% end %>
     </div>
   </div>
@@ -39,7 +39,7 @@
                 Email
               </th>
               <th scope="col" class="px-6 py-3">
-                <span class="sr-only">Edit</span>
+                <span class="sr-only">Sửa</span>
               </th>
             </tr>
         </thead>

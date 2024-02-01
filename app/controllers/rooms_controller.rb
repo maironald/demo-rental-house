@@ -5,21 +5,11 @@ class RoomsController < BaseController
 
   def index
     count_people_in_room
-    @rooms = if params[:search].present?
-               current_user.rooms.where('name LIKE ?', "%#{params[:search]}%")
-             else
-               current_user.rooms.all
-             end
-
-    selected_value = params[:selected_value]
     @room_ids = Renter.distinct.pluck(:room_id)
-    if selected_value == 'rented'
-      @rooms = @rooms.where(id: @room_ids)
-    elsif selected_value == 'empty'
-      @rooms = @rooms.where.not(id: @room_ids)
-    else
-      @rooms
-    end
+    @rooms = current_user.rooms.all
+    @rooms = @rooms.search_by_name(params[:search]) if params[:search]
+    @rooms = @rooms.filter_room_rented(@room_ids) if params[:selected_value] == 'rented'
+    @rooms = @rooms.filter_room_empty(@room_ids) if params[:selected_value] == 'empty'
 
     @total_rooms = @rooms.count
     @pagy, @rooms = pagy(@rooms, items: 9)

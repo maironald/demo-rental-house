@@ -2,10 +2,10 @@
   <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
     <h1 class="text-2xl m-2 font-bold">Danh Sách Dịch Vụ Đã Chi</h1>
     <div class="m-2 flex">
-        <%= button_to new_service_path, method: :get, class: "btn btn-success btn-large", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
+        <%= button_to new_service_path, method: :get, class: "btn btn-success mr-2", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
           <i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ
         <% end %>
-        <button type="button" class="btn btn-danger btn-large"><i
+        <button type="button" class="btn btn-danger"><i
                 class="fa-solid fa-close mr-1"></i>
                 Xóa tất cả
         </button>
@@ -13,13 +13,13 @@
   </div>
   <div class="m-4">
     <form>
-      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Tìm</label>
       <div class="relative w-[350px]">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
           </div>
           <input type="search" id="default-search" class="block w-full p-4 pr-20 mr-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nhập tên dịch vụ..." required>
-          <button type="submit" class="text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+          <button type="submit" class="text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tìm</button>
       </div>
     </form>
   </div>
@@ -74,8 +74,10 @@
                     <%= service.note%>
                   </td>
                   <td class="px-6 py-4 flex justify-center">
-                      <%= button_to "Edit",edit_service_path(service), method: :get, class: "btn btn-primary btn-large", remote: true,  data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
-                      <%= button_to "Delete", service_path(service), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>
+                    <%= render "shared/menu_button" do%>
+                      <%= button_to "Sửa",edit_service_path(service), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true,  data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
+                      <%= button_to "Xóa", service_path(service), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>
+                    <% end %>
                   </td>
               </tr>
             <%end%>
