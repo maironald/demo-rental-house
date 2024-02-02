@@ -9,8 +9,5 @@
   <h1>Phí giữ xe: <%= current_user.setting.price_security%></h1>
   <h1>Phí vệ sinh: <%= current_user.setting.price_trash%></h1>
 
-  <ul>
-
-  <ul>
   <%= render 'form', locals: {renter: @renter, total_price: @total_price}%>
 </div>

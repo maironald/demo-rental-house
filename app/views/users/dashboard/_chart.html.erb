@@ -9,16 +9,16 @@
   <div class="flex justify-around w-full">
     <div class="w-1/2 bg-white rounded-lg m-4 shadow dark:bg-gray-800 p-4 md:p-6">
       <div class="flex justify-between items-start w-full">
-          <div class="flex-col items-center">
-              <div class="flex flex-col items-center mb-1">
-                  <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">
-                    Trạng Thái Phòng
-                  </h3>
-                  <p class="text-md italic mt-5 leading-none text-gray-900 dark:text-white me-1">
-                    Tổng Cộng: <%= @rooms.count%> phòng
-                  </p>
-              </div>
+        <div class="flex-col items-center">
+          <div class="flex flex-col items-center mb-1">
+            <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">
+              Trạng Thái Phòng
+            </h3>
+            <p class="text-md italic mt-5 leading-none text-gray-900 dark:text-white me-1">
+              Tổng Cộng: <%= @rooms.count%> phòng
+            </p>
           </div>
+        </div>
       </div>
 
       <!-- Pie Chart -->
@@ -29,16 +29,16 @@
     <div class="w-1/2 bg-white rounded-lg shadow dark:bg-gray-800 p-4 m-4 md:p-6">
       <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Doanh thu từng tháng</h5>
       <div class="grid grid-cols-2">
-          <dl class="flex items-center">
-            <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Money spent:</dt>
-            <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= @total_benefit_real%> VND</dd>
-          </dl>
-          <dl class="flex items-center justify-end">
-            <dt class="mt-4 mb-4 text-gray-500 dark:text-gray-400 text-sm font-normal me-1">
-              Conversion rate:
-            </dt>
-            <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= (@total_benefit_theory/@total_expenditure).round(2)%>%</dd>
-          </dl>
+        <dl class="flex items-center">
+          <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Money spent:</dt>
+          <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= @total_benefit_real%> VND</dd>
+        </dl>
+        <dl class="flex items-center justify-end">
+          <dt class="mt-4 mb-4 text-gray-500 dark:text-gray-400 text-sm font-normal me-1">
+            Conversion rate:
+          </dt>
+          <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= (@total_benefit_theory/@total_expenditure).round(2)%>%</dd>
+        </dl>
       </div>
 
       <%# Line Chart %>
