@@ -12,10 +12,7 @@ export default class extends Controller {
       (radio) => radio.checked,
     )?.value; // Adjust based on your input type
     // Check the selected value and disable the input if needed
-    console.log(selectedValue);
-
     const shouldDisable = selectedValue !== "main";
-    console.log(shouldDisable);
 
     this.inputToDisableTarget.disabled = shouldDisable;
   }

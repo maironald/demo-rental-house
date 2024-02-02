@@ -3,7 +3,7 @@
         <h1 class="text-2xl m-2 font-bold">Danh Sách Hóa Đơn Theo Từng Phòng</h1>
         <div class="m-2 flex">
             <button type="button"
-                class="btn btn-danger btn-large"><i
+                class="btn btn-danger"><i
                     class="fa-solid fa-close mr-2"></i>Xóa Tất Cả</button>
         </div>
     </div>
@@ -105,8 +105,10 @@
                   <%= Renter.find_by(room_id: Room.find_by(id: invoice.room_id), renter_type: 'main')&.name%>
                 </td>
                 <td class="px-6 py-4 flex justify-center items-center h-full">
-                  <%= button_to "Edit", edit_room_invoice_path(invoice.room_id, invoice), method: :get, class: "btn btn-primary btn-large", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
-                  <%= button_to "Delete", room_invoice_path(invoice.room_id, invoice), method: :delete, class: "btn btn-danger btn-large", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
+                  <%= render "shared/menu_button" do%>
+                    <%= button_to "Sửa", edit_room_invoice_path(invoice.room_id, invoice), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
+                    <%= button_to "Xóa", room_invoice_path(invoice.room_id, invoice), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
+                  <% end %>
                 </td>
             </tr>
           <%end%>

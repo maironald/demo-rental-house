@@ -5,7 +5,8 @@
     <div class="sm:ml-64">
       <%= render 'users/topnav'%>
       <!-- table -->
-      <%= render 'table'%>
+      <%= render 'chart', locals: {data_room: @data_room, data_benefit: @data_benefit, benefits: @benefits, expenses: @expenses}%>
+      <%= render 'table', locals: {rooms_nil: @rooms_nil, invoices_not_pay: @invoices_not_pay}%>
     </div>
   </div>
 </div>

@@ -6,20 +6,9 @@ class RentersController < BaseController
   def index
     # get all the renters id who have rented a room through current user
     @room_ids = current_user.rooms.pluck(:id)
-    @renters = if params[:search].present?
-                 Renter.where('renters.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
-               else
-                 Renter.where(room_id: @room_ids)
-               end
-
-    selected_value = params[:selected_value]
-    if selected_value == 'main'
-      @renters = @renters.where(renter_type: 'main')
-    elsif selected_value == 'member'
-      @renters = @renters.where(renter_type: 'member')
-    else
-      @renters
-    end
+    @renters = Renter.where(room_id: @room_ids)
+    @renters = @renters.search_by_name(params[:search], @room_ids) if params[:search]
+    @renters = @renters.filter_renter_type(params[:selected_value]) if params[:selected_value] == 'main' || params[:selected_value] == 'member'
 
     @pagy, @renters = pagy(@renters, items: 9)
   end

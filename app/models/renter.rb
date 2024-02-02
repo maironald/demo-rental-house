@@ -35,4 +35,7 @@ class Renter < ApplicationRecord
   validates :address, :gender, presence: true
   validates :gender, inclusion: { in: GENDERS }
   validates :renter_type, inclusion: { in: TYPES }
+
+  scope :search_by_name, ->(key, room_ids) { where('renters.name LIKE ? AND room_id IN (?)', "%#{key}%", room_ids) }
+  scope :filter_renter_type, ->(key) { where(renter_type: key) }
 end

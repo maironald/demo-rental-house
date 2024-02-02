@@ -41,6 +41,11 @@ class Room < ApplicationRecord
   validates :limit_residents, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
 
+  # scope
+  scope :search_by_name, ->(key) { where('name ILIKE ?', "%#{key}%") }
+  scope :filter_room_rented, ->(room_ids) { where(id: room_ids) }
+  scope :filter_room_empty, ->(room_ids) { where.not(id: room_ids) }
+
   def calculate_electric_amount
     electric_amount_new - electric_amount_old
   end
