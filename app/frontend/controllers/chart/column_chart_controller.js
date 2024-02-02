@@ -91,7 +91,7 @@ export default class extends Controller {
       ],
       chart: {
         type: "bar",
-        height: "320px",
+        height: "400px",
         fontFamily: "Inter, sans-serif",
         toolbar: {
           show: false,
