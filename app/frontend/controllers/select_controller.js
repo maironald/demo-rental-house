@@ -11,6 +11,5 @@ export default class extends Controller {
     Turbo.visit(`/users/rooms/?selected_value=${selectedValue}`, {
       action: "replace",
     });
-    console.log(selectedValue);
   }
 }

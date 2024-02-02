@@ -6,7 +6,6 @@ export default class extends Controller {
 
   connect() {
     this.renderChart();
-    console.log(this.getValue());
   }
 
   getValue() {
