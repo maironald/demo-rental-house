@@ -6,18 +6,6 @@ export default class extends Controller {
 
   connect() {
     this.renderChart();
-    console.log(this.getBenefitValue());
-    console.log(this.getExpenseValue());
-    console.log(
-      this.getBenefitValue().map((benefit) => {
-        if (benefit[0] === 1) {
-          return benefit[1];
-        }
-        return 0;
-      }),
-    );
-
-    console.log(this.getBenefitByMonth(1));
   }
 
   getBenefitValue() {
@@ -91,7 +79,7 @@ export default class extends Controller {
       ],
       chart: {
         type: "bar",
-        height: "320px",
+        height: "400px",
         fontFamily: "Inter, sans-serif",
         toolbar: {
           show: false,

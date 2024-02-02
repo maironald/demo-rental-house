@@ -2,6 +2,7 @@
 
 class NotificationsController < BaseController
   before_action :authenticate_user!
+  before_action :set_notification, only: %i[show edit update destroy]
   def index
     @notifications = Noticed::Event.where(type: 'NotificationsNotifier')
     @pagy, @notifications = pagy(@notifications, items: 9)
@@ -11,7 +12,6 @@ class NotificationsController < BaseController
     @notification_event = Noticed::Event.find(params[:id])
     @notification = current_user.notifications.find_by(event_id: @notification_event.id)
     @notification.mark_as_read!
-    # debugger
   end
 
   def new; end
@@ -20,17 +20,24 @@ class NotificationsController < BaseController
 
   def create
     NotificationsNotifier.with(message: { title: params[:title], body: params[:body] }).deliver(User.where.not(id: current_user.id))
-    # debugger
     redirect_to admins_notifications_path
   end
 
   def update; end
 
-  def destroy; end
+  def destroy
+    @notification_sending = Noticed::Notification.find_by(event_id: params[:id])
+    @notifications = Noticed::Event.where(type: 'NotificationsNotifier')
+    return unless @notification.destroy && @notification_sending.destroy
+
+    respond_to do |format|
+      format.html { redirect_to admins_notifications_path, notice: 'Notification was successfully deleted.' }
+    end
+  end
 
   private
 
   def set_notification
-    @notification = current_user.notifications.find(params[:id])
+    @notification = Noticed::Event.find(params[:id])
   end
 end
