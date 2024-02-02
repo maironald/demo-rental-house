@@ -36,7 +36,23 @@ class InvoicesController < ApplicationController
   end
 
   def show_all_invoices
-    @invoices = Invoice.all
+    @room_ids = current_user.rooms.pluck(:id)
+    @invoices =  if params[:search].present?
+                  @invoices = Invoice.where('invoices.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
+                else
+                  @invoices = Invoice.where(room_id: @room_ids)
+                end
+
+    selected_value = params[:selected_value]
+    if selected_value == 'unpaid'
+      @invoices = @invoices.total_price_greater_than_paid_money
+    elsif selected_value == 'paid'
+      @invoices = @invoices.total_price_equal_with_paid_money
+    else
+      @invoices
+    end
+
+    @pagy, @invoices = pagy(@invoices, items: 9)
   end
 
   def update
@@ -81,7 +97,7 @@ class InvoicesController < ApplicationController
   def calculate_total_price
     @invoice = Invoice.new
     @room = Room.find(params[:room_id])
-    @renter = Renter.find_by(id: @room.renter_id) || nil
+    @renter = Renter.find_by(room_id: params[:room_id], renter_type: 'main') || nil
     @total_electric_price = (@room.electric_amount_new - @room.electric_amount_old).to_d * current_user.setting.price_electric
     @total_water_price = (@room.water_amout_new - @room.water_amout_old).to_d * current_user.setting.price_water
     @total_price = @total_electric_price + @total_water_price + @room.price_room + current_user.setting.price_internet + current_user.setting.price_security + current_user.setting.price_trash

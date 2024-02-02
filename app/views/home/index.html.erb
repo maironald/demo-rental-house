@@ -59,7 +59,29 @@
       </p>
     </div>
   </div>
-
+  <div class="carousel w-full">
+    <div id="slide1" class="carousel-item relative w-full">
+      <%= vite_image_tag("images/dashboard/image-4.jpg", class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "info1") %>
+      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+        <a href="#slide3" class="btn btn-circle">❮</a>
+        <a href="#slide2" class="btn btn-circle">❯</a>
+      </div>
+    </div>
+    <div id="slide2" class="carousel-item relative w-full">
+      <%= vite_image_tag("images/dashboard/image-5.jpg", class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "info1") %>
+      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+        <a href="#slide1" class="btn btn-circle">❮</a>
+        <a href="#slide3" class="btn btn-circle">❯</a>
+      </div>
+    </div>
+    <div id="slide3" class="carousel-item relative w-full">
+      <%= vite_image_tag("images/dashboard/image-6.jpg", class: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2", alt: "info1") %>
+      <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+        <a href="#slide2" class="btn btn-circle">❮</a>
+        <a href="#slide3" class="btn btn-circle">❯</a>
+      </div>
+    </div>
+  </div>
 
   <div id="default-carousel" class="relative rounded-lg bg-slate-500 ml-6 mr-6 mb-6" data-carousel="slide">
     <!-- Carousel wrapper -->
@@ -109,5 +131,4 @@
       Một số hình ảnh thêm về phần mềm:
     </h1>
   </div>
-  <%= render "users/footer"%>
 </section>

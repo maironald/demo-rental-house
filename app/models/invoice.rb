@@ -16,4 +16,7 @@
 #
 class Invoice < ApplicationRecord
   belongs_to :room
+
+  scope :total_price_greater_than_paid_money, -> { where('total_price > paid_money') }
+  scope :total_price_equal_with_paid_money, -> { where('total_price = paid_money') }
 end

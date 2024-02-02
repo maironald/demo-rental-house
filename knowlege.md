@@ -182,6 +182,17 @@ link Simple Form: <https://github.com/heartcombo/simple_form>
     render turbo_stream.replace('items_frame', partial: 'items/list', locals: { items: @updated_items })
     end
 
+## Knowledge about gem Pagy
+
+- <https://github.com/ddnexus/pagy?tab=readme-ov-file>
+- Note: you can customize css by using tailwind css (see file pagy.scss)
+
+## Knowledge about gem Notifier
+
+- install the gem notification: "bundle add noticed"
+- Generate then run the migrations: "rails noticed:install:migrations" and "rails db:migrate"
+-
+
 - System dependencies
 
 - Configuration
