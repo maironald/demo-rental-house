@@ -2,6 +2,15 @@
 
 module Admins
   class DashboardController < BaseController
-    def index; end
+    def index
+      @users = if params[:search].present?
+                 User.where('email LIKE ?', "%#{params[:search]}%")
+               else
+                 User.with_role(:user)
+               end
+      @count = @users.count
+
+      @pagy, @users = pagy(@users, items: 9)
+    end
   end
 end

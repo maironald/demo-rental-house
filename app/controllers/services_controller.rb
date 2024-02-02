@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class ServicesController < ApplicationController
+class ServicesController < BaseController
   before_action :set_service, only: %i[show edit update destroy]
-  before_action :authenticate_user!
 
   def index
     @services = current_user.services.all

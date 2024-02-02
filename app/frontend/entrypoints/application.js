@@ -8,4 +8,6 @@ import "@/controllers/shared";
 import "@/controllers/users";
 import "@/controllers/rooms";
 
+import "@/channels";
+
 import.meta.globEager("@/images/**/*.svg");

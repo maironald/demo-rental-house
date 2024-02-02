@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class InvoicesController < ApplicationController
-  before_action :authenticate_user!
+class InvoicesController < BaseController
   before_action :calculate_total_price, only: %i[new create edit update]
   before_action :set_total_price_param, only: %i[create update]
   before_action :set_room, only: %i[create]
@@ -37,10 +36,10 @@ class InvoicesController < ApplicationController
 
   def show_all_invoices
     @room_ids = current_user.rooms.pluck(:id)
-    @invoices =  if params[:search].present?
-                  @invoices = Invoice.where('invoices.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
+    @invoices = if params[:search].present?
+                  Invoice.where('invoices.name LIKE ? AND room_id IN (?)', "%#{params[:search]}%", @room_ids)
                 else
-                  @invoices = Invoice.where(room_id: @room_ids)
+                  Invoice.where(room_id: @room_ids)
                 end
 
     selected_value = params[:selected_value]

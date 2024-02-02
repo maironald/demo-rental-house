@@ -48,4 +48,12 @@ Rails.application.routes.draw do
       delete 'destroy_all', to: 'renters#destroy_all'
     end
   end
+
+  resource :admins do
+    resources :notifications
+  end
+
+  resource :users do
+    resources :notifications, only: %i[show]
+  end
 end
