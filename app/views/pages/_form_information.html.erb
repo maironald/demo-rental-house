@@ -14,7 +14,7 @@
     <%= f.input :avatar_url, as: :file, class: "file-input w-full max-w-xs", label: "Avatar: ", label_html: {class: 'mb-2 fw-bold'}%>
   </div>
   <div class="flex justify-center">
-    <%= cl_image_tag(@user.avatar_url, width: 300, height: 300, crop: :fill)  if !@user.avatar_url.nil? %>
+    <%= cl_image_tag(@user.avatar_url.url, width: 300, height: 300, crop: :fill)  if @user.avatar_url.url %>
   </div>
   <%= f.submit 'Lưu', class: "btn w-1/4 btn-primary"%>
 <% end %>
