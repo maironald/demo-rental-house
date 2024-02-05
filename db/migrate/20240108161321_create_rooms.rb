@@ -10,7 +10,7 @@ class CreateRooms < ActiveRecord::Migration[7.0]
       t.datetime :rental_speriod
       t.integer :electric_amount_old
       t.integer :electric_amount_new
-      t.integer :water_amout_oldd
+      t.integer :water_amout_old
       t.integer :water_amout_new
       t.integer :limit_residents
       t.text :description
