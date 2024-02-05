@@ -27,6 +27,8 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~>1.0'
 gem 'pagy'
+gem 'cloudinary'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -36,6 +38,7 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'dotenv-rails'
 end
 
 group :development do

@@ -58,6 +58,9 @@ class User < ApplicationRecord
   has_many :notifications, as: :recipient, dependent: :destroy, class_name: 'Noticed::Notification'
   has_many :notification_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
 
+  # settings for user uploading avatar
+  mount_uploader :avatar_url, AvatarUploader
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

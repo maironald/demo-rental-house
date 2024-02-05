@@ -229,6 +229,12 @@ see video at: <https://www.youtube.com/watch?v=SzX-aBEqnAc>
     ]
     }
 
+## Cloudinary
+
+Link reference about gem cloudinary: <https://github.com/cloudinary/cloudinary_gem?tab=readme-ov-file>
+
+Link reference about cloudinary with Ruby/Rails SDK: <https://cloudinary.com/documentation/rails_integration#landingpage>
+
 ## Realtime Notification with ActionCable
 
 - "rails generate channel Notifications": to create a channel

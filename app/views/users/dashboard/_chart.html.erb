@@ -37,7 +37,7 @@
           <dt class="mt-4 mb-4 text-gray-500 dark:text-gray-400 text-sm font-normal me-1">
             Conversion rate:
           </dt>
-          <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= (@total_benefit_theory/@total_expenditure).round(2)%>%</dd>
+          <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= (@total_benefit_theory/@total_expenditure).round(2) if @total_expenditure!=0%>%</dd>
         </dl>
       </div>
 

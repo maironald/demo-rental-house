@@ -13,7 +13,6 @@ Rails.application.configure do
   # google id with client id and secret id
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = Rails.application.credentials[:google_oauth2_client_id]
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = Rails.application.credentials[:google_oauth2_client_secret]
-
   # Do not eager load code on boot.
   config.eager_load = false
 

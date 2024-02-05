@@ -56,4 +56,11 @@ Rails.application.routes.draw do
   resource :users do
     resources :notifications, only: %i[show]
   end
+
+  resource :pages do
+    collection do
+      get 'edit_information', to: 'pages#edit_information'
+      put 'update_information', to: 'pages#update_information'
+    end
+  end
 end

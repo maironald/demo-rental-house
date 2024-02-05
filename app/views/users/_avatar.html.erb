@@ -2,12 +2,21 @@
   <div tabindex="0" role="button" class="m-2">
     <div class="avatar online">
       <div class="rounded-full">
-        <%= vite_image_tag("images/dashboard/avatar.png", class: "w-full h-full object-cover rounded-full")%>
+        <% if current_user.avatar_url.url%>
+          <%= cl_image_tag(current_user.avatar_url.url, :width => "34px", :height => "34px", :crop => "pad", class: "object-cover rounded-full")%>
+        <% else %>
+          <%= vite_image_tag("images/dashboard/avatar.png", class: "w-full h-full object-cover rounded-full")%>
+        <%end%>
       </div>
     </div>
   </div>
   <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-    <li><a>Item 1</a></li>
+    <li>
+      <%= link_to edit_information_pages_path, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()", class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>
+        <%= vite_image_tag("images/dashboard/user_profile.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+        <span class="ms-3">Thông tin</span>
+      <%end%>
+    </li>
     <li>
       <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Bạn có chắc chắc muốn đăng xuất?" }, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>
         <%= vite_image_tag("images/navigation/signout.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
