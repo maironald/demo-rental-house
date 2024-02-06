@@ -10,7 +10,7 @@ default: &default
 
 development:
   <<: *default
-  database: rental-house-database1
+  database: rental-house-database2
 
   username: postgres
   password: 123456

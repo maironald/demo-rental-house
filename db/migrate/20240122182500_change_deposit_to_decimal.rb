@@ -6,6 +6,6 @@ class ChangeDepositToDecimal < ActiveRecord::Migration[7.0]
   end
 
   def down
-    change_column :renters, :deposit, :bignit
+    change_column :renters, :deposit, :bigint
   end
 end

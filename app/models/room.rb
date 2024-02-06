@@ -6,20 +6,20 @@
 #
 #  id                  :bigint           not null, primary key
 #  description         :text
-#  electric_amount_new :integer          default(0)
-#  electric_amount_old :integer          default(0)
+#  electric_amount_new :integer
+#  electric_amount_old :integer
 #  length              :integer
 #  limit_residents     :integer
 #  name                :string
-#  price_room          :decimal(, )
-#  rental_period       :datetime
-#  water_amout_new     :integer          default(0)
-#  water_amout_old     :integer          default(0)
+#  price_room          :bigint
+#  rental_speriod      :datetime
+#  water_amout_new     :integer
+#  water_amout_old     :integer
 #  width               :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  renter_id           :bigint
-#  user_id             :bigint           not null
+#  user_id             :bigint
 #
 # Indexes
 #
