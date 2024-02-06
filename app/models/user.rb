@@ -49,6 +49,7 @@ class User < ApplicationRecord
   # callbacks
   after_create :assign_default_role
   after_create :skip_confirmation
+  after_create :create_setting
 
   # associations
   has_many :rooms, dependent: :destroy
@@ -91,5 +92,9 @@ class User < ApplicationRecord
     # Implement your logic to determine if the user should have the 'admin' role
     # For example, you might check if the user's email matches an admin email pattern
     email.starts_with?('admin')
+  end
+
+  def create_setting
+    self.setting = Setting.new
   end
 end
