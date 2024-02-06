@@ -2,8 +2,8 @@
   <div tabindex="0" role="button" class="m-2">
     <div class="avatar online">
       <div class="rounded-full">
-        <% if current_user.avatar_url.url%>
-          <%= cl_image_tag(current_user.avatar_url.url, :width => "34px", :height => "34px", :crop => "pad", class: "object-cover rounded-full")%>
+        <% if current_user.avatar.url%>
+          <%= cl_image_tag(current_user.avatar.url, :width => "34px", :height => "34px", :crop => "pad", class: "object-cover rounded-full")%>
         <% else %>
           <%= vite_image_tag("images/dashboard/avatar.png", class: "w-full h-full object-cover rounded-full")%>
         <%end%>

@@ -23,6 +23,6 @@ class PagesController < BaseController
   private
 
   def user_params
-    params.require(:user).permit(:fullname, :address, :phone_number, :email, :avatar_url)
+    params.require(:user).permit(:fullname, :address, :phone_number, :email, :avatar)
   end
 end

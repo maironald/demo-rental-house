@@ -6,7 +6,7 @@
 #
 #  id                     :bigint           not null, primary key
 #  address                :string           default(""), not null
-#  avatar_url             :string
+#  avatar                 :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -60,14 +60,14 @@ class User < ApplicationRecord
   has_many :notification_mentions, as: :record, dependent: :destroy, class_name: 'Noticed::Event'
 
   # settings for user uploading avatar
-  mount_uploader :avatar_url, AvatarUploader
+  mount_uploader :avatar, AvatarUploader
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.fullname = auth.info.name
-      user.avatar_url = auth.info.image
+      user.avatar = auth.info.image
     end
   end
 
