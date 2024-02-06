@@ -3,6 +3,7 @@
 module Users
   class DashboardController < BaseController
     def index
+      @user = current_user
       amount_room_for_dashboard
       calculate_total_benefit_theory
       calculate_total_benefit_real
@@ -58,8 +59,10 @@ module Users
     end
 
     def benefit_for_month
+      @room_ids_invoice = current_user.rooms.pluck(:id)
       @profit_by_month = Invoice
                          .select('EXTRACT(MONTH FROM created_at) as benefit_month, SUM(paid_money) as monthly_profit')
+                         .where(room_id: @room_ids_invoice)
                          .group('benefit_month')
                          .order('benefit_month')
       @benefits = @profit_by_month.map { |record| [record['benefit_month'], record['monthly_profit']] }

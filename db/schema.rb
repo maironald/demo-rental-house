@@ -84,15 +84,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.string "name"
     t.integer "length"
     t.integer "width"
-    t.decimal "price_room"
-    t.datetime "rental_period"
-    t.integer "electric_amount_old", default: 0
-    t.integer "electric_amount_new", default: 0
-    t.integer "water_amout_old", default: 0
-    t.integer "water_amout_new", default: 0
+    t.bigint "price_room"
+    t.datetime "rental_speriod"
+    t.integer "electric_amount_old"
+    t.integer "electric_amount_new"
+    t.integer "water_amout_old"
+    t.integer "water_amout_new"
     t.integer "limit_residents"
     t.text "description"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "renter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -121,14 +121,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
-  create_table "timesheets", force: :cascade do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.date "day"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -154,7 +146,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.string "phone_number", default: "", null: false
     t.string "fullname"
     t.string "uid"
-    t.string "avatar_url"
+    t.string "avatar"
     t.string "provider"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

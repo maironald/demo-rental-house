@@ -13,7 +13,6 @@ Rails.application.configure do
   # google id with client id and secret id
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = Rails.application.credentials[:google_oauth2_client_id]
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = Rails.application.credentials[:google_oauth2_client_secret]
-
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -40,8 +39,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
-
+  config.active_storage.service = :cloudinary
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

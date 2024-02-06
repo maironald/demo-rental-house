@@ -19,6 +19,9 @@ export default class extends Controller {
   }
 
   getBenefitByMonth(month) {
+    if (this.getBenefitValue().length === 0) {
+      return 0;
+    }
     return this.getBenefitValue().map((benefit) => {
       if (benefit[0] === month) {
         return benefit[1];
@@ -28,6 +31,9 @@ export default class extends Controller {
   }
 
   getExpenseByMonth(month) {
+    if (this.getExpenseValue().length === 0) {
+      return 0;
+    }
     return this.getExpenseValue().map((expense) => {
       if (expense[0] === month) {
         return expense[1];
