@@ -16,14 +16,26 @@ class NotificationsController < BaseController
 
   def new; end
 
-  def edit; end
+  def edit
+    @title = @notification.params[:message][:title]
+    @body = @notification.params[:message][:body]
+  end
 
   def create
     NotificationsNotifier.with(message: { title: params[:title], body: params[:body] }).deliver(User.where.not(id: current_user.id))
     redirect_to admins_notifications_path
   end
 
-  def update; end
+  def update
+    @params = { message: { title: params[:title], body: params[:body] } }
+    if @notification.update(params: @params)
+      respond_to do |format|
+        format.html { redirect_to admins_notifications_path, notice: 'Notification was successfully edited.' }
+      end
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
 
   def destroy
     @notification_sending = Noticed::Notification.find_by(event_id: params[:id])
@@ -36,6 +48,10 @@ class NotificationsController < BaseController
   end
 
   private
+
+  def notification_params
+    params.require(:notification).permit(:title, :body)
+  end
 
   def set_notification
     @notification = Noticed::Event.find(params[:id])

@@ -7,15 +7,28 @@
     <h1 class="text-xl m-6 ml-0 font-serif">Xin chào, <%= current_user.email%></h1>
     <ul class="space-y-2 font-medium">
       <li>
-        <%= link_to admins_dashboard_index_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['admins/dashboard#index'])}" do %>
-          <%= vite_image_tag("images/navigation/renter.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
-          <span class="ms-3">Danh sách người dùng</span>
-        <% end %>
+        <details close class="flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <summary>Danh sách người dùng</summary>
+          <ul class="py-2 space-y-2">
+            <li>
+              <%= link_to admins_dashboard_index_path, class: "flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 #{active_link_class(['admins/dashboard#index'])}" do %>
+                <%= vite_image_tag("images/navigation/renter.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+                <span class="ms-3">Đang hoạt động</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to show_all_users_deleted_admins_dashboard_index_path, class: "flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 #{active_link_class(['admins/dashboard#show_all_users_deleted'])}" do %>
+                <%= vite_image_tag("images/navigation/renter.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
+                <span class="ms-3">Vô hiệu hóa</span>
+              <% end %>
+            </li>
+          </ul>
+        </details>
       </li>
       <li>
         <%= link_to admins_notifications_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group #{active_link_class(['notifications#index'])}" do %>
           <%= vite_image_tag("images/navigation/invoice.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
-          <span class="ms-3">Danh sách các thông báo</span>
+          <span class="ms-3">Danh sách thông báo</span>
         <%end%>
       </li>
       <li>

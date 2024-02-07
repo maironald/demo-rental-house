@@ -235,6 +235,10 @@ Link reference about gem cloudinary: <https://github.com/cloudinary/cloudinary_g
 
 Link reference about cloudinary with Ruby/Rails SDK: <https://cloudinary.com/documentation/rails_integration#landingpage>
 
+## Paranoia
+
+Link reference about paranoia: <https://github.com/rubysherpas/paranoia>
+
 ## Realtime Notification with ActionCable
 
 - "rails generate channel Notifications": to create a channel

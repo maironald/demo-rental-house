@@ -29,6 +29,7 @@ gem 'omniauth-rails_csrf_protection', '~>1.0'
 gem 'pagy'
 gem 'cloudinary'
 gem 'carrierwave'
+gem 'paranoia'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]

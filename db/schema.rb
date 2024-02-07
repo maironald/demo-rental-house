@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_07_090519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
     t.index ["room_id"], name: "index_invoices_on_room_id"
   end
 
@@ -58,6 +60,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_renters_on_deleted_at"
     t.index ["room_id"], name: "index_renters_on_room_id"
   end
 
@@ -96,6 +100,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.bigint "renter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_rooms_on_deleted_at"
     t.index ["renter_id"], name: "index_rooms_on_renter_id"
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
@@ -107,6 +113,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_services_on_deleted_at"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -118,6 +126,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_settings_on_deleted_at"
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
@@ -148,7 +158,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_29_075719) do
     t.string "uid"
     t.string "avatar"
     t.string "provider"
+    t.datetime "deleted_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
