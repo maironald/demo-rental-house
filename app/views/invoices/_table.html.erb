@@ -75,7 +75,7 @@
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="<%= @invoices.length < 4 ? 'text-lg' :  'text-md'%>">
         <% @invoices.each do |invoice|%>
           <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -101,7 +101,7 @@
             <td class="px-6 py-4">
               <%= Renter.find_by(room_id: Room.find_by(id: invoice.room_id), renter_type: 'main')&.name%>
             </td>
-            <td class="px-6 py-4 flex justify-center items-center h-full">
+            <td class="px-6 py-4">
               <%= render "shared/menu_button" do%>
                 <%= button_to "Sửa", edit_room_invoice_path(invoice.room_id, invoice), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
                 <%= button_to "Xóa", room_invoice_path(invoice.room_id, invoice), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>

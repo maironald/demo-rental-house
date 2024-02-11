@@ -31,6 +31,9 @@ gem 'cloudinary'
 gem 'carrierwave'
 gem 'paranoia'
 
+gem 'sentry-ruby'
+gem 'sentry-rails'
+
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec_junit_formatter'

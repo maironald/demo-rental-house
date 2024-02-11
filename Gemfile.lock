@@ -360,6 +360,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.16.1)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.16.1)
+    sentry-ruby (5.16.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -470,6 +475,8 @@ DEPENDENCIES
   rubocop-rspec
   seedbank
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   simple_form
   simple_form-tailwind
   simplecov
