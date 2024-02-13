@@ -4,7 +4,8 @@ class ServicesController < BaseController
   before_action :set_service, only: %i[show edit update destroy]
 
   def index
-    @services = current_user.services.all
+    current_user_with_services = User.includes(:services).find(current_user.id)
+    @services = current_user_with_services.services
     @pagy, @services = pagy(@services, items: 9)
   end
 

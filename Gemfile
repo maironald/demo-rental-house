@@ -29,6 +29,7 @@ gem 'omniauth-rails_csrf_protection', '~>1.0'
 gem 'pagy'
 gem 'cloudinary'
 gem 'carrierwave'
+gem 'faker'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -39,6 +40,7 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
