@@ -2,11 +2,9 @@
 
 puts 'Create users'
 
-10.times.each do |n|
-  User.create! do |user|
-    user.email = "user#{n + 1}@trung.com"
-    user.password = '12345678'
-    user.confirmed_at = Time.current
-    user.add_role :user
-  end
+10.times do
+  user = FactoryBot.create(:user, password: '12345678', password_confirmation: '12345678')
+  user.add_role(:user)
+  user.skip_confirmation!
+  user.save
 end

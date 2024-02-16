@@ -30,7 +30,7 @@ class InvoicesController < BaseController
         end
       end
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :found
     end
   end
 

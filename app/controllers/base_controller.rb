@@ -6,7 +6,6 @@ class BaseController < ApplicationController
   helper_method :user_notifications, :user_content_notification, :check_unread_noti
   def user_notifications
     @user_notifications = current_user.notifications
-    # debugger
   end
 
   def user_content_notification(event_id)

@@ -33,6 +33,7 @@ gem 'paranoia'
 
 gem 'sentry-ruby'
 gem 'sentry-rails'
+gem 'faker'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -43,6 +44,7 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -63,6 +65,8 @@ group :test do
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'webdrivers'
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
 end
 
 gem "noticed", "~> 2.0"
