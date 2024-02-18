@@ -4,7 +4,8 @@ class ServicesController < BaseController
   before_action :set_service, only: %i[show edit update destroy]
 
   def index
-    @services = current_user.services.all
+    current_user_with_services = User.includes(:services).find(current_user.id)
+    @services = current_user_with_services.services
     @pagy, @services = pagy(@services, items: 9)
   end
 
@@ -34,7 +35,7 @@ class ServicesController < BaseController
   def update
     if @service.update(service_params)
       respond_to do |format|
-        format.html { redirect_to services_path, notice: 'Service was successfully created.' }
+        format.html { redirect_to services_path, notice: 'Service was successfully updated.' }
         # format.turbo_stream
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('service-list', partial: 'services/table', locals: { service: @service }), turbo_stream.remove('my_modal_4')]

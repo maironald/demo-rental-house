@@ -41,7 +41,7 @@
           </th>
         </tr>
       </thead>
-      <tbody id="renter-list" class="<%= @users.length < 4 ? 'text-lg' :  'text-md'%>">
+      <tbody id="renter-list" class="<%= @users.length < 5 ? 'text-lg' :  'text-md'%>">
         <% @users.each_with_index do |user, index|%>
           <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">

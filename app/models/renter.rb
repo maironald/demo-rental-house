@@ -29,12 +29,12 @@ class Renter < ApplicationRecord
   TYPES = %w[main member].freeze
 
   # associations
-  has_one :rooms, dependent: nil
+  has_one :room, dependent: nil
 
   # validations
   validates :name, presence: true, length: { maximum: 50 }
-  validates :phone_number, presence: true, length: { maximum: 20 }
-  validates :identity, presence: true, length: { maximum: 20 }
+  validates :phone_number, presence: true, length: { maximum: 30 }
+  validates :identity, presence: true, length: { maximum: 30 }
   validates :address, :gender, presence: true
   validates :gender, inclusion: { in: GENDERS }
   validates :renter_type, inclusion: { in: TYPES }

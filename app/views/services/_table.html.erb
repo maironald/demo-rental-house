@@ -2,7 +2,7 @@
   <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
     <h1 class="text-2xl m-2 font-bold">Danh Sách Dịch Vụ Đã Chi</h1>
     <div class="m-2 flex">
-        <%= button_to new_service_path, method: :get, class: "btn btn-success mr-2", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
+        <%= button_to new_service_path, method: :get, class: "btn bg-[#063970] hover:bg-[#1e81b0] text-white mr-2", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
           <i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ
         <% end %>
     </div>
@@ -53,7 +53,7 @@
               </th>
             </tr>
           </thead>
-          <tbody id="service-list" class="<%= @services.length < 4 ? 'text-lg' :  'text-md'%>">
+          <tbody id="service-list" class="<%= @services.length < 5 ? 'text-lg' :  'text-md'%>">
             <% @services.each do |service|%>
               <tr
                   class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">

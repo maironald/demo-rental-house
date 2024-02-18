@@ -19,8 +19,7 @@ module Users
         total_amount_room: @total_amount_room,
         amount_room_nil: @amount_room_nil
       }
-      @room_ids = Renter.distinct.pluck(:room_id)
-      @rooms_nil = current_user.rooms.where.not(id: @room_ids)
+      @rooms_nil = current_user.rooms.left_outer_joins(:renters).where(renters: { room_id: nil })
       @invoices_not_pay = Invoice.where('paid_money < total_price AND room_id IN (?)', @room_ids)
     end
 
@@ -35,19 +34,15 @@ module Users
 
     def calculate_total_benefit_theory
       @total_benefit_theory = 0
-      current_user.rooms.each do |room|
-        Invoice.where(room_id: room.id).find_each do |invoice|
-          @total_benefit_theory += invoice.total_price
-        end
+      current_user.rooms.joins(:invoices).pluck('invoices.total_price').each do |total_price|
+        @total_benefit_theory += total_price
       end
     end
 
     def calculate_total_benefit_real
       @total_benefit_real = 0
-      current_user.rooms.each do |room|
-        Invoice.where(room_id: room.id).find_each do |invoice|
-          @total_benefit_real += invoice.paid_money
-        end
+      current_user.rooms.joins(:invoices).pluck('invoices.paid_money').each do |paid_money|
+        @total_benefit_real += paid_money
       end
     end
 

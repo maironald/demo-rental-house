@@ -50,7 +50,7 @@
               </th>
             </tr>
         </thead>
-        <tbody class="<%= @notifications.length < 4 ? 'text-lg' :  'text-md'%>">
+        <tbody class="<%= @notifications.length < 5 ? 'text-lg' :  'text-md'%>">
           <% @notifications.each_with_index do |notification, index|%>
             <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">

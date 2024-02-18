@@ -13,9 +13,6 @@ class RoomsController < BaseController
 
     @total_rooms = @rooms.count
     @pagy, @rooms = pagy(@rooms, items: 9)
-
-    # @room_ids = Renter.distinct.pluck(:room_id)
-    # @rooms = (@rooms.where if params[:status] == 'US')
   end
 
   def show; end

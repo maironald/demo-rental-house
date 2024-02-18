@@ -241,6 +241,8 @@ Link reference about paranoia: <https://github.com/rubysherpas/paranoia>
 
 ## Realtime Notification with ActionCable
 
+## Factory Bot with Faker
+
 - "rails generate channel Notifications": to create a channel
 
 - Then type "Comment.last.notification_mentions"
