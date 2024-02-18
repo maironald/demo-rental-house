@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+puts 'Create settings'
+
 10.times.each do |n|
   Setting.create! do |setting|
     setting.price_water = 10_000

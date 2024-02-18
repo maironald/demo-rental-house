@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+puts 'Create services'
+
 4.times.each do |n|
   Service.create! do |service|
     service.name = "Dịch vụ #{n + 1}"

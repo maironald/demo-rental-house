@@ -87,6 +87,22 @@
         color: gray;
       }
     }
+    details {
+      &:hover {
+        background-color: rgb(207, 223, 241);
+      }
+      &:active {
+        color: gray;
+      }
+      a {
+        &:hover {
+          background-color: rgb(76, 130, 192);
+        }
+        &:active {
+          color: gray;
+        }
+      }
+    }
     a.active {
       border-right: 5px solid #1328cb;
       background-color: rgb(152, 198, 233);

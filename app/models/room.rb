@@ -5,6 +5,7 @@
 # Table name: rooms
 #
 #  id                  :bigint           not null, primary key
+#  deleted_at          :datetime
 #  description         :text
 #  electric_amount_new :integer
 #  electric_amount_old :integer
@@ -23,10 +24,12 @@
 #
 # Indexes
 #
-#  index_rooms_on_renter_id  (renter_id)
-#  index_rooms_on_user_id    (user_id)
+#  index_rooms_on_deleted_at  (deleted_at)
+#  index_rooms_on_renter_id   (renter_id)
+#  index_rooms_on_user_id     (user_id)
 #
 class Room < ApplicationRecord
+  acts_as_paranoid
   belongs_to :user
   has_many :renters, dependent: :destroy
   # accepts_nested_attributes_for :renter

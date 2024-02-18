@@ -15,8 +15,8 @@ export default class extends Controller {
 
   initializeCharts() {
     const sparklineData = [
-      47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53,
-      61, 27, 54, 43, 19, 46,
+      // 47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53,
+      // 61, 27, 54, 43, 19, 46,
     ];
     const spark1Options = {
       chart: {
@@ -41,7 +41,7 @@ export default class extends Controller {
           data: this.randomizeArray(sparklineData),
         },
       ],
-      labels: [...Array(24).keys()].map((n) => `2018-09-0${n + 1}`),
+      labels: [],
       yaxis: {
         min: 0,
       },
@@ -50,19 +50,23 @@ export default class extends Controller {
       },
       colors: ["#FBBF24"],
       title: {
-        text: `${this.getValue().total_benefit_theory} VND`,
-        offsetX: 30,
+        text: "TỔNG THU LÝ THUYẾT",
+        offsetX: 10,
+        offsetY: 20,
         style: {
           fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          color: "#FBBF24",
         },
       },
       subtitle: {
-        text: "TỔNG THU LÝ THUYẾT",
+        text: `${this.getValue().total_benefit_theory} VND`,
         offsetX: 30,
+        offsetY: 60,
         style: {
-          fontSize: "14px",
+          fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          fontWeight: "bold",
         },
       },
     };
@@ -99,19 +103,23 @@ export default class extends Controller {
       },
       colors: ["#16A34A"],
       title: {
-        text: `${this.getValue().total_benefit_real} VND`,
-        offsetX: 30,
+        text: "TỔNG THU THỰC TẾ",
+        offsetX: 10,
+        offsetY: 20,
         style: {
           fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          color: "#16A34A",
         },
       },
       subtitle: {
-        text: "TỔNG THU THỰC TẾ",
+        text: `${this.getValue().total_benefit_real} VND`,
         offsetX: 30,
+        offsetY: 60,
         style: {
-          fontSize: "14px",
+          fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          fontWeight: "bold",
         },
       },
     };
@@ -148,19 +156,23 @@ export default class extends Controller {
       },
       colors: ["#EF4444"],
       title: {
-        text: `${this.getValue().total_expenditure} VND`,
-        offsetX: 30,
+        text: "TỔNG CHI",
+        offsetX: 10,
+        offsetY: 20,
         style: {
           fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          color: "#EF4444",
         },
       },
       subtitle: {
-        text: "TỔNG CHI",
+        text: `${this.getValue().total_benefit_real} VND`,
         offsetX: 30,
+        offsetY: 60,
         style: {
-          fontSize: "14px",
+          fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          fontWeight: "bold",
         },
       },
     };
@@ -197,19 +209,23 @@ export default class extends Controller {
       },
       colors: ["#008FFB"],
       title: {
-        text: `${this.getValue().total_benefit_real - this.getValue().total_expenditure} VND`,
-        offsetX: 30,
+        text: "TỔNG LỢI NHUẬN",
+        offsetX: 10,
+        offsetY: 20,
         style: {
           fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          color: "#008FFB",
         },
       },
       subtitle: {
-        text: "TỔNG LỢI NHUẬN",
+        text: `${this.getValue().total_benefit_real} VND`,
         offsetX: 30,
+        offsetY: 60,
         style: {
-          fontSize: "14px",
+          fontSize: "24px",
           cssClass: "apexcharts-yaxis-title",
+          fontWeight: "bold",
         },
       },
     };

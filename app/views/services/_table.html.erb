@@ -5,10 +5,6 @@
         <%= button_to new_service_path, method: :get, class: "btn btn-success mr-2", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
           <i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ
         <% end %>
-        <button type="button" class="btn btn-danger">
-          <i class="fa-solid fa-close mr-1"></i>
-          Xóa tất cả
-        </button>
     </div>
   </div>
   <div class="m-4">
@@ -57,7 +53,7 @@
               </th>
             </tr>
           </thead>
-          <tbody id="service-list">
+          <tbody id="service-list" class="<%= @services.length < 4 ? 'text-lg' :  'text-md'%>">
             <% @services.each do |service|%>
               <tr
                   class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -75,7 +71,7 @@
                 <td class="px-6 py-4">
                   <%= service.note%>
                 </td>
-                <td class="px-6 py-4 flex justify-center">
+                <td class="px-6 py-4">
                   <%= render "shared/menu_button" do%>
                     <%= button_to "Sửa",edit_service_path(service), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true,  data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
                     <%= button_to "Xóa", service_path(service), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>

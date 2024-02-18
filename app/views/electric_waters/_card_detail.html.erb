@@ -1,0 +1,15 @@
+<div class="card w-full bg-base-100 shadow-xl">
+  <figure>
+    <%= vite_image_tag("images/room/logo_room5.png", class: "object-cover w-full h-full", alt: "logo_room")%>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Thông tin chi tiết về chỉ số điện và nước!</h2>
+    <p>Chỉ số điện cũ: <span><%= @room.electric_amount_old%></span></p>
+    <p>Chỉ số điện mới: <span><%= @room.electric_amount_new%></span></p>
+    <p>Chỉ số nước cũ: <span><%= @room.water_amout_old %></span></p>
+    <p>Chỉ số nước mới: <span><%= @room.water_amout_new %></span></p>
+    <div class="card-actions justify-end">
+      <%= link_to "Sửa", edit_room_electric_waters_path(@room), method: :get, class: "btn btn-primary w-1/2", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+    </div>
+  </div>
+</div>

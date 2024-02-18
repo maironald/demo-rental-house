@@ -231,6 +231,8 @@ GEM
     orm_adapter (0.5.0)
     pagy (6.4.3)
     parallel (1.24.0)
+    paranoia (2.6.3)
+      activerecord (>= 5.1, < 7.2)
     parser (3.3.0.4)
       ast (~> 2.4.1)
       racc
@@ -358,6 +360,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.16.1)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.16.1)
+    sentry-ruby (5.16.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     simple_form (5.3.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -451,6 +458,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0)
   pagy
+  paranoia
   pg (~> 1.1)
   puma (~> 5.0)
   pundit
@@ -467,6 +475,8 @@ DEPENDENCIES
   rubocop-rspec
   seedbank
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   simple_form
   simple_form-tailwind
   simplecov

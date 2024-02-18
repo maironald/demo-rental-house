@@ -29,7 +29,10 @@ class RoomsController < BaseController
   def create
     @room = current_user.rooms.build(room_params)
     if @room.check_electric_water_amount
-      respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: 'Room was created failed because the amount old is bigger than the amount new.' }
+        format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' }
+      end
     elsif @room.save
       respond_to do |format|
         format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
@@ -44,11 +47,14 @@ class RoomsController < BaseController
   end
 
   def update
-    if @room.check_electric_water_amount
-      respond_to { |format| format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' } }
+    if !check_amount(room_params[:electric_amount_old], room_params[:electric_amount_new]) || !check_amount(room_params[:water_amout_old], room_params[:water_amout_new])
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: 'Room was edited failed because the amount old is bigger than the amount new.' }
+        format.turbo_stream { flash.now[:notice] = 'Room was edited failed because the amount old is bigger than the amount new.' }
+      end
     elsif @room.update(room_params)
       respond_to do |format|
-        redirect_to rooms_path, notice: 'Room was successfully edited.'
+        format.html { redirect_to rooms_path, notice: 'Room was successfully edited.' }
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end
@@ -77,5 +83,11 @@ class RoomsController < BaseController
     @room_total = current_user.rooms.count
     @room_used = Renter.where(room_id: current_user.rooms.pluck(:id), renter_type: 'main').count
     @room_left = @room_total - @room_used
+  end
+
+  def check_amount(old, new)
+    return true if old <= new
+
+    false
   end
 end

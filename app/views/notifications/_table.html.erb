@@ -50,7 +50,7 @@
               </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="<%= @notifications.length < 4 ? 'text-lg' :  'text-md'%>">
           <% @notifications.each_with_index do |notification, index|%>
             <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
@@ -69,9 +69,9 @@
               <td class="px-6 py-4">
                 <%= notification.params[:message][:body].to_s%>
               </td>
-              <td class="px-6 py-4 flex justify-center">
-                 <%= render "shared/menu_button" do%>
-                    <%= button_to "Sửa", method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
+              <td class="px-6 py-4">
+                  <%= render "shared/menu_button" do%>
+                    <%= button_to "Sửa", edit_admins_notification_path(notification), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
                     <%= button_to "Xóa", admins_notification_path(notification), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa thông báo này?" }, remote: true%>
                   <% end %>
               </td>
@@ -82,3 +82,4 @@
   </div>
   <%== render "shared/pagination", locals: {pagy: @pagy} %>
 </div>
+<%= render "shared/modal"%>

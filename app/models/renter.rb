@@ -6,6 +6,7 @@
 #
 #  id           :bigint           not null, primary key
 #  address      :string
+#  deleted_at   :datetime
 #  deposit      :decimal(, )
 #  gender       :string           default("f"), not null
 #  identity     :string
@@ -18,9 +19,11 @@
 #
 # Indexes
 #
-#  index_renters_on_room_id  (room_id)
+#  index_renters_on_deleted_at  (deleted_at)
+#  index_renters_on_room_id     (room_id)
 #
 class Renter < ApplicationRecord
+  acts_as_paranoid
   # constants
   GENDERS = %w[male female].freeze
   TYPES = %w[main member].freeze

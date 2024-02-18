@@ -23,105 +23,56 @@
     </div>
   </div>
   <!-- table -->
-  <div class="flex justify-around flex-wrap">
   <div
       class="relative overflow-x-auto border-dashed border-b shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-      <h1 class="m-4 font-bold text-xl">CHỈ SỐ ĐIỆN: </h1>
-      <table class="w-full text-sm text-left border-dashed border-b rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
-        <thead
-            class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              Tên Phòng
+    <table class="w-full text-sm text-left border-dashed border-b rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
+      <thead
+          class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            STT
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Tên Phòng
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Chỉ số điện đã sử dụng
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Chỉ số nước đã sử dụng
+          </th>
+          <th scope="col" class="px-6 py-3">
+            <span class="sr-only">Sửa</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="<%= @rooms.length < 4 ? 'text-lg' :  'text-md'%>">
+        <% @rooms.each_with_index do |room, index|%>
+          <tr
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <td class="px-6 py-4">
+              <%= index + 1%>
+            </td>
+            <th scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              <%= room.name %>
             </th>
-            <th scope="col" class="px-6 py-3">
-              Chỉ số cũ
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Chỉ số mới
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Đã sử dụng
-            </th>
-            <th scope="col" class="px-6 py-3">
-              <span class="sr-only">Sửa</span>
-            </th>
+            <td class="px-6 py-4">
+              <%= room.electric_amount_new - room.electric_amount_old%>
+            </td>
+            <td class="px-6 py-4">
+              <%= room.water_amout_new - room.water_amout_old%>
+            </td>
+            <td class="px-6 py-4">
+              <%= render "shared/menu_button" do%>
+                <%= button_to "Sửa", edit_room_electric_waters_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+                <%= button_to "Xem chi tiết", show_detail_room_electric_waters_path(room), method: :get, class: "btn btn-ghost w-full text-blue-500", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()", remote: true%>
+              <% end %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @rooms.each do |room|%>
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= room.name %>
-              </th>
-              <td class="px-6 py-4">
-                <%= room.electric_amount_old%>
-              </td>
-              <td class="px-6 py-4">
-                <%= room.electric_amount_new%>
-              </td>
-              <td class="px-6 py-4">
-                <%= room.electric_amount_new - room.electric_amount_old%>
-              </td>
-              <td class="px-6 py-4 flex justify-center items-center h-full">
-                <%= button_to "Edit", edit_room_electric_waters_path(room), method: :get, class: "btn btn-primary", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()"  %>
-              </td>
-            </tr>
-          <%end%>
-        </tbody>
-      </table>
-  </div>
-  <div
-      class="relative overflow-x-auto border-dashed border-b shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-      <h1 class="m-4 font-bold text-xl">CHỈ SỐ NƯỚC: </h1>
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px]">
-        <thead
-            class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              Tên Phòng
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Chỉ số cũ
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Chỉ số mới
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Đã sử dụng
-            </th>
-            <th scope="col" class="px-6 py-3">
-              <span class="sr-only">Edit</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @rooms.each do |room|%>
-            <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= room.name %>
-              </th>
-              <td class="px-6 py-4">
-                <%= room.water_amout_old%>
-              </td>
-              <td class="px-6 py-4">
-                <%= room.water_amout_new%>
-              </td>
-              <td class="px-6 py-4">
-                <%= room.water_amout_new - room.water_amout_old%>
-              </td>
-              <td class="px-6 py-4 flex justify-center items-center h-full">
-                  <%= button_to "Sửa", edit_room_electric_waters_path(room), method: :get, class: "btn btn-primary", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()"  %>
-              </td>
-            </tr>
-          <%end%>
-        </tbody>
-      </table>
-    </div>
+        <%end%>
+      </tbody>
+    </table>
   </div>
 </div>
 <%= render "shared/modal"%>

@@ -1,0 +1,15 @@
+<% if current_user&.has_role?(:admin)%>
+  <div class="relative">
+    <%= render "shared/flash"%>
+    <div>
+      <%= render 'admins/navigation'%>
+      <div class="sm:ml-64">
+        <%= render 'admins/topnav'%>
+        <!-- table -->
+        <%= render 'table'%>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div>You are not authorized in here</div>
+<% end %>

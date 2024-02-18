@@ -12,7 +12,14 @@ Rails.application.routes.draw do
 
   # it will redirect to users dashboard with url 127:0:0:1/admins
   namespace :admins do
-    resources :dashboard
+    resources :dashboard do
+      delete 'delete_user_account', on: :member, to: 'dashboard#delete_user_account'
+      put 'restore_deleted_user', on: :member, to: 'dashboard#restore_deleted_user'
+      delete 'destroy_user_account', on: :member, to: 'dashboard#destroy_user_account'
+      get 'show_all_users_deleted', on: :collection, to: 'dashboard#show_all_users_deleted'
+      put 'update_password_user', on: :member, to: 'dashboard#update_password_user'
+      get 'edit_password_user', on: :member, to: 'dashboard#edit_password_user'
+    end
     root 'dashboard#index'
   end
 
@@ -32,7 +39,12 @@ Rails.application.routes.draw do
   end
 
   resources :rooms do
-    resource :electric_waters, only: %i[edit update]
+    resource :electric_waters, only: %i[edit update] do
+      member do
+        # show detail for electric and water amount
+        get 'show_detail'
+      end
+    end
     resources :invoices
     resources :renters, only: %i[new create]
     resource :renters, only: %i[index] do

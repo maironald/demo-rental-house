@@ -12,6 +12,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
+#  deleted_at             :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0), not null
@@ -35,6 +36,7 @@
 # Indexes
 #
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_deleted_at            (deleted_at)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
@@ -73,6 +75,7 @@
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
+  acts_as_paranoid
   rolify
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
@@ -94,6 +97,9 @@ class User < ApplicationRecord
 
   # settings for user uploading avatar
   mount_uploader :avatar, AvatarUploader
+
+  # scope
+  scope :search_by_email, ->(key) { where('email ILIKE ?', "%#{key}%") }
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

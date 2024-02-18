@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ElectricWatersController < BaseController
-  before_action :set_room, only: %i[edit update]
+  before_action :set_room, only: %i[edit update show_detail]
 
   def show
     @rooms = current_user.rooms
@@ -23,6 +23,8 @@ class ElectricWatersController < BaseController
       render :edit, status: :unprocessable_entity
     end
   end
+
+  def show_detail; end
 
   private
 
