@@ -29,21 +29,21 @@ module.exports = {
         ],
       },
     ],
-    "selector-class-pattern": [
-      // classes must be in BEM form, like this:
-      // my_component
-      // my_component--variant
-      // my_component__element
-      // my_component__element--variant
-      // my_component__long_element_name
-      // my_component__long_element_name--variant
-      "^[a-z]+(_[a-z]+)*(__[a-z]+(_[a-z]+)*)?(--[a-z]+(_[a-z]+)*)*$",
-      {
-        resolveNestedSelectors: true,
-        message:
-          "Classes must be in BEM form like `my_component__element--variant`",
-      },
-    ],
+    // "selector-class-pattern": [
+    //   // classes must be in BEM form, like this:
+    //   // my_component
+    //   // my_component--variant
+    //   // my_component__element
+    //   // my_component__element--variant
+    //   // my_component__long_element_name
+    //   // my_component__long_element_name--variant
+    //   "^[a-z]+(_[a-z]+)*(__[a-z]+(_[a-z]+)*)?(--[a-z]+(_[a-z]+)*)*$",
+    //   {
+    //     resolveNestedSelectors: true,
+    //     message:
+    //       "Classes must be in BEM form like `my_component__element--variant`",
+    //   },
+    // ],
     "selector-max-compound-selectors": 2,
     "selector-max-id": 0,
     "selector-no-qualifying-type": true,

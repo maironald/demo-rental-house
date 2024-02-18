@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.app
+    ports:
+      - 3000:3000
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
+    environment: &web_environment
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - RAILS_MAX_THREADS=${RAILS_MAX_THREADS}
+      - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES}
+      - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT}
+      - RDS_HOSTNAME=${RDS_HOSTNAME}
+      - RDS_PORT=${RDS_PORT}
+      - RDS_DB_NAME=${RDS_DB_NAME}
+      - RDS_USERNAME=${RDS_USERNAME}
+      - RDS_PASSWORD=${RDS_PASSWORD}
+      - APP_HOST=${APP_HOST}
+      - REDIS_URL=${REDIS_URL}
+    volumes:
+      - .:/app
+      - ./config/database.yml.sample:/app/config/database.yml
+      - ./webapp:/app/log
+
+  nginx-proxy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    ports:
+      - 80:80
+    depends_on:
+      - webapp
+    restart: unless-stopped
+    volumes:
+      - ./public:/app/public
+      - ./nginx-proxy:/app/log
