@@ -23,7 +23,9 @@ class NotificationsController < BaseController
 
   def create
     NotificationsNotifier.with(message: { title: params[:title], body: params[:body] }).deliver(User.where.not(id: current_user.id))
-    redirect_to admins_notifications_path
+    respond_to do |format|
+      format.html { redirect_to admins_notifications_path, notice: 'Thông báo được tạo thành công.' }
+    end
   end
 
   def update

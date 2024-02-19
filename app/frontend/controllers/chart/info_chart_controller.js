@@ -166,7 +166,7 @@ export default class extends Controller {
         },
       },
       subtitle: {
-        text: `${this.getValue().total_benefit_real} VND`,
+        text: `${this.getValue().total_expenditure} VND`,
         offsetX: 30,
         offsetY: 60,
         style: {
@@ -219,7 +219,7 @@ export default class extends Controller {
         },
       },
       subtitle: {
-        text: `${this.getValue().total_benefit_real} VND`,
+        text: `${this.getValue().total_benefit_real - this.getValue().total_expenditure} VND`,
         offsetX: 30,
         offsetY: 60,
         style: {

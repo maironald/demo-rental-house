@@ -25,44 +25,48 @@ class RoomsController < BaseController
 
   def create
     @room = current_user.rooms.build(room_params)
-    if @room.check_electric_water_amount
-      respond_to do |format|
+    respond_to do |format|
+      if @room.check_electric_water_amount
         format.html { redirect_to rooms_path, notice: 'Room was created failed because the amount old is bigger than the amount new.' }
         format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' }
-      end
-    elsif @room.save
-      respond_to do |format|
+      elsif @room.save
         format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
         # format.turbo_stream
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace('new_room', partial: 'rooms/form')
+          ], status: :unprocessable_entity
+        end
       end
-    else
-      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    if !check_amount(room_params[:electric_amount_old], room_params[:electric_amount_new]) || !check_amount(room_params[:water_amout_old], room_params[:water_amout_new])
-      respond_to do |format|
+    respond_to do |format|
+      if !check_amount(room_params[:electric_amount_old], room_params[:electric_amount_new]) || !check_amount(room_params[:water_amout_old], room_params[:water_amout_new])
         format.html { redirect_to rooms_path, notice: 'Room was edited failed because the amount old is bigger than the amount new.' }
         format.turbo_stream { flash.now[:notice] = 'Room was edited failed because the amount old is bigger than the amount new.' }
-      end
-    elsif @room.update(room_params)
-      respond_to do |format|
+      elsif @room.update(room_params)
         format.html { redirect_to rooms_path, notice: 'Room was successfully edited.' }
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace('new_room', partial: 'rooms/form')
+          ], status: :unprocessable_entity
+        end
       end
-    else
-      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @room.destroy
+    @room.really_destroy!
     redirect_to rooms_path, notice: 'Room was successfully deleted.'
   end
 

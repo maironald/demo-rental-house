@@ -6,6 +6,7 @@
 #
 #  id           :bigint           not null, primary key
 #  address      :string
+#  deleted_at   :datetime
 #  deposit      :decimal(, )
 #  gender       :string           default("f"), not null
 #  identity     :string
@@ -15,6 +16,11 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  room_id      :bigint
+#
+# Indexes
+#
+#  index_renters_on_deleted_at  (deleted_at)
+#  index_renters_on_room_id     (room_id)
 #
 FactoryBot.define do
   factory :renter do

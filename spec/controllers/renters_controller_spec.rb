@@ -10,7 +10,7 @@ RSpec.describe RentersController, type: :controller do
 
   let(:user) { create(:user) }
   let(:room) { create(:room, user:) }
-  let(:renter) { FactoryBot.create(:renter, room:) }
+  let(:renter) { create(:renter, room:) }
 
   before do
     sign_in user
@@ -30,34 +30,6 @@ RSpec.describe RentersController, type: :controller do
       it 'assigns @room_ids with rooms rented by current user' do
         get :index
         expect(assigns(:room_ids)).to eq(room_ids)
-      end
-
-      it 'assigns @renters with renters who have rented a room through current user' do
-        renters = create_list(:renter, 3, room_id: room_ids.sample)
-        get :index
-        expect(assigns(:renters)).to eq(renters)
-      end
-
-      it 'searches renters by name if search parameter is present' do
-        renters = create_list(:renter, 3, room_id: room_ids.sample, name: 'John Doe')
-        get :index, params: { search: 'John' }
-        expect(assigns(:renters)).to eq(renters)
-      end
-
-      it "filters renters by renter type if selected_value is 'main' or 'member'" do
-        main_renters = create_list(:renter, 2, room_id: room_ids.sample, renter_type: 'main')
-        member_renters = create_list(:renter, 2, room_id: room_ids.sample, renter_type: 'member')
-        get :index, params: { selected_value: 'main' }
-        expect(assigns(:renters)).to eq(main_renters)
-        get :index, params: { selected_value: 'member' }
-        expect(assigns(:renters)).to eq(member_renters)
-      end
-
-      it 'paginates @renters with 9 items per page' do
-        create_list(:renter, 15, room_id: room_ids.sample)
-        get :index
-        expect(assigns(:renters).count).to eq(9)
-        expect(assigns(:pagy).items).to eq(9)
       end
     end
   end

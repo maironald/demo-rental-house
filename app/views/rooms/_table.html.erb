@@ -33,7 +33,10 @@
     </div>
   </div>
   <div class="flex justify-between m-2 mr-6">
-      <div>Đã tìm thấy: <%= @total_rooms%> phòng</div>
+      <div class="italic">
+        <span class="text-red-700">(*) </span>
+        Đã tìm thấy: <%= @total_rooms%> phòng
+      </div>
       <%= button_to edit_user_settings_path, method: :get, class: "btn bg-blue-300", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
         <i class="fa-solid fa-pen mr-2"></i>
         Tùy chỉnh các loại phí
@@ -43,6 +46,10 @@
     <%if current_user.rooms.empty?%>
       <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
         <h1 class="text-3xl text-red-500">HIỆN TẠI CHƯA CÓ PHÒNG NÀO. CẦN THÊM PHÒNG!!!</h1>
+      </div>
+    <%elsif @rooms.empty?%>
+      <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
+        <h1 class="text-3xl text-red-500">KHÔNG CÓ PHÒNG NÀO THỎA MÃN!!</h1>
       </div>
     <%else%>
       <%@rooms.each do |room|%>

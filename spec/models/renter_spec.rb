@@ -35,7 +35,7 @@ RSpec.describe Renter, type: :model do
   end
 
   describe 'associations' do
-    it { should have_one(:room).dependent(nil) }
+    it { should belong_to(:room).dependent(nil) }
   end
 
   describe 'validations' do

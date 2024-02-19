@@ -30,16 +30,20 @@ class RentersController < BaseController
 
     # Find the main renter of the room to replace another new main renter in the same room.
     Renter.find_by(room_id: params[:room_id], renter_type: 'main')&.update(renter_type: 'member') if renter_params[:renter_type] == 'main'
-    if @renter.save
-      respond_to do |format|
+    respond_to do |format|
+      if @renter.save
         format.html { redirect_to rooms_path, notice: 'Renter was successfully created.' }
         # format.turbo_stream
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace('new_renter', partial: 'rooms/form')
+          ], status: :unprocessable_entity
+        end
       end
-    else
-      render :new, status: :unprocessable_entity
     end
   end
 
@@ -59,7 +63,7 @@ class RentersController < BaseController
   end
 
   def destroy
-    @renter.destroy
+    @renter.really_destroy!
     respond_to do |format|
       format.html { redirect_to renters_path, notice: 'Renter was successfully deleted.' }
     end

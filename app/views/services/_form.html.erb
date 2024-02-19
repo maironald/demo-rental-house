@@ -1,7 +1,9 @@
-<%= simple_form_for @service, method: (@service.persisted? ? :put : :post), url: (@service.persisted? ? service_path : services_path ), class: "w-full" do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
-  <%= f.input :price, as: :float, wrapper_html: {class: 'mb-4'}, label: "Price of Service: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
-  <%= f.input :note, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Description:', label_html: {class: 'mb-2 fw-bold'} %>
-  <%= f.submit 'Lưu', class: "btn btn-primary w-1/2" %>
+<%= turbo_frame_tag 'new_service' do %>
+  <%= simple_form_for @service, method: (@service.persisted? ? :put : :post), url: (@service.persisted? ? service_path : services_path ), class: "w-full" do |f| %>
+    <%= f.error_notification %>
+      <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+      <%= f.input :price, as: :float, wrapper_html: {class: 'mb-4'}, label: "Price of Service: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+      <%= f.input :note, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Description:', label_html: {class: 'mb-2 fw-bold'} %>
+      <%= f.submit 'Lưu', class: "btn w-1/4 btn-primary"%>
+  <%end%>
 <%end%>

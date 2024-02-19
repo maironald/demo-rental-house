@@ -19,7 +19,7 @@ development:
 
 test:
   <<: *default
-  database: rails_7_with_vite_template_test
+  database: rental-house-database-test
 
 production:
   <<: *default

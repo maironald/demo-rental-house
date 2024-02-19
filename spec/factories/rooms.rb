@@ -5,6 +5,7 @@
 # Table name: rooms
 #
 #  id                  :bigint           not null, primary key
+#  deleted_at          :datetime
 #  description         :text
 #  electric_amount_new :integer
 #  electric_amount_old :integer
@@ -18,13 +19,12 @@
 #  width               :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  renter_id           :bigint
 #  user_id             :bigint
 #
 # Indexes
 #
-#  index_rooms_on_renter_id  (renter_id)
-#  index_rooms_on_user_id    (user_id)
+#  index_rooms_on_deleted_at  (deleted_at)
+#  index_rooms_on_user_id     (user_id)
 #
 FactoryBot.define do
   factory :room do

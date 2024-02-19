@@ -5,12 +5,18 @@
 # Table name: invoices
 #
 #  id          :bigint           not null, primary key
+#  deleted_at  :datetime
 #  name        :string
-#  paid_money  :decimal(10, 2)   default(0.0)
-#  total_price :decimal(10, 2)   default(0.0)
+#  paid_money  :decimal(, )      default(0.0)
+#  total_price :decimal(, )      default(0.0)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  room_id     :bigint
+#
+# Indexes
+#
+#  index_invoices_on_deleted_at  (deleted_at)
+#  index_invoices_on_room_id     (room_id)
 #
 FactoryBot.define do
   factory :invoice do

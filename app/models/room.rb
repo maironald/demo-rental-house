@@ -19,13 +19,11 @@
 #  width               :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  renter_id           :bigint
 #  user_id             :bigint
 #
 # Indexes
 #
 #  index_rooms_on_deleted_at  (deleted_at)
-#  index_rooms_on_renter_id   (renter_id)
 #  index_rooms_on_user_id     (user_id)
 #
 class Room < ApplicationRecord

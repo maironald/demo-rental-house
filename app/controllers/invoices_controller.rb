@@ -59,7 +59,7 @@ class InvoicesController < BaseController
   end
 
   def destroy
-    @invoice.destroy
+    @invoice.really_destroy!
     respond_to do |format|
       format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully deleted.' }
     end

@@ -19,35 +19,42 @@ class ServicesController < BaseController
 
   def create
     @service = current_user.services.build(service_params)
-    if @service.save
-      respond_to do |format|
+    respond_to do |format|
+      if @service.save
         format.html { redirect_to services_path, notice: 'Service was successfully created.' }
-        # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('service-list', partial: 'services/table', locals: { service: @service }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: turbo_stream.replace('new_service', partial: 'services/form')
+        end
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace('new_service', partial: 'services/form')
+          ], status: :unprocessable_entity
         end
       end
-    else
-      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    if @service.update(service_params)
-      respond_to do |format|
+    respond_to do |format|
+      if @service.update(service_params)
         format.html { redirect_to services_path, notice: 'Service was successfully updated.' }
         # format.turbo_stream
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('service-list', partial: 'services/table', locals: { service: @service }), turbo_stream.remove('my_modal_4')]
         end
+      else
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace('new_service', partial: 'services/form')
+          ], status: :unprocessable_entity
+        end
       end
-    else
-      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @service.destroy
+    @service.really_destroy!
     respond_to do |format|
       format.html { redirect_to services_path, notice: 'Service was successfully deleted.' }
     end

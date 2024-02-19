@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_07_090519) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_19_042952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "invoices", force: :cascade do |t|
     t.string "name"
-    t.decimal "total_price", precision: 10, scale: 2, default: "0.0"
-    t.decimal "paid_money", precision: 10, scale: 2, default: "0.0"
+    t.decimal "total_price", default: "0.0"
+    t.decimal "paid_money", default: "0.0"
     t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -97,12 +97,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_07_090519) do
     t.integer "limit_residents"
     t.text "description"
     t.bigint "user_id"
-    t.bigint "renter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_rooms_on_deleted_at"
-    t.index ["renter_id"], name: "index_rooms_on_renter_id"
     t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
