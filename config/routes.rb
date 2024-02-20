@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  root 'home#index'
+  devise_for :users, controllers: {
+    sessions: 'authentication/sessions',
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
 
-  # it will redirect to users dashboard with url 127:0:0:1/users
   namespace :users do
     resources :dashboard
     root 'dashboard#index'
@@ -75,4 +76,6 @@ Rails.application.routes.draw do
       put 'update_information', to: 'pages#update_information'
     end
   end
+
+  root 'home#index'
 end
