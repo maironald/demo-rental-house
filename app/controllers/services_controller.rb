@@ -23,9 +23,14 @@ class ServicesController < BaseController
       if @service.save
         format.html { redirect_to services_path, notice: 'Service was successfully created.' }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('new_service', partial: 'services/form')
+          render turbo_stream: [
+            # turbo_stream.replace('new_service', partial: 'services/form', locals: { service: Service.new })
+            # Turbo.visit(services_path, 'service-list')
+            turbo_stream.replace('service_list', partial: 'services/list', locals: { services: current_user.services })
+          ]
         end
       else
+        format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace('new_service', partial: 'services/form')
@@ -41,7 +46,7 @@ class ServicesController < BaseController
         format.html { redirect_to services_path, notice: 'Service was successfully updated.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('service-list', partial: 'services/table', locals: { service: @service }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.remove('my_modal_4')]
         end
       else
         format.turbo_stream do

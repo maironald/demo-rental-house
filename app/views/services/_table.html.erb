@@ -2,9 +2,9 @@
   <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
     <h1 class="text-2xl m-2 font-bold">Danh Sách Dịch Vụ Đã Chi</h1>
     <div class="m-2 flex">
-        <%= button_to new_service_path, method: :get, class: "btn bg-[#063970] hover:bg-[#1e81b0] text-white mr-2", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
-          <i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ
-        <% end %>
+      <%= button_to new_service_path, method: :get, class: "btn bg-[#063970] hover:bg-[#1e81b0] text-white mr-2", data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %>
+        <i class="fa-solid fa-plus mr-2"></i>Thêm Dịch vụ
+      <% end %>
     </div>
   </div>
   <div class="m-4">
@@ -53,34 +53,13 @@
           </th>
         </tr>
       </thead>
-      <%= turbo_frame_tag "service-list" do%>
-        <tbody id="service-list" class="<%= @services.length < 5 ? 'text-lg' :  'text-md'%>">
+      <%= turbo_frame_tag "service_list" do%>
+        <tbody class="<%= @services.length < 5 ? 'text-lg' :  'text-md'%>">
           <% @services.each do |service|%>
-            <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= service.created_at.strftime('%d-%m-%Y') %>
-              </th>
-              <th scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= service.name %>
-              </th>
-              <td class="px-6 py-4">
-                <%= service.price%>
-              </td>
-              <td class="px-6 py-4">
-                <%= service.note%>
-              </td>
-              <td class="px-6 py-4">
-                <%= render "shared/menu_button" do%>
-                  <%= button_to "Sửa",edit_service_path(service), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true,  data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
-                  <%= button_to "Xóa", service_path(service), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa dịch vụ này?" }, remote: true%>
-                <% end %>
-              </td>
-            </tr>
+            <%= render partial: "services/service_row", locals: {service: service}%>
           <%end%>
         </tbody>
+        <%- debugger%>
       <%end%>
     </table>
   </div>
