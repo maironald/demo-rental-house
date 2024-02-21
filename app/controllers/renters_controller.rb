@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RentersController < BaseController
+  include ApplicationHelper
   before_action :set_renter, only: %i[show edit update destroy]
 
   def index
@@ -32,47 +33,35 @@ class RentersController < BaseController
     Renter.find_by(room_id: params[:room_id], renter_type: 'main')&.update(renter_type: 'member') if renter_params[:renter_type] == 'main'
     respond_to do |format|
       if @renter.save
-        format.html { redirect_to rooms_path, notice: 'Renter was successfully created.' }
-        # format.turbo_stream
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
-        end
+        reload_rooms_with_create(format, type: :success, message: "The renter '#{@renter.name}' was successfully created.")
       else
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace('new_renter', partial: 'rooms/form')
-          ], status: :unprocessable_entity
-        end
+        render_errors(format, :new)
       end
     end
   end
 
   def update
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
-    if @renter.update(renter_params)
-      respond_to do |format|
-        format.html { redirect_to renters_path, notice: 'Renter was successfully edited.' }
-        # format.turbo_stream
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('my_modal_4')]
-        end
+    respond_to do |format|
+      if @renter.update(renter_params)
+        reload_rooms_with_update_destroy(format, type: :success, message: "The renter '#{@renter.name}' was successfully edited.")
+      else
+        render_errors(format, :edit)
       end
-    else
-      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @renter.really_destroy!
     respond_to do |format|
-      format.html { redirect_to renters_path, notice: 'Renter was successfully deleted.' }
+      reload_rooms_with_update_destroy(format, type: :success, message: "The renter '#{@renter.name}' was successfully deleted.")
     end
   end
 
   def destroy_all
     Renter.destroy_all
     respond_to do |format|
-      format.html { redirect_to renters_path, notice: 'Renter was successfully deleted all.' }
+      reload_rooms_with_update_destroy(format, type: :success, message: 'Renter was successfully deleted all.')
     end
   end
 
@@ -89,5 +78,47 @@ class RentersController < BaseController
 
   def renter_params
     params.require(:renter).permit(:name, :phone_number, :identity, :address, :gender, :renter_type, :deposit)
+  end
+
+  def count_people_in_room
+    @room_total = current_user.rooms.count
+    @room_used = Renter.where(room_id: current_user.rooms.pluck(:id), renter_type: 'main').count
+    @room_left = @room_total - @room_used
+  end
+
+  def reload_rooms_with_create(format, options = {})
+    @rooms = current_user.rooms.all
+    @total_rooms = @rooms.count
+    count_people_in_room
+    @pagy, @rooms = pagy(@rooms, items: 9)
+    format.html { redirect_to rooms_path, notice: options[:message] }
+    format.turbo_stream do
+      flash.now[options[:type]] = options[:message]
+      render turbo_stream: [
+        turbo_stream.remove('my_modal_4'),
+        turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }),
+        render_turbo_stream_flash_messages
+      ]
+    end
+  end
+
+  def reload_rooms_with_update_destroy(format, options = {})
+    @room_ids = current_user.rooms.pluck(:id)
+    @renters = Renter.where(room_id: @room_ids)
+    @pagy, @renters = pagy(@renters, items: 9)
+    format.html { redirect_to renters_path, notice: options[:message] }
+    format.turbo_stream do
+      flash.now[options[:type]] = options[:message]
+      render turbo_stream: [
+        turbo_stream.remove('my_modal_4'),
+        turbo_stream.replace('renter_list', partial: 'renters/table', locals: { renters: @renters }),
+        render_turbo_stream_flash_messages
+      ]
+    end
+  end
+
+  def render_errors(format, action)
+    format.html { render action, status: :unprocessable_entity }
+    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_renter', partial: 'renters/form')] }
   end
 end

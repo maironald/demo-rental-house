@@ -38,27 +38,30 @@ class Room < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :length, presence: true, numericality: { less_than_or_equal_to: 20_000 }
   validates :width, presence: true, numericality: { less_than_or_equal_to: 20_000 }
+  validates :electric_amount_new, presence: true
+  validates :electric_amount_old, presence: true
+
   validates :price_room, presence: true
   validates :limit_residents, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
-
-  validate :check_electric_water_amount
+  validates :water_amout_new, presence: true
+  validates :water_amout_old, presence: true
+  validate :check_electric_amount
+  validate :check_water_amount
   # scope
   scope :search_by_name, ->(key) { where('name ILIKE ?', "%#{key}%") }
   scope :filter_room_rented, ->(room_ids) { where(id: room_ids) }
   scope :filter_room_empty, ->(room_ids) { where.not(id: room_ids) }
 
-  def calculate_electric_amount
-    electric_amount_new - electric_amount_old
+  def check_electric_amount
+    return unless electric_amount_new.present? && electric_amount_old.present? && electric_amount_new <= electric_amount_old
+
+    errors.add(:base_electric, 'The electric amount old is bigger than the new one!')
   end
 
-  def calculate_water_amount
-    water_amout_new - water_amout_old
-  end
+  def check_water_amount
+    return unless water_amout_new.present? && water_amout_old.present? && water_amout_new <= water_amout_old
 
-  def check_electric_water_amount
-    return unless calculate_electric_amount.negative? || calculate_water_amount.negative?
-
-    errors.add(:base, 'The amount old is bigger than the amount new for electric or water')
+    errors.add(:base_water, 'The water amount old is bigger than the new one!')
   end
 end

@@ -1,10 +1,12 @@
-<%= simple_form_for current_user.setting, method: :put, url: user_settings_path do |f| %>
-  <%= f.error_notification %>
+<%= turbo_frame_tag "new_setting" do%>
+  <%= simple_form_for current_user.setting, method: :put, url: user_settings_path do |f| %>
+    <%= f.error_notification %>
 
-  <%= f.input :price_electric, as: :decimal, wrapper_html: {class: 'mb-4'}, label: 'Giá điện (tính theo 1Kwh):', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
-  <%= f.input :price_water, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá Nước (tính theo 1m3):", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :price_security, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá giữ xe (tính theo tháng):", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :price_internet, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá Internet (tính theo tháng):", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :price_trash, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá vệ sinh (tính theo tháng):", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.submit 'Lưu', class: 'btn w-1/2 btn-primary' %>
-<% end %>
+    <%= f.input :price_electric, as: :decimal, wrapper_html: {class: 'mb-4'}, label: 'Giá điện (tính theo 1Kwh):', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+    <%= f.input :price_water, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá Nước (tính theo 1m3):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+    <%= f.input :price_security, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá giữ xe (tính theo tháng):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+    <%= f.input :price_internet, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá Internet (tính theo tháng):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+    <%= f.input :price_trash, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá vệ sinh (tính theo tháng):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+    <%= f.submit 'Lưu', class: 'btn w-1/2 btn-primary' %>
+  <% end %>
+<%end%>

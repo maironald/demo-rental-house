@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class InvoicesController < BaseController
+  include ApplicationHelper
   before_action :calculate_total_price, only: %i[new create edit update]
   before_action :set_total_price_param, only: %i[create update]
   before_action :set_room, only: %i[create]
@@ -20,17 +21,13 @@ class InvoicesController < BaseController
   end
 
   def create
-    @invoice = @room.invoices.build(invoice_params)
-    if @invoice.save
-      respond_to do |format|
-        format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully created.' }
-        # format.turbo_stream
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('my_modal_4')]
-        end
+    respond_to do |format|
+      @invoice = @room.invoices.build(invoice_params)
+      if @invoice.save
+        reload_invoices_with_create(format, type: :success, message: "The invoice '#{@invoice.name}' was successfully created.")
+      else
+        render_errors(format, :new)
       end
-    else
-      render :new, status: :found
     end
   end
 
@@ -45,23 +42,19 @@ class InvoicesController < BaseController
   end
 
   def update
-    if @invoice.update(invoice_params)
-      respond_to do |format|
-        format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully edited.' }
-        # format.turbo_stream
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('my_modal_4')]
-        end
+    respond_to do |format|
+      if @invoice.update(invoice_params)
+        reload_invoices_with_update_destroy(format, type: :success, message: "The invoice '#{@invoice.name}' was successfully edited.")
+      else
+        render_errors(format, :edit)
       end
-    else
-      render :edit
     end
   end
 
   def destroy
     @invoice.really_destroy!
     respond_to do |format|
-      format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully deleted.' }
+      reload_invoices_with_update_destroy(format, type: :success, message: "The invoice '#{@invoice.name}' was successfully deleted.")
     end
   end
 
@@ -90,5 +83,47 @@ class InvoicesController < BaseController
     @total_electric_price = (@room.electric_amount_new - @room.electric_amount_old).to_d * current_user.setting.price_electric
     @total_water_price = (@room.water_amout_new - @room.water_amout_old).to_d * current_user.setting.price_water
     @total_price = @total_electric_price + @total_water_price + @room.price_room + current_user.setting.price_internet + current_user.setting.price_security + current_user.setting.price_trash
+  end
+
+  def count_people_in_room
+    @room_total = current_user.rooms.count
+    @room_used = Renter.where(room_id: current_user.rooms.pluck(:id), renter_type: 'main').count
+    @room_left = @room_total - @room_used
+  end
+
+  def reload_invoices_with_create(format, options = {})
+    @rooms = current_user.rooms.all
+    @total_rooms = @rooms.count
+    count_people_in_room
+    @pagy, @rooms = pagy(@rooms, items: 9)
+    format.html { redirect_to rooms_path, notice: options[:message] }
+    format.turbo_stream do
+      flash.now[options[:type]] = options[:message]
+      render turbo_stream: [
+        turbo_stream.remove('my_modal_4'),
+        turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }),
+        render_turbo_stream_flash_messages
+      ]
+    end
+  end
+
+  def reload_invoices_with_update_destroy(format, options = {})
+    @room_ids = current_user.rooms.pluck(:id)
+    @invoices = Invoice.where(room_id: @room_ids)
+    @pagy, @invoices = pagy(@invoices, items: 9)
+    format.html { redirect_to show_all_invoices_invoices_path, notice: options[:message] }
+    format.turbo_stream do
+      flash.now[options[:type]] = options[:message]
+      render turbo_stream: [
+        turbo_stream.remove('my_modal_4'),
+        turbo_stream.replace('invoice_list', partial: 'invoices/table', locals: { invoices: @invoices }),
+        render_turbo_stream_flash_messages
+      ]
+    end
+  end
+
+  def render_errors(format, action)
+    format.html { render action, status: :unprocessable_entity }
+    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_invoice', partial: 'invoices/invoice_room')] }
   end
 end

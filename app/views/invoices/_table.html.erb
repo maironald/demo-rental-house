@@ -1,117 +1,119 @@
-<div class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-6 pb-8 mr-4 ml-4">
-  <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-    <h1 class="text-2xl m-2 font-bold">Danh Sách Hóa Đơn Theo Từng Phòng</h1>
-    <div class="m-2 flex">
-    </div>
-  </div>
-  <div class="m-4">
-    <%= form_with(url: show_all_invoices_invoices_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
-      <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Còn nợ", "unpaid"],["Hết nợ", "paid"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
-      <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
-      <div class="relative w-[300px] sm:w-[350px] ml-2">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
-        </div>
-        <%= form.text_field :search, type: "search", id: 'default-search', class: "block w-full p-4 pr-20 mr-4 mt-2 lg:mt-0 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Nhập tên hóa đơn..." %>
-        <%= form.submit "Tìm", class: "text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
+<%= turbo_frame_tag "invoice_list" do%>
+  <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-6 pb-8 mr-4 ml-4">
+    <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
+      <h1 class="text-2xl m-2 font-bold">Danh Sách Hóa Đơn Theo Từng Phòng</h1>
+      <div class="m-2 flex">
       </div>
-    <% end %>
-  </div>
-  <!-- table -->
-  <div
-      class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
-      <thead
-          class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="px-6 py-3">
-              Ngày Tạo
-          </th>
-          <th scope="col" class="px-6 py-3">
-              Mã hóa đơn
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <div class="flex items-center">
-              Tổng tiền
-              <a href="#">
-                <%= vite_image_tag 'images/icons/arrange.svg' , class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-              </a>
-            </div>
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <div class="flex items-center">
-              Tiền khách trả
-              <a href="#">
-                <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-              </a>
-            </div>
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <div class="flex items-center">
-              Còn lại
-              <a href="#">
-                <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-              </a>
-            </div>
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <div class="flex items-center">
-              Phòng
-              <a href="#">
-                <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-              </a>
-            </div>
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <div class="flex items-center">
-              Người thuê
-              <a href="#">
-                <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-              </a>
-            </div>
-          </th>
-          <th scope="col" class="px-6 py-3">
-            <span class="sr-only">Edit</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody class="<%= @invoices.length < 5 ? 'text-lg' :  'text-md'%>">
-        <% @invoices.each do |invoice|%>
-          <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <th scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <%= invoice.created_at.strftime('%d-%m-%Y') %>
+    </div>
+    <div class="m-4">
+      <%= form_with(url: show_all_invoices_invoices_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
+        <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Còn nợ", "unpaid"],["Hết nợ", "paid"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
+        <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
+        <div class="relative w-[300px] sm:w-[350px] ml-2">
+          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
+          </div>
+          <%= form.text_field :search, type: "search", id: 'default-search', class: "block w-full p-4 pr-20 mr-4 mt-2 lg:mt-0 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Nhập tên hóa đơn..." %>
+          <%= form.submit "Tìm", class: "text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
+        </div>
+      <% end %>
+    </div>
+    <!-- table -->
+    <div
+        class="relative overflow-x-auto shadow-md sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
+        <thead
+            class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">
+                Ngày Tạo
             </th>
-            <td class="px-6 py-4">
-              <%= invoice.name %>
+            <th scope="col" class="px-6 py-3">
+                Mã hóa đơn
             </th>
-            <td class="px-6 py-4">
-              <%=invoice.total_price%>
-            </td>
-            <td class="px-6 py-4">
-              <%= invoice.paid_money%>
-            </td>
-            <td class="px-6 py-4">
-              <%= invoice.total_price - invoice.paid_money%>
-            </td>
-            <td class="px-6 py-4">
-              <%= Room.find_by(id: invoice.room_id)&.name%>
-            </td>
-            <td class="px-6 py-4">
-              <%= Renter.find_by(room_id: Room.find_by(id: invoice.room_id), renter_type: 'main')&.name%>
-            </td>
-            <td class="px-6 py-4">
-              <%= render "shared/menu_button" do%>
-                <%= button_to "Sửa", edit_room_invoice_path(invoice.room_id, invoice), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
-                <%= button_to "Xóa", room_invoice_path(invoice.room_id, invoice), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
-              <% end %>
-            </td>
+            <th scope="col" class="px-6 py-3">
+              <div class="flex items-center">
+                Tổng tiền
+                <a href="#">
+                  <%= vite_image_tag 'images/icons/arrange.svg' , class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                </a>
+              </div>
+            </th>
+            <th scope="col" class="px-6 py-3">
+              <div class="flex items-center">
+                Tiền khách trả
+                <a href="#">
+                  <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                </a>
+              </div>
+            </th>
+            <th scope="col" class="px-6 py-3">
+              <div class="flex items-center">
+                Còn lại
+                <a href="#">
+                  <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                </a>
+              </div>
+            </th>
+            <th scope="col" class="px-6 py-3">
+              <div class="flex items-center">
+                Phòng
+                <a href="#">
+                  <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                </a>
+              </div>
+            </th>
+            <th scope="col" class="px-6 py-3">
+              <div class="flex items-center">
+                Người thuê
+                <a href="#">
+                  <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                </a>
+              </div>
+            </th>
+            <th scope="col" class="px-6 py-3">
+              <span class="sr-only">Edit</span>
+            </th>
           </tr>
-        <%end%>
-      </tbody>
-    </table>
-  </div>
-    <%== render "shared/pagination", locals: {pagy: @pagy} %>
-  </div>
-<%= render "shared/modal"%>
+        </thead>
+        <tbody class="<%= @invoices.length < 5 ? 'text-lg' :  'text-md'%>">
+          <% @invoices.each do |invoice|%>
+            <tr
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <th scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <%= invoice.created_at.strftime('%d-%m-%Y') %>
+              </th>
+              <td class="px-6 py-4">
+                <%= invoice.name %>
+              </th>
+              <td class="px-6 py-4">
+                <%=invoice.total_price%>
+              </td>
+              <td class="px-6 py-4">
+                <%= invoice.paid_money%>
+              </td>
+              <td class="px-6 py-4">
+                <%= invoice.total_price - invoice.paid_money%>
+              </td>
+              <td class="px-6 py-4">
+                <%= Room.find_by(id: invoice.room_id)&.name%>
+              </td>
+              <td class="px-6 py-4">
+                <%= Renter.find_by(room_id: Room.find_by(id: invoice.room_id), renter_type: 'main')&.name%>
+              </td>
+              <td class="px-6 py-4">
+                <%= render "shared/menu_button" do%>
+                  <%= button_to "Sửa", edit_room_invoice_path(invoice.room_id, invoice), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
+                  <%= button_to "Xóa", room_invoice_path(invoice.room_id, invoice), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
+                <% end %>
+              </td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+      <%== render "shared/pagination", locals: {pagy: @pagy} %>
+    </div>
+  <%= render "shared/modal"%>
+<%end%>

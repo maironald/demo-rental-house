@@ -27,4 +27,10 @@
 class Setting < ApplicationRecord
   acts_as_paranoid
   belongs_to :user
+
+  validates :price_electric, presence: true
+  validates :price_internet, presence: true
+  validates :price_security, presence: true
+  validates :price_trash, presence: true
+  validates :price_water, presence: true
 end

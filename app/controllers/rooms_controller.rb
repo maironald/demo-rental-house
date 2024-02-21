@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class RoomsController < BaseController
+  include ApplicationHelper
   before_action :set_room, only: %i[show edit update destroy]
 
   def index
@@ -27,45 +28,28 @@ class RoomsController < BaseController
     @room = current_user.rooms.build(room_params)
     respond_to do |format|
       if @room.save
-        format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
-        # format.turbo_stream
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
-        end
+        reload_rooms_with_pagination(format, type: :success, message: "The room '#{@room.name}' was successfully created.")
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace('new_room', partial: 'rooms/form')
-          ], status: :unprocessable_entity
-        end
+        render_errors(format, :new)
       end
     end
   end
 
   def update
     respond_to do |format|
-      if !check_amount(room_params[:electric_amount_old], room_params[:electric_amount_new]) || !check_amount(room_params[:water_amout_old], room_params[:water_amout_new])
-        format.html { redirect_to rooms_path, notice: 'Room was edited failed because the amount old is bigger than the amount new.' }
-        format.turbo_stream { flash.now[:notice] = 'Room was edited failed because the amount old is bigger than the amount new.' }
-      elsif @room.update(room_params)
-        format.html { redirect_to rooms_path, notice: 'Room was successfully edited.' }
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
-        end
+      if @room.update(room_params)
+        reload_rooms_with_pagination(format, type: :success, message: "The room '#{@room.name}' was successfully edited.")
       else
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace('new_room', partial: 'rooms/form')
-          ], status: :unprocessable_entity
-        end
+        render_errors(format, :edit)
       end
     end
   end
 
   def destroy
     @room.really_destroy!
-    redirect_to rooms_path, notice: 'Room was successfully deleted.'
+    respond_to do |format|
+      reload_rooms_with_pagination(format, type: :success, message: "The room '#{@room.name}' was successfully deleted.")
+    end
   end
 
   private
@@ -88,5 +72,26 @@ class RoomsController < BaseController
     return true if old <= new
 
     false
+  end
+
+  def reload_rooms_with_pagination(format, options = {})
+    @rooms = current_user.rooms.all
+    @total_rooms = @rooms.count
+    count_people_in_room
+    @pagy, @rooms = pagy(@rooms, items: 9)
+    format.html { redirect_to rooms_path, notice: options[:message] }
+    format.turbo_stream do
+      flash.now[options[:type]] = options[:message]
+      render turbo_stream: [
+        turbo_stream.remove('my_modal_4'),
+        turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }),
+        render_turbo_stream_flash_messages
+      ]
+    end
+  end
+
+  def render_errors(format, action)
+    format.html { render action, status: :unprocessable_entity }
+    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_room', partial: 'rooms/form')] }
   end
 end
