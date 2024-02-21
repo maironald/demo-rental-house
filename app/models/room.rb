@@ -42,6 +42,7 @@ class Room < ApplicationRecord
   validates :limit_residents, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
 
+  validate :check_electric_water_amount
   # scope
   scope :search_by_name, ->(key) { where('name ILIKE ?', "%#{key}%") }
   scope :filter_room_rented, ->(room_ids) { where(id: room_ids) }
@@ -56,6 +57,8 @@ class Room < ApplicationRecord
   end
 
   def check_electric_water_amount
-    calculate_electric_amount.negative? || calculate_water_amount.negative?
+    return unless calculate_electric_amount.negative? || calculate_water_amount.negative?
+
+    errors.add(:base, 'The amount old is bigger than the amount new for electric or water')
   end
 end

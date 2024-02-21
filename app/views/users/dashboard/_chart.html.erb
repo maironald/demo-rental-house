@@ -1,22 +1,23 @@
 <div class="w-full flex flex-wrap sm:flex-row md:justify-around">
-  <div data-controller="info-chart" data-info-chart-benefit-value="<%= @data_benefit.to_json%>" class="flex flex-col w-full lg:flex-row lg:justify-around m-6">
-    <div id="sparkline1" class="w-[320px] sm:w-auto"></div>
-    <div id="sparkline2" class="w-[320px] sm:w-auto mt-2 lg:mt-0"></div>
-    <div id="sparkline3" class="w-[320px] sm:w-auto mt-2 lg:mt-0"></div>
-    <div id="sparkline4" class="w-[320px] sm:w-auto mt-2 lg:mt-0"></div>
+  <div class="grid w-full lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-16 p-4">
+    <%= render partial: "stat_info", locals: { title: "Theory Benefit", value: format_to_vnd(@data_benefit[:total_benefit_theory]), path: show_all_invoices_invoices_path } %>
+    <%= render partial: "stat_info", locals: { title: "Real Benefit", value: format_to_vnd(@data_benefit[:total_benefit_real]), path: show_all_invoices_invoices_path } %>
+    <%= render partial: "stat_info", locals: { title: "Expenditure", value: format_to_vnd(@data_benefit[:total_expenditure]), path: services_path } %>
+    <%= render partial: "stat_info", locals: { title: "Total Revenue", value: format_to_vnd(@data_benefit[:total_benefit_real] - @data_benefit[:total_expenditure]), path: show_all_invoices_invoices_path } %>
   </div>
 
   <div class="flex justify-around w-full flex-wrap sm:flex-nowrap">
-    <div class="sm:w-1/2 bg-white rounded-lg m-4 shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="sm:w-1/2 bg-white rounded-2xl m-4 shadow-xl dark:bg-gray-800 p-4 md:p-6">
       <div class="flex justify-between items-start w-full">
-        <div class="flex-col items-center">
-          <div class="flex flex-col items-center mb-1">
-            <h3 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">
-              Trạng Thái Phòng
+        <div class="flex-col w-full">
+          <div class="flex flex-col mb-1">
+            <h3 class="text-2xl font-bold leading-none text-gray-900 dark:text-white me-1">
+              Rooms Status
             </h3>
-            <p class="text-md italic mt-5 leading-none text-gray-900 dark:text-white me-1">
-              Tổng Cộng: <%= @rooms.count%> phòng
+            <p class="text-lg italic mt-5 leading-none text-center dark:text-white me-1 text-red-600">
+              Total: <%= @rooms.count%> rooms
             </p>
+            <div class="divider mt-2 w-full"></div>
           </div>
         </div>
       </div>
@@ -26,14 +27,15 @@
 
     </div>
 
-    <div class="sm:w-1/2 bg-white rounded-lg shadow dark:bg-gray-800 p-4 m-4 md:p-6">
-      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Doanh thu từng tháng</h5>
-      <div class="grid grid-cols-2">
-        <dl class="flex items-center">
-          <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Money spent:</dt>
-          <dd class="text-gray-900 text-sm dark:text-white font-semibold"><%= @total_benefit_real%> VND</dd>
+    <div class="sm:w-1/2 bg-white rounded-2xl shadow-xl dark:bg-gray-800 p-4 m-4 md:p-6">
+      <h5 class="text-2xl font-bold leading-none text-gray-900 dark:text-white me-1">Revenue each month</h5>
+      <div class="grid mt-2">
+        <dl class="flex items-center justify-center">
+          <dt class="text-gray-500 dark:text-gray-400 text-lg font-normal me-1">Money spent:</dt>
+          <dd class="text-gray-900 text-lg italic dark:text-white font-semibold"><%= format_to_vnd(@total_benefit_real)%> VND</dd>
         </dl>
       </div>
+      <div class="divider mt-2 w-full"></div>
 
       <%# Line Chart %>
       <div id="column-chart" data-controller="column-chart" data-column-chart-benefit-value="<%= @benefits%>" data-column-chart-expense-value="<%= @expenses%>">

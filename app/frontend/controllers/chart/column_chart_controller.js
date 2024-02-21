@@ -85,11 +85,12 @@ export default class extends Controller {
       ],
       chart: {
         type: "bar",
-        height: "400px",
+        height: "500px",
         fontFamily: "Inter, sans-serif",
         toolbar: {
           show: false,
         },
+        background: "#f1f5f9",
       },
       plotOptions: {
         bar: {

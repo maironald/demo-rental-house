@@ -1,4 +1,4 @@
-<div class="skeleton p-4 sm:p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-18 pb-8 mb-10 mr-4 ml-4">
+<div class="skeleton p-4 sm:p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-18 pb-8 mr-4 ml-4">
   <h1 class="text-2xl font-bold ml-4 mt-2 mb-4">Danh sách phòng</h1>
   <div class="flex">
     <div class="lg:flex-row flex flex-col">
@@ -43,13 +43,13 @@
       <% end %>
   </div>
   <div id="room-list" class="flex flex-wrap w-full">
-    <%if current_user.rooms.empty?%>
+    <%if @rooms.empty? && current_user.rooms.count == 0 %>
       <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
         <h1 class="text-3xl text-red-500">HIỆN TẠI CHƯA CÓ PHÒNG NÀO. CẦN THÊM PHÒNG!!!</h1>
       </div>
-    <%elsif @rooms.empty?%>
+    <% elsif @rooms.empty? && current_user.rooms.count != 0 %>
       <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
-        <h1 class="text-3xl text-red-500">KHÔNG CÓ PHÒNG NÀO THỎA MÃN!!</h1>
+        <h1 class="text-3xl text-red-500">Không có phòng nào thỏa.</h1>
       </div>
     <%else%>
       <%@rooms.each do |room|%>

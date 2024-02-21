@@ -26,16 +26,14 @@ class RoomsController < BaseController
   def create
     @room = current_user.rooms.build(room_params)
     respond_to do |format|
-      if @room.check_electric_water_amount
-        format.html { redirect_to rooms_path, notice: 'Room was created failed because the amount old is bigger than the amount new.' }
-        format.turbo_stream { flash.now[:notice] = 'Room was created failed because the amount old is bigger than the amount new.' }
-      elsif @room.save
+      if @room.save
         format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
         # format.turbo_stream
         format.turbo_stream do
           render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
         end
       else
+        format.html { render :new, status: :unprocessable_entity }
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.replace('new_room', partial: 'rooms/form')

@@ -6,12 +6,12 @@
       <%= f.input :length, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều dài căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
       <%= f.input :width, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều rộng căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true %>
       <%= f.input :price_room, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá (tính theo 1 tháng): ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
-      <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện cũ: ", label_html: {class: 'mb-2 fw-bold'}%>
+      <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện cũ: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
     </div>
     <div>
-      <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới: ", label_html: {class: 'mb-2 fw-bold'}%>
-      <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ: ", label_html: {class: 'mb-2 fw-bold'}%>
-      <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới: ", label_html: {class: 'mb-2 fw-bold'}%>
+      <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+      <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+      <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
       <%= f.input :limit_residents, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Số lượng khách tối đa: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
       <%= f.input :description, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Mô tả:', label_html: {class: 'mb-2 fw-bold'}, input_html: {class: 'h-30'} %>
     </div>

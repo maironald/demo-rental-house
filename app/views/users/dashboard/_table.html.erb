@@ -1,101 +1,78 @@
 <div class="w-full flex flex-col sm:flex-row sm:justify-around">
-  <div class="max-w-[350px] w-[300px] sm:w-1/2 sm:max-w-[900px] bg-white rounded-lg m-4 shadow dark:bg-gray-800 p-4 md:p-6 ">
-    <div class="flex justify-between items-start w-full">
-      <div class="flex-col items-center">
-        <div class="flex items-center mb-1">
-          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Danh
-            sách phòng trống</h5>
-        </div>
-      </div>
-    </div>
-    <!-- Table-->
-    <div class="relative overflow-x-auto overflow-y-auto max-h-[200px] sm:max-h-[400px]">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              STT
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Tên phòng
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Giá Phòng
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Số lượng người
-            </th>
-          </tr>
-        </thead>
-        <tbody class="<%= @rooms_nil.length < 5 ? 'text-lg' :  'text-md'%>">
-          <% @rooms_nil.each_with_index do |room, index|%>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= index + 1%>
-              </th>
-              <td class="px-6 py-4">
-                <%= room.name%>
-              </td>
-              <td class="px-6 py-4">
-                <%= room.price_room%>
-              </td>
-              <td class="px-6 py-4">
-                <%= room.limit_residents%>
-              </td>
+  <div class="card w-full p-6 bg-base-100 shadow-xl mt-6 m-4 md:p-6">
+    <div class="text-2xl font-semibold ">List of empty rooms</div>
+    <div class="divider mt-2"></div>
+    <div class="h-full w-full pb-6 bg-base-100">
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead class="text-lg">
+            <tr>
+              <th>Number</th>
+              <th>Room Name</th>
+              <th>Price</th>
+              <th>Max of people</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @rooms_nil.each_with_index do |room, index|%>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th>
+                  <%= index + 1%>
+                </th>
+                <td>
+                  <%= room.name%>
+                </td>
+                <td>
+                  <%= room.price_room%>
+                </td>
+                <td>
+                  <%= room.limit_residents%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <div class="max-w-[350px] w-[300px] sm:w-1/2 sm:max-w-[900px] bg-white rounded-lg m-4 shadow dark:bg-gray-800 p-4 md:p-6 ">
-    <div class="flex justify-between items-start w-full">
-      <div class="flex-col items-center">
-        <div class="flex items-center mb-1">
-          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Danh
-            sách hóa đơn chưa thanh toán đủ
-          </h5>
-        </div>
-      </div>
-    </div>
-    <!-- Table-->
-    <div class="relative overflow-x-auto overflow-y-auto max-h-[200px] sm:max-h-[400px]">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              STT
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Hóa đơn
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Đã trả
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Còn lại
-            </th>
-          </tr>
-        </thead>
-        <tbody class="<%= @invoices_not_pay.length < 5 ? 'text-lg' :  'text-md'%>">
-          <% @invoices_not_pay.each_with_index do |invoice,index|%>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= index + 1%>
-              </th>
-              <td class="px-6 py-4">
-                <%= invoice.name%>
-              </td>
-              <td class="px-6 py-4">
-                <%= invoice.paid_money%>
-              </td>
-              <td class="px-6 py-4">
-                <%= invoice.total_price - invoice.paid_money%>
-              </td>
+  <div class="card w-full p-6 bg-base-100 shadow-xl mt-6 m-4 md:p-6 ">
+    <div class="text-2xl font-semibold ">List of no-paid rooms</div>
+    <div class="divider mt-2"></div>
+    <div class="h-96 w-full pb-6 bg-base-100">
+      <div class="overflow-x-auto overflow-y-auto">
+        <table class="table w-full">
+          <thead class="text-lg">
+            <tr>
+              <th>Number</th>
+              <th>Order Name</th>
+              <th>Total Price</th>
+              <th>Paid Money</th>
+              <th>Left</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @invoices_not_pay.each_with_index do |invoice,index|%>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <%= index + 1%>
+                </th>
+                <td class="px-6 py-4">
+                  <%= invoice.name%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= invoice.total_price%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= invoice.paid_money%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= invoice.total_price - invoice.paid_money%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
