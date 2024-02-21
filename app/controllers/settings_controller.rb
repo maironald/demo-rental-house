@@ -9,7 +9,7 @@ class SettingsController < BaseController
       respond_to do |format|
         format.html { redirect_to rooms_path, notice: 'You change the value price of all services room successfully.' }
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { rooms: @rooms }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { rooms: @rooms }), turbo_stream.remove('remote_modal')]
         end
       end
     else

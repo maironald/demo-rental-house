@@ -12,7 +12,7 @@ class PagesController < BaseController
         format.html { redirect_to users_dashboard_index_path, notice: 'User information was successfully edited.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('remote_modal')]
         end
       end
     elsif @user&.update(user_params) && @user&.has_role?(:admin)

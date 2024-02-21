@@ -6,7 +6,9 @@
       <%= render 'users/topnav'%>
       <div class="right-div">
         <!-- table -->
-        <%= render 'table'%>
+        <%= turbo_frame_tag "service_list" do%>
+          <%= render 'table' %>
+        <%end%>
       </div>
     </div>
   </div>

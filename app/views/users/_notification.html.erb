@@ -10,7 +10,7 @@
     <% if !user_notifications.empty?%>
       <% user_notifications.each do |notification| %>
         <li class="<%= notification.read_at.nil? ? "": "opacity-60"%>">
-          <%= link_to users_notification_path(notification.event_id), data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()", class: "block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do%>
+          <%= link_to users_notification_path(notification.event_id), data: {turbo_stream: ""}, onClick: "remote_modal.showModal()", class: "block max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" do%>
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               <%= user_content_notification(notification.event_id).params[:message][:title].to_s%>
             </h5>

@@ -12,7 +12,7 @@
   </div>
   <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
     <li>
-      <%= link_to edit_information_pages_path, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()", class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>
+      <%= link_to edit_information_pages_path, data: {turbo_stream: "" }, onClick: "remote_modal.showModal()", class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>
         <%= vite_image_tag("images/dashboard/user_profile.svg", class: "w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white") %>
         <span class="ms-3">Thông tin</span>
       <%end%>

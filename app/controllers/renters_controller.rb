@@ -35,7 +35,7 @@ class RentersController < BaseController
         format.html { redirect_to rooms_path, notice: 'Renter was successfully created.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('room-list', partial: 'rooms/table', locals: { room: @room }), turbo_stream.remove('remote_modal')]
         end
       else
         format.turbo_stream do
@@ -54,7 +54,7 @@ class RentersController < BaseController
         format.html { redirect_to renters_path, notice: 'Renter was successfully edited.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('remote_modal')]
         end
       end
     else

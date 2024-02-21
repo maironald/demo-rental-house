@@ -26,7 +26,7 @@ class InvoicesController < BaseController
         format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully created.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('remote_modal')]
         end
       end
     else
@@ -50,7 +50,7 @@ class InvoicesController < BaseController
         format.html { redirect_to show_all_invoices_invoices_path, notice: 'Invoice was successfully edited.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('invoice-list', partial: 'invoices/table', locals: { invoice: @invoice }), turbo_stream.remove('remote_modal')]
         end
       end
     else

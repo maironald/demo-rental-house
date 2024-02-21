@@ -26,7 +26,7 @@
         <i class="fa-solid fa-users mr-2"></i>
         Khách Thuê
       <%end%>
-      <%= button_to new_room_path, method: :get, class: "btn btn-primary", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+      <%= button_to new_room_path, method: :get, class: "btn btn-primary", data: {turbo_stream: "" }, onClick: "remote_modal.showModal()" do %>
         <i class="fa-solid fa-list-ol mr-2"></i>
         Thêm Phòng
       <% end %>
@@ -37,7 +37,7 @@
         <span class="text-red-700">(*) </span>
         Đã tìm thấy: <%= @total_rooms%> phòng
       </div>
-      <%= button_to edit_user_settings_path, method: :get, class: "btn bg-blue-300", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+      <%= button_to edit_user_settings_path, method: :get, class: "btn bg-blue-300", data: {turbo_stream: "" }, onClick: "remote_modal.showModal()" do %>
         <i class="fa-solid fa-pen mr-2"></i>
         Tùy chỉnh các loại phí
       <% end %>

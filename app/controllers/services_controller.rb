@@ -4,9 +4,8 @@ class ServicesController < BaseController
   before_action :set_service, only: %i[show edit update destroy]
 
   def index
-    current_user_with_services = User.includes(:services).find(current_user.id)
-    @services = current_user_with_services.services
-    @pagy, @services = pagy(@services, items: 9)
+    @services = current_user.services.order(created_at: :desc)
+    @pagy, @services = pagy(@services, items: 4)
   end
 
   def show; end
@@ -18,25 +17,21 @@ class ServicesController < BaseController
   def edit; end
 
   def create
-    @service = current_user.services.build(service_params)
-    respond_to do |format|
-      if @service.save
-        format.html { redirect_to services_path, notice: 'Service was successfully created.' }
-        format.turbo_stream do
-          render turbo_stream: [
-            # turbo_stream.replace('new_service', partial: 'services/form', locals: { service: Service.new })
-            # Turbo.visit(services_path, 'service-list')
-            turbo_stream.replace('service_list', partial: 'services/list', locals: { services: current_user.services })
-          ]
-        end
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.replace('new_service', partial: 'services/form')
-          ], status: :unprocessable_entity
-        end
+    @service = current_user.services.new(service_params)
+
+    if @service.save
+      format.html { redirect_to services_path, notice: 'Service was successfully created.' }
+      format.turbo_stream do
+        @pagy, @services = pagy(current_user.services.order(created_at: :desc), items: 5)
+
+        render turbo_stream: [
+          # turbo_stream.prepend("service-#{@service.id}", partial: 'services/service', locals: { service: @service }),
+          turbo_stream.replace('service_list', partial: 'services/table')
+          # turbo_stream.remove('remote_modal')
+        ]
       end
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +41,7 @@ class ServicesController < BaseController
         format.html { redirect_to services_path, notice: 'Service was successfully updated.' }
         # format.turbo_stream
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.remove('remote_modal')]
         end
       else
         format.turbo_stream do

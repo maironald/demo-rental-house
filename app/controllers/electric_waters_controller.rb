@@ -16,7 +16,7 @@ class ElectricWatersController < BaseController
       respond_to do |format|
         format.html { redirect_to electric_waters_path, notice: 'You change the value of water and electric successfully.' }
         format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('amount-list', partial: 'electric_waters/table', locals: { rooms: @rooms }), turbo_stream.remove('my_modal_4')]
+          render turbo_stream: [turbo_stream.prepend('amount-list', partial: 'electric_waters/table', locals: { rooms: @rooms }), turbo_stream.remove('remote_modal')]
         end
       end
     else

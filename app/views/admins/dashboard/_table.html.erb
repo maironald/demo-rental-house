@@ -61,7 +61,7 @@
             <td class="px-6 py-4">
               <%if action_name == "index" %>
                 <%= render "shared/menu_button" do%>
-                  <%= button_to "Đổi mật khẩu", edit_password_user_admins_dashboard_path(user) ,method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
+                  <%= button_to "Đổi mật khẩu", edit_password_user_admins_dashboard_path(user) ,method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "remote_modal.showModal()" %>
                   <%= button_to "Vô hiệu hóa", delete_user_account_admins_dashboard_path(user), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn vô hiệu hóa tài khoản này?" }, remote: true%>
                 <% end %>
               <%else%>

@@ -10,7 +10,7 @@
       <p>
         <%= room.description%>
       </p>
-      <%= button_to show_renters_room_renters_path(room.id), method: :get, class: "btn bg-[#063970] hover:bg-[#1e81b0] w-[155px] sm:w-full text-white", data: { turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+      <%= button_to show_renters_room_renters_path(room.id), method: :get, class: "btn bg-[#063970] hover:bg-[#1e81b0] w-[155px] sm:w-full text-white", data: { turbo_stream: "" }, onClick: "remote_modal.showModal()" do %>
         <i class="fa-solid <%= !Renter.find_by(room_id: room.id).nil? ? "fa-pen": "fa-plus"%> mr-2"></i>
         <%= !Renter.find_by(room_id: room.id).nil? ? "Cập Nhật Khách" : "Thêm Khách"  %>
       <% end %>
@@ -27,11 +27,11 @@
         <i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{room.price_room} VND"%>
       </span>
       <div class="flex justify-around flex-wrap w-full">
-        <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-primary m-1 w-[155px] sm:w-full text-white", data: { turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+        <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-primary m-1 w-[155px] sm:w-full text-white", data: { turbo_stream: "" }, onClick: "remote_modal.showModal()" do %>
           <i class="fa-solid fa-pencil-square mr-2"></i>Xuất Đơn
         <% end %>
         <%= render "shared/menu_button" do%>
-          <%= button_to edit_room_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: { turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+          <%= button_to edit_room_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: { turbo_stream: "" }, onClick: "remote_modal.showModal()" do %>
             <i class="fa-solid fa-pen mr-2"></i>
             Sửa Phòng
           <% end %>

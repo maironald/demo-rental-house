@@ -9,7 +9,7 @@
     <p>Chỉ số nước cũ: <span><%= @room.water_amout_old %></span></p>
     <p>Chỉ số nước mới: <span><%= @room.water_amout_new %></span></p>
     <div class="card-actions justify-end">
-      <%= link_to "Sửa", edit_room_electric_waters_path(@room), method: :get, class: "btn btn-primary w-1/2", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+      <%= link_to "Sửa", edit_room_electric_waters_path(@room), method: :get, class: "btn btn-primary w-1/2", remote: true, data: {turbo_stream: "" }, onClick: "remote_modal.showModal()" %>
     </div>
   </div>
 </div>

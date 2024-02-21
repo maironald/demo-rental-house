@@ -9,7 +9,6 @@
     <%= csp_meta_tag %>
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application', data: {"turbo-track": "reload"}, defer: true %>
-
   </head>
   <body data-controller="flash">
     <% if !user_signed_in? %>
@@ -19,5 +18,6 @@
     <% else %>
       <%= yield %>
     <% end %>
+    <%= turbo_frame_tag 'my_remote_modal', target: '_top' %>
   </body>
 </html>

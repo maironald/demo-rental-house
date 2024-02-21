@@ -1,4 +1,4 @@
-<%= turbo_frame_tag 'new_service' do %>
+<%= turbo_frame_tag @service do %>
   <%= simple_form_for @service, method: (@service.persisted? ? :put : :post), url: (@service.persisted? ? service_path : services_path ), class: "w-full" do |f| %>
     <%= f.error_notification %>
       <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
