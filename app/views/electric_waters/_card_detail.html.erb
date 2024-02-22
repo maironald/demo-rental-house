@@ -3,27 +3,35 @@
     <%= vite_image_tag("images/room/room_amount.jpg", class: "rounded-t-lg  h-[300px] w-[300px]")%>
     <div class="p-5">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Thông tin chi tiết về chỉ số điện và nước của phòng <%= @room.name%> :</h5>
-      <ul class="max-w-md text-xl space-y-1 text-gray-500 list-inside dark:text-gray-400">
-        <li class="flex items-center">
-          <%= vite_image_tag("images/icons/tick_icon.svg", class: "w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0")%>
-          Chỉ số điện cũ: <span class="font-bold text-red-600"><%= @room.electric_amount_old%></span>
-        </li>
-        <li class="flex items-center">
-          <%= vite_image_tag("images/icons/tick_icon.svg", class: "w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0")%>
-          Chỉ số điện mới: <span class="font-bold text-red-600"><%= @room.electric_amount_new%></span>
-        </li>
-        <li class="flex items-center">
-          <%= vite_image_tag("images/icons/tick_icon.svg", class: "w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0")%>
-          <p>Chỉ số nước cũ: <span class="font-bold text-red-600"><%= @room.water_amout_old %></span></p>
-        </li>
-        <li class="flex items-center">
-          <%= vite_image_tag("images/icons/tick_icon.svg", class: "w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0")%>
-          <p>Chỉ số nước mới: <span class="font-bold text-red-600"><%= @room.water_amout_new %></span></p>
-        </li>
-      </ul>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra text-lg">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th class="text-lg text-blue-700">Cũ</th>
+              <th class="text-lg text-blue-700">Mới</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr>
+              <th>Điện</th>
+              <td><%= @room.electric_amount_old%></td>
+              <td><%= @room.electric_amount_new%></td>
+            </tr>
+            <!-- row 2 -->
+            <tr>
+              <th class="text-lg">Nước</th>
+              <td><%= @room.water_amout_old %></td>
+              <td><%= @room.water_amout_new %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <div class="card-actions w-1/3 mt-4">
+  <div class="card-actions w-11/12 mt-4">
       <%= link_to "Sửa", edit_room_electric_waters_path(@room), method: :get, class: "btn btn-primary w-1/2", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
     </div>
 </div>

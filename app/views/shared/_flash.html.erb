@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "flash" do%>
   <div class="fixed z-50 top-3 min-w-1/2 w-auto left-1/2 transform -translate-x-1/2">
-    <div id="toast-success" class="flex items-center max-w-2/3 p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-gray-800 border-solid border-2 border-gray-500" data-controller="flash" data-flash-target="alert" data-action="click->flash#closeAlert" role="alert">
+    <div id="toast-success" class="flex items-center max-w-2/3 p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-gray-800 border-solid border-2 border-gray-500" data-controller="flash" data-flash-target="alert" data-action="click->flash#closeAlert">
       <% flash.each do |type, message| %>
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 <%= alert_variant_class(type) %>">
           <%= vite_image_tag(choose_image_variant(type), class: alert_variant_class(type))%>
