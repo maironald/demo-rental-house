@@ -1,24 +1,21 @@
 # frozen_string_literal: true
 
 class PagesController < BaseController
+  include ApplicationHelper
   def edit_information
     @user = current_user
   end
 
   def update_information
     @user = current_user
-    if @user&.update(user_params) && @user&.has_role?(:user)
-      respond_to do |format|
-        format.html { redirect_to users_dashboard_index_path, notice: 'User information was successfully edited.' }
-        # format.turbo_stream
-        format.turbo_stream do
-          render turbo_stream: [turbo_stream.prepend('renter-list', partial: 'renters/table', locals: { renter: @renter }), turbo_stream.remove('my_modal_4')]
-        end
+    respond_to do |format|
+      if @user&.update(user_params) && @user&.has_role?(:user)
+        reload_page(format, path: users_dashboard_index_path, type: :success, message: 'Your information was successfully updated.')
+      elsif @user&.update(user_params) && @user&.has_role?(:admin)
+        reload_page(format, path: admins_dashboard_index_path, type: :success, message: 'Your information was successfully updated.')
+      else
+        render_errors(format, :edit_information)
       end
-    elsif @user&.update(user_params) && @user&.has_role?(:admin)
-      redirect_to admins_dashboard_index_path
-    else
-      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -26,5 +23,22 @@ class PagesController < BaseController
 
   def user_params
     params.require(:user).permit(:fullname, :address, :phone_number, :email, :avatar)
+  end
+
+  def reload_page(format, options = {})
+    format.html { redirect_to options[:path], notice: options[:message] }
+    format.turbo_stream do
+      flash.now[options[:type]] = options[:message]
+      render turbo_stream: [
+        turbo_stream.remove('my_modal_4'),
+        turbo_stream.replace('avatar_info', partial: 'users/topnav'),
+        render_turbo_stream_flash_messages
+      ]
+    end
+  end
+
+  def render_errors(format, action)
+    format.html { render action, status: :unprocessable_entity }
+    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_user', partial: 'pages/form_information')] }
   end
 end

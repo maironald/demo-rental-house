@@ -56,12 +56,12 @@ class Room < ApplicationRecord
   def check_electric_amount
     return unless electric_amount_new.present? && electric_amount_old.present? && electric_amount_new <= electric_amount_old
 
-    errors.add(:base_electric, 'The electric amount old is bigger than the new one!')
+    errors.add(:base_electric, 'The amount of new electricity needs to be greater than the old one!')
   end
 
   def check_water_amount
     return unless water_amout_new.present? && water_amout_old.present? && water_amout_new <= water_amout_old
 
-    errors.add(:base_water, 'The water amount old is bigger than the new one!')
+    errors.add(:base_water, 'The amount of new water needs to be greater than the old one!')
   end
 end
