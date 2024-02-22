@@ -29,9 +29,9 @@ module Manager
       def filter_by_type
         case params[:selected_value]
         when 'rented'
-          rooms.filter_room_rented(room_ids)
+          rooms.rooms_rented
         when 'empty'
-          rooms.filter_room_empty(room_ids)
+          rooms.rooms_empty
         else
           rooms
         end

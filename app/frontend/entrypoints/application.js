@@ -12,5 +12,3 @@ import "@/controllers/rooms";
 import "@/controllers/chart";
 
 import "@/channels";
-
-import.meta.globEager("@/images/**/*.svg");

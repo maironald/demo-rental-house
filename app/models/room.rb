@@ -48,10 +48,11 @@ class Room < ApplicationRecord
   validates :water_amout_old, presence: true
   validate :check_electric_amount
   validate :check_water_amount
+
   # scope
   scope :search_by_name, ->(key) { where('name ILIKE ?', "%#{key}%") }
-  scope :filter_room_rented, ->(room_ids) { where(id: room_ids) }
-  scope :filter_room_empty, ->(room_ids) { where.not(id: room_ids) }
+  scope :rooms_rented, -> { where.associated(:renters) }
+  scope :rooms_empty, -> { where.missing(:renters) }
 
   def check_electric_amount
     return unless electric_amount_new.present? && electric_amount_old.present? && electric_amount_new <= electric_amount_old

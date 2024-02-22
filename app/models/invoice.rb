@@ -26,4 +26,5 @@ class Invoice < ApplicationRecord
   scope :search_by_name, ->(key, room_ids) { where('name ILIKE ? AND room_id IN (?)', "%#{key}%", room_ids) }
   scope :total_price_greater_than_paid_money, -> { where('total_price > paid_money') }
   scope :total_price_equal_with_paid_money, -> { where('total_price <= paid_money') }
+  scope :not_paid, -> { where('total_price < paid_money') }
 end

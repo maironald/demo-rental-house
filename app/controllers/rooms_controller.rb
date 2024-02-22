@@ -9,8 +9,8 @@ class RoomsController < BaseController
     @room_ids = Renter.distinct.pluck(:room_id)
     @rooms = current_user.rooms.all
     @rooms = @rooms.search_by_name(params[:search]) if params[:search]
-    @rooms = @rooms.filter_room_rented(@room_ids) if params[:selected_value] == 'rented'
-    @rooms = @rooms.filter_room_empty(@room_ids) if params[:selected_value] == 'empty'
+    @rooms = @rooms.rooms_rented if params[:selected_value] == 'rented'
+    @rooms = @rooms.rooms_empty(@room_ids) if params[:selected_value] == 'empty'
 
     @total_rooms = @rooms.count
     @pagy, @rooms = pagy(@rooms, items: 9)

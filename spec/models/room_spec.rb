@@ -46,15 +46,15 @@ RSpec.describe Room, type: :model do
 
   describe 'scopes' do
     it '.search_by_name' do
-      expect(Room).to respond_to(:search_by_name)
+      expect(described_class).to respond_to(:search_by_name)
     end
 
-    it '.filter_room_rented' do
-      expect(Room).to respond_to(:filter_room_rented)
+    it '.rooms_rented' do
+      expect(described_class).to respond_to(:rooms_rented)
     end
 
-    it 'filter_room_empty' do
-      expect(Room).to respond_to(:filter_room_empty)
+    it 'rooms_empty' do
+      expect(described_class).to respond_to(:rooms_empty)
     end
   end
 
