@@ -9,9 +9,8 @@
     <%= csp_meta_tag %>
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application', data: {"turbo-track": "reload"}, defer: true %>
-
   </head>
-  <body data-controller="flash">
+  <body>
     <% if !user_signed_in? %>
       <div class="container-xl mx-auto">
         <%= yield %>

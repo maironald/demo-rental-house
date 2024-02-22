@@ -1,11 +1,10 @@
 <div class="w-full flex flex-wrap sm:flex-row md:justify-around">
   <div class="grid w-full lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-16 p-4">
-    <%= render partial: "stat_info", locals: { title: "Theory Benefit", value: format_to_vnd(@data_benefit[:total_benefit_theory]), path: show_all_invoices_invoices_path } %>
-    <%= render partial: "stat_info", locals: { title: "Real Benefit", value: format_to_vnd(@data_benefit[:total_benefit_real]), path: show_all_invoices_invoices_path } %>
-    <%= render partial: "stat_info", locals: { title: "Expenditure", value: format_to_vnd(@data_benefit[:total_expenditure]), path: services_path } %>
-    <%= render partial: "stat_info", locals: { title: "Total Revenue", value: format_to_vnd(@data_benefit[:total_benefit_real] - @data_benefit[:total_expenditure]), path: show_all_invoices_invoices_path } %>
+    <%= render partial: "stat_info", locals: { title: "Theory Benefit", value: format_to_vnd(@data_benefit[:total_benefit_theory]), path: 'show_all_invoices_invoices_path' } %>
+    <%= render partial: "stat_info", locals: { title: "Real Benefit", value: format_to_vnd(@data_benefit[:total_benefit_real]), path: 'show_all_invoices_invoices_path' } %>
+    <%= render partial: "stat_info", locals: { title: "Expenditure", value: format_to_vnd(@data_benefit[:total_expenditure]), path: 'services_path' } %>
+    <%= render partial: "stat_info", locals: { title: "Total Revenue", value: format_to_vnd(@data_benefit[:total_benefit_real] - @data_benefit[:total_expenditure]), path: 'show_all_invoices_invoices_path' } %>
   </div>
-
   <div class="flex justify-around w-full flex-wrap sm:flex-nowrap">
     <div class="sm:w-1/2 bg-white rounded-2xl m-4 shadow-xl dark:bg-gray-800 p-4 md:p-6">
       <div class="flex justify-between items-start w-full">
@@ -21,12 +20,9 @@
           </div>
         </div>
       </div>
-
       <!-- Pie Chart -->
       <div class="py-6" id="pie-chart" data-controller="pie-chart" data-pie-chart-room-value="<%= @data_room.to_json%>"></div>
-
     </div>
-
     <div class="sm:w-1/2 bg-white rounded-2xl shadow-xl dark:bg-gray-800 p-4 m-4 md:p-6">
       <h5 class="text-2xl font-bold leading-none text-gray-900 dark:text-white me-1">Revenue each month</h5>
       <div class="grid mt-2">
@@ -36,7 +32,6 @@
         </dl>
       </div>
       <div class="divider mt-2 w-full"></div>
-
       <%# Line Chart %>
       <div id="column-chart" data-controller="column-chart" data-column-chart-benefit-value="<%= @benefits%>" data-column-chart-expense-value="<%= @expenses%>">
       </div>

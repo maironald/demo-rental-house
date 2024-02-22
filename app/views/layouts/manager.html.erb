@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      rental House
+    </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag 'application', data: {"turbo-track": "reload"}, defer: true %>
+  </head>
+  <body>
+    <div class="relative">
+      <div data-controller="flash" data-flash-target="alert">
+        <%= turbo_frame_tag "flash", target:'_top'%>
+      </div>
+      <div>
+        <%= render 'users/navigation'%>
+        <div class="sm:ml-64">
+          <%= render 'users/topnav'%>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <%= render "shared/modal" %>
+  </body>
+</html>

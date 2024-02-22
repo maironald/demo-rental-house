@@ -16,6 +16,7 @@
     "apexcharts": "^3.45.2",
     "autoprefixer": "^10.4.14",
     "bootstrap": "^5.3.2",
+    "chart.js": "^4.4.1",
     "daisyui": "^4.4.24",
     "flatpickr": "^4.6.13",
     "flowbite": "^1.8.1",

@@ -20,4 +20,8 @@ module ApplicationHelper
     matched = patterns.any? { |pattern| (pattern.include?('#') ? (pattern == routeto) : (pattern == controller_path)) }
     matched ? options[:class] : nil
   end
+
+  def format_to_vnd(amount)
+    number_to_currency(amount, unit: '₫', separator: ',', delimiter: '.', precision: 0)
+  end
 end

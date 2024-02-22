@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     root 'dashboard#index'
   end
 
-  # it will redirect to users dashboard with url 127:0:0:1/admins
+  namespace :manager do
+    resources :dashboard
+    root 'dashboard#index'
+  end
+
   namespace :admins do
     resources :dashboard do
       delete 'delete_user_account', on: :member, to: 'dashboard#delete_user_account'

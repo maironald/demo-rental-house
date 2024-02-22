@@ -1,0 +1,12 @@
+<div class="stats bg-base-100 shadow-xl">
+  <div class="stat">
+    <div class="stat-figure"><i class="fa-solid fa-money-bill-trend-up w-8 h-8"></i></div>
+    <div class="stat-title"><%= title %></div>
+    <div class="stat-value dark:text-slate-300 text-primary"><%= value %></div>
+    <div class="stat-actions">
+      <%= button_to path, method: :get, class: "btn btn-xs bg-[#063970] hover:bg-[#1e81b0] text-white mr-2" do %>
+        <i class="fa-solid fa-square-up-right mr-2"></i>Go to details
+      <% end %>
+    </div>
+  </div>
+</div>

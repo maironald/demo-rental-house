@@ -31,9 +31,9 @@
               </div>
               <div class="form-actions">
                 <%= f.button :submit, "Sign up", class: "btn btn-primary w-full"%>
-                <% if flash[:alert].present? %>
+                <% if flash[:danger].present? %>
                   <div class="alert alert-danger">
-                    <%= flash[:alert] %>
+                    <%= flash[:danger] %>
                   </div>
                 <% end %>
               </div>
