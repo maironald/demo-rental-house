@@ -11,15 +11,15 @@
     <% else %>
       <%= f.error_notification %>
     <% end %>
-    <div class="flex flex-wrap justify-between">
-      <div>
+    <div class="flex flex-wrap sm:flex-none justify-between">
+      <div class="w-auto sm:w-2/5">
         <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Tên phòng:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
         <%= f.input :length, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều dài căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
         <%= f.input :width, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều rộng căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true %>
         <%= f.input :price_room, as: :decimal, wrapper_html: {class: 'mb-4'}, label: "Giá (tính theo 1 tháng): ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
         <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện cũ (1kwh): ", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
       </div>
-      <div>
+      <div class="w-auto sm:w-2/5">
         <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới (1kwh): ", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
         <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ (m3): ", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true%>
         <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới (m3): ", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true%>

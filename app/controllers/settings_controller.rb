@@ -2,10 +2,16 @@
 
 class SettingsController < BaseController
   include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
   before_action :set_setting, only: %i[edit update]
-  def edit; end
+  def edit
+    %i[price_water price_electric price_security price_internet price_trash].each do |attr|
+      @setting[attr] = format_to_vnd_not_unit(@setting[attr])
+    end
+  end
 
   def update
+    remove_decimal_separator(params[:setting], %i[price_electric price_water price_security price_internet price_trash])
     respond_to do |format|
       if current_user.setting.update(setting_params)
         reload_settings(format, type: :success, message: 'You change the value price of all services room successfully.')
@@ -48,5 +54,11 @@ class SettingsController < BaseController
   def render_errors(format, action)
     format.html { render action, status: :unprocessable_entity }
     format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_setting', partial: 'settings/form')] }
+  end
+
+  def remove_decimal_separator(params_hash, keys)
+    keys.each do |key|
+      params_hash[key] = params_hash[key].delete('.')
+    end
   end
 end

@@ -30,6 +30,11 @@ module.exports = {
       decimal: "decimal",
       square: "square",
     },
+    extend: {
+      fontFamily: {
+        sans: ['"Proxima Nova"', "sans-serif"],
+      },
+    },
   },
   // eslint-disable-next-line global-require
   plugins: [require("@tailwindcss/typography"), require("daisyui")],

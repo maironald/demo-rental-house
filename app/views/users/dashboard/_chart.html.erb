@@ -1,5 +1,5 @@
 <div class="w-full flex flex-wrap sm:flex-row md:justify-around">
-  <div class="grid w-full lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-16 p-4">
+  <div class="grid w-full 2xl:grid-cols-4 mt-2 lg:grid-cols-2 2xl:gap-16 lg:gap-6 grid-cols-1 gap-10 p-4">
     <%= render partial: "stat_info", locals: { title: "Theory Benefit", value: format_to_vnd(@data_benefit[:total_benefit_theory]), path: show_all_invoices_invoices_path } %>
     <%= render partial: "stat_info", locals: { title: "Real Benefit", value: format_to_vnd(@data_benefit[:total_benefit_real]), path: show_all_invoices_invoices_path } %>
     <%= render partial: "stat_info", locals: { title: "Expenditure", value: format_to_vnd(@data_benefit[:total_expenditure]), path: services_path } %>

@@ -118,19 +118,8 @@ class User < ApplicationRecord
   end
 
   def assign_default_role
-    # Check if the user is an admin (you can modify this condition based on your requirements)
-    if admin_condition_met?
-      add_role(:admin)
-    else
-      # Assign the 'user' role by default
-      add_role(:user)
-    end
-  end
-
-  def admin_condition_met?
-    # Implement your logic to determine if the user should have the 'admin' role
-    # For example, you might check if the user's email matches an admin email pattern
-    email.starts_with?('admin')
+    # Assign the 'user' role by default
+    add_role(:user)
   end
 
   def create_setting

@@ -1,144 +1,143 @@
 <%= turbo_frame_tag "renter_list" do%>
-  <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-6 pb-8 mr-4 ml-4">
-    <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
-      <h1 class="text-2xl m-2 font-bold">Danh Sách Khách Hàng</h1>
-      <div class="m-2 flex">
-
+  <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6  bg-base-200">
+    <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+      <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
+        <h1 class="text-2xl m-2 font-bold">Danh Sách Khách Hàng</h1>
       </div>
-    </div>
-    <div class="m-4">
-      <%= form_with(url: renters_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
-        <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Người đứng tên", "main"],["Người cùng phòng", "member"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
-        <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
-        <div class="relative w-[300px] sm:w-[350px] ml-2">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
+      <div class="m-4">
+        <%= form_with(url: renters_path, method: 'get', class: "w-[250px] lg:w-full flex flex-col lg:flex-row") do |form| %>
+          <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Người đứng tên", "main"],["Người cùng phòng", "member"]]) %>
+          <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
+          <div class="relative w-[300px] sm:w-[350px] ml-2">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
+            </div>
+            <%= form.text_field :search, type: "search", id: 'default-search', class: "block w-full p-4 pr-20 mr-4 mt-0 lg:mt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Nhập khách cho thuê..." %>
+            <%= form.submit "Tìm", class: "text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
           </div>
-          <%= form.text_field :search, type: "search", id: 'default-search', class: "block w-full p-4 pr-20 mr-4 mt-2 lg:mt-0 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Nhập khách cho thuê..." %>
-          <%= form.submit "Tìm", class: "text-white absolute end-1.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"%>
-        </div>
-      <% end %>
-    </div>
-    <!-- table -->
-    <div
-      class="relative overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-      <table class="w-full text-sm text-left rtl:text-right border-dashed border-b text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
-        <thead
-            class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">
-              Ngày Thuê
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Tên Khách Thuê
-            </th>
-            <th scope="col" class="px-6 py-3">
-              <div class="flex items-center">
-                SĐT
-                <a href="#">
-                  <%= vite_image_tag 'images/icons/arrange.svg' , class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-                </a>
-              </div>
-            </th>
-            <th scope="col" class="px-6 py-3">
-              <div class="flex items-center">
-                CCCD
-                <a href="#">
-                  <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-                </a>
-              </div>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                <div class="flex items-center">
-                  Địa chỉ
-                  <a href="#">
-                    <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-                  </a>
-                </div>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                <div class="flex items-center">
-                  Giới tính
-                  <a href="#">
-                    <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-                  </a>
-                </div>
-            </th>
-            <th scope="col" class="px-6 py-3">
-                <div class="flex items-center">
-                  Tiền cọc
-                  <a href="#">
-                    <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
-                  </a>
-                </div>
-            </th>
+        <% end %>
+      </div>
+      <!-- table -->
+      <div
+        class="relative overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
+        <table class="w-full text-sm text-left rtl:text-right border-dashed border-b text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
+          <thead
+              class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Ngày Thuê
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Tên Khách Thuê
+              </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                  Tình trạng
+                  SĐT
                   <a href="#">
-                    <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                    <%= vite_image_tag 'images/icons/arrange.svg' , class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                   </a>
                 </div>
-            </th>
-            </th>
+              </th>
               <th scope="col" class="px-6 py-3">
                 <div class="flex items-center">
-                  Vai trò
+                  CCCD
                   <a href="#">
                     <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
                   </a>
                 </div>
-            </th>
-            <th scope="col" class="px-6 py-3">
-              <span class="sr-only">Edit</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody class="<%= @renters.length < 5 ? 'text-lg' :  'text-md'%>">
-          <% @renters.each do |renter|%>
-            <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
-              <th scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= renter.created_at.strftime('%d-%m-%Y') %>
               </th>
-              <th scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                <%= renter.name %>
+              <th scope="col" class="px-6 py-3">
+                  <div class="flex items-center">
+                    Địa chỉ
+                    <a href="#">
+                      <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                    </a>
+                  </div>
               </th>
-              <td class="px-6 py-4">
-                <%= renter.phone_number%>
-              </td>
-              <td class="px-6 py-4">
-                <%= renter.identity%>
-              </td>
-              <td class="px-6 py-4">
-                <%= renter.address%>
-              </td>
-              <td class="px-6 py-4">
-                <%= renter.gender == "male"? "Nam" : "Nữ"%>
-              </td>
-              <td class="px-6 py-4">
-                <%= renter.deposit%>
-              </td>
-              <td class="px-6 py-4">
-                <%= "Đang ở #{Room.find_by(id: renter.room_id)&.name}"%>
-              </td>
-              <td class="px-6 py-4">
-                <%= renter.renter_type == "main" ? "Người đứng tên" : "Người cùng phòng"%>
-              </td>
-              <td class="px-6 py-4">
-                <%= render "shared/menu_button" do%>
-                  <%= button_to "Sửa", edit_renter_path(renter), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
-                  <%= button_to "Xóa", renter_path(renter), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
-                <% end %>
-              </td>
+              <th scope="col" class="px-6 py-3">
+                  <div class="flex items-center">
+                    Giới tính
+                    <a href="#">
+                      <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                    </a>
+                  </div>
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  <div class="flex items-center">
+                    Tiền cọc
+                    <a href="#">
+                      <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                    </a>
+                  </div>
+              </th>
+                <th scope="col" class="px-6 py-3">
+                  <div class="flex items-center">
+                    Tình trạng
+                    <a href="#">
+                      <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                    </a>
+                  </div>
+              </th>
+              </th>
+                <th scope="col" class="px-6 py-3">
+                  <div class="flex items-center">
+                    Vai trò
+                    <a href="#">
+                      <%= vite_image_tag 'images/icons/arrange.svg', class: 'w-3 h-3 ms-3.5', alt: 'Arrange Icon' %>
+                    </a>
+                  </div>
+              </th>
+              <th scope="col" class="px-6 py-3">
+                <span class="sr-only">Edit</span>
+              </th>
             </tr>
-          <%end%>
-        </tbody>
-      </table>
+          </thead>
+          <tbody class="<%= @renters.length < 5 ? 'text-lg' :  'text-md'%>">
+            <% @renters.each do |renter|%>
+              <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
+                <th scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <%= renter.created_at.strftime('%d-%m-%Y') %>
+                </th>
+                <th scope="row"
+                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <%= renter.name %>
+                </th>
+                <td class="px-6 py-4">
+                  <%= renter.phone_number%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= renter.identity%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= renter.address%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= renter.gender == "male"? "Nam" : "Nữ"%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= format_to_vnd_not_unit(renter.deposit)%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= "Đang ở #{Room.find_by(id: renter.room_id)&.name}"%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= renter.renter_type == "main" ? "Người đứng tên" : "Người cùng phòng"%>
+                </td>
+                <td class="px-6 py-4">
+                  <%= render "shared/menu_button" do%>
+                    <%= button_to "Sửa", edit_renter_path(renter), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
+                    <%= button_to "Xóa", renter_path(renter), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
+                  <% end %>
+                </td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+      <%== render "shared/pagination", locals: {pagy: @pagy} %>
     </div>
-    <%== render "shared/pagination", locals: {pagy: @pagy} %>
-  </div>
+  </main>
   <%= render "shared/modal"%>
 <%end%>

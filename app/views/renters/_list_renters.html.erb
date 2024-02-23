@@ -1,18 +1,18 @@
-<div class="w-full p-6 bg-blue-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-controller="datepicker">
-  <h1 class="text-[25px]">Danh sách khách thuê</h1>
+<div class="w-full p-6 border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700">
+  <h1 class="text-2xl w-full text-center font-bold">Danh sách khách thuê</h1>
     <% if @renter_in_rooms.empty? %>
-      <p>
+      <p class="mt-4 text-lg text-red-500 text-center w-full">
         Hiện tại phòng đang trống!!
       </p>
     <%else%>
-      <h1>
+      <h1 class="mt-4 text-lg">
         Người đứng tên:
-        <span class="<%= @renter_main&.name.nil? && "text-red-500 font-bold"%>">
+        <span class="font-bold <%= @renter_main&.name.nil? && "text-red-500"%>">
           <%= @renter_main&.name.nil? ? "trống" : @renter_main.name%>
         </span>
       </h1>
-      <h1>Danh sách người ở cùng: </h1>
-      <ul>
+      <h1 class="mt-4 text-lg">Danh sách người ở cùng: </h1>
+      <ul class="list-disc ml-10">
         <% @renter_in_rooms.each_with_index do |renter, index|%>
           <% if renter.renter_type != "main"  %>
             <li>
@@ -22,8 +22,10 @@
         <%end%>
       </ul>
     <% end %>
-    <hr class="m-4">
-    <div class="flex justify-between btn btn-primary w-1/3">
-      <%= link_to 'THÊM KHÁCH THUÊ', new_room_renter_path(), data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+    <div class="w-full mt-5 mb-5 h-0.5 bg-indigo-500"></div>
+    <div class="w-full flex justify-end">
+      <div class="flex justify-between btn btn-primary">
+        <%= link_to 'THÊM KHÁCH THUÊ', new_room_renter_path(), data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+      </div>
     </div>
 </div>

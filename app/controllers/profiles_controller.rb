@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PagesController < BaseController
+class ProfilesController < BaseController
   include ApplicationHelper
   def edit_information
     @user = current_user
@@ -39,6 +39,6 @@ class PagesController < BaseController
 
   def render_errors(format, action)
     format.html { render action, status: :unprocessable_entity }
-    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_user', partial: 'pages/form_information')] }
+    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_user', partial: 'profiles/form_information')] }
   end
 end

@@ -6,7 +6,7 @@
     <%= f.input :identity, as: :string, wrapper_html: {class: 'mb-4'}, label: "Identity:", label_html: {class: 'mb-2 fw-bold'}, required: true %>
     <%= f.input :address, as: :string, wrapper_html: {class: 'mb-4'}, label: "Address: ", label_html: {class: 'mb-2 fw-bold'}%>
     <%= f.input :gender, as: :radio_buttons, wrapper_html: {class: 'mb-4 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 text-white'}, collection: [['Nam',renter_name_collections[0]], ['Nữ',renter_name_collections[1]]], checked: renter_name_collections[0]  %>
-    <%= f.input :deposit, as: :decimal, wrapper_html: {class: 'mb-4'}, label: 'Deposit:', label_html: {class: 'mb-2 fw-bold'}, input_html: { 'data-disable-input-target' => 'inputToDisable' } %>
+    <%= f.input :deposit, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Deposit:', label_html: {class: 'mb-2 fw-bold'}, input_html: { 'data-disable-input-target' => 'inputToDisable', data: {controller: "currency-format"} } %>
     <%= f.input :renter_type, as: :radio_buttons, label: "Type: ", wrapper_html: {class: 'mb-4 ml-2 flex'}, collection_html: {class: 'flex p-4'}, label_html: {class: 'mb-2 ml-2 text-white'}, collection: [['Người đứng tên', renter_type_collections[0]],['Người ở cùng',renter_type_collections[1]]], checked: renter_type_collections[0], input_html: {'data-action' => 'change->disable-input#updateDisableState', 'data-disable-input-target' => 'inputUpdateState'} %>
     <%= f.submit 'Lưu', class: "btn btn-primary w-1/2" %>
   <% end %>

@@ -16,7 +16,7 @@
   Giới tính: <%= @renter.gender == "male"? "Nam" : "Nữ" %>
 </p>
 <p>
-  Tiền cọc: <%= @renter.deposit%>
+  Tiền cọc: <%= format_to_vnd_not_unit(@renter.deposit)%>
 </p>
 <p>
   Vai trò: <%= @renter.renter_type == "main" ? "Người đứng tên" : "Người ở ghép"%>

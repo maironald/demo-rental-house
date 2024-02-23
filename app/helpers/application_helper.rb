@@ -24,4 +24,8 @@ module ApplicationHelper
   def format_to_vnd(amount)
     number_to_currency(amount, unit: '₫', separator: ',', delimiter: '.', precision: 0)
   end
+
+  def format_to_vnd_not_unit(amount)
+    number_to_currency(amount, unit: '', separator: ',', delimiter: '.', precision: 0)
+  end
 end
