@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "new_invoice" do%>
   <div class="flex items-center justify-center min-h-screen bg-gray-100 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <div class="w-5/6 bg-white shadow-lg">
+    <div class="w-full bg-white shadow-lg">
       <div class="flex justify-between p-4">
           <div class="w-[90px]">
               <h1 class="text-2xl italic font-extrabold tracking-widest text-indigo-500">Rental House</h1>
@@ -27,110 +27,110 @@
           </div>
       </div>
       <div class="flex justify-center p-4">
-          <div class="border-b border-gray-200 shadow">
-              <table class="">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th class="px-4 py-2 text-xs text-gray-500 ">
-                        #
-                    </th>
-                    <th class="px-4 py-2 text-xs text-gray-500 ">
-                      Các loại phí cần thu
-                    </th>
-                    <th class="px-4 py-2 text-xs text-gray-500 ">
-                      Thành tiền
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white">
-                  <tr class="whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                      1
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-900">
-                        Tiền Phòng
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="text-sm text-gray-500"><%= format_to_vnd(@room.price_room)%></div>
-                    </td>
-                  </tr>
-                  <tr class="whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                        2
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-900">
-                        Tổng giá điện sử dụng
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-500"><%= format_to_vnd(@total_electric_price)%></div>
-                    </td>
-                  </tr>
+          <div class="border-b flex justify-center border-gray-200 shadow w-[300px] sm:w-full">
+            <table class="w-[300px] sm:w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-4 py-2 text-md text-gray-500 ">
+                      #
+                  </th>
+                  <th class="px-4 py-2 text-md text-gray-500 ">
+                    Các loại phí cần thu
+                  </th>
+                  <th class="px-4 py-2 text-md text-gray-500 ">
+                    Thành tiền
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                <tr class="whitespace-nowrap">
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    1
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-900">
+                      Tiền Phòng
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                      <div class="text-sm text-gray-500"><%= format_to_vnd(@room.price_room)%></div>
+                  </td>
+                </tr>
+                <tr class="whitespace-nowrap">
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                      2
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-900">
+                      Tổng giá điện sử dụng
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(@total_electric_price)%></div>
+                  </td>
+                </tr>
+                <tr class="border-b-2 whitespace-nowrap">
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                      3
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-900">
+                      Tổng giá nước sử dụng
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(@total_water_price)%></div>
+                  </td>
+                </tr>
                   <tr class="border-b-2 whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                        3
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-900">
-                        Tổng giá nước sử dụng
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-500"><%= format_to_vnd(@total_water_price)%></div>
-                    </td>
-                  </tr>
-                    <tr class="border-b-2 whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                      4
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-900">
-                        Phí Internet
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-500"><%= format_to_vnd(current_user.setting.price_internet)%></div>
-                    </td>
-                  </tr>
-                  </tr>
-                    <tr class="border-b-2 whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                      4
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-900">
-                        Phí Giữ Xe
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-500"><%= format_to_vnd(current_user.setting.price_security)%></div>
-                    </td>
-                  </tr>
-                  </tr>
-                    <tr class="border-b-2 whitespace-nowrap">
-                    <td class="px-6 py-4 text-sm text-gray-500">
-                      4
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-900">
-                        Phí Vệ Sinh
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-sm text-gray-500"><%= format_to_vnd(current_user.setting.price_internet)%></div>
-                    </td>
-                  </tr>
-                  <!--end tr-->
-                  <tr class="text-white bg-gray-800">
-                    <th colspan="1"></th>
-                    <td class="text-sm font-bold"><b>Total: </b></td>
-                    <td class="text-sm font-bold px-6 py-4"><b><%= format_to_vnd(@total_price)%></b></td>
-                  </tr>
-                </tbody>
-              </table>
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    4
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-900">
+                      Phí Internet
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(current_user.setting.price_internet)%></div>
+                  </td>
+                </tr>
+                </tr>
+                  <tr class="border-b-2 whitespace-nowrap">
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    5
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-900">
+                      Phí Giữ Xe
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(current_user.setting.price_security)%></div>
+                  </td>
+                </tr>
+                </tr>
+                  <tr class="border-b-2 whitespace-nowrap">
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    6
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-900">
+                      Phí Vệ Sinh
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(current_user.setting.price_internet)%></div>
+                  </td>
+                </tr>
+                <!--end tr-->
+                <tr class="text-white bg-gray-800">
+                  <th colspan="1"></th>
+                  <td class="text-sm font-bold"><b>Total: </b></td>
+                  <td class="text-sm font-bold px-6 py-4"><b><%= format_to_vnd(@total_price)%></b></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
       </div>
       <div class="w-full h-0.5 bg-indigo-500"></div>

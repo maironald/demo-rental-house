@@ -26,8 +26,8 @@
       </div>
       <!-- table -->
       <div
-          class="relative overflow-x-auto border-dashed border-b shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-        <table class="w-full text-sm text-left border-dashed border-b rtl:text-right text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
+          class="relative overflow-x-auto border-dashed border-b shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] min-h-[550px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
+        <table class="w-full text-sm text-left border-dashed border-b rtl:text-right text-gray-500 dark:text-gray-400">
           <thead
               class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -67,8 +67,14 @@
                 </td>
                 <td class="px-6 py-4">
                   <%= render "shared/menu_button" do%>
-                    <%= button_to "Sửa", edit_room_electric_waters_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
-                    <%= button_to "Xem chi tiết", show_detail_room_electric_waters_path(room), method: :get, class: "btn btn-ghost w-full text-blue-500", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()", remote: true%>
+                    <%= button_to edit_room_electric_waters_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do%>
+                      <i class="fa-solid fa-pen mr-2"></i>
+                      Sửa
+                    <%end%>
+                    <%= button_to show_detail_room_electric_waters_path(room), method: :get, class: "btn btn-ghost w-full text-green-600", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()", remote: true do%>
+                      <i class="fa-solid fa-info mr-2"></i>
+                      Xem chi tiết
+                    <%end%>
                   <% end %>
                 </td>
               </tr>

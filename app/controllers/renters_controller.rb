@@ -26,7 +26,7 @@ class RentersController < BaseController
   end
 
   def create
-    remove_decimal_separator(params[:renter], %i[deposit])
+    params[:renter][:renter_type] == 'main' && remove_decimal_separator(params[:renter], %i[deposit])
     @room = Room.find_by(id: params[:room_id])
     @renter = @room.renters.build(renter_params)
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
@@ -43,7 +43,7 @@ class RentersController < BaseController
   end
 
   def update
-    remove_decimal_separator(params[:renter], %i[deposit])
+    params[:renter][:renter_type] == 'main' && remove_decimal_separator(params[:renter], %i[deposit])
     respond_to do |format|
       if @renter.update(renter_params)
         reload_rooms_with_update_destroy(format, type: :success, message: "The renter '#{@renter.name}' was successfully edited.")

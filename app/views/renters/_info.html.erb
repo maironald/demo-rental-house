@@ -26,6 +26,12 @@
 </p>
 <hr class="m-4">
 <div class="flex justify-between">
-  <%= button_to "Sửa", edit_renter_path(@renter), method: :get, class: "btn btn-primary text-blue-800", remote: true %>
-  <%= button_to "Xóa", renter_path(@renter), method: :delete, class: "btn btn-danger text-red-800", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true%>
+  <%= button_to edit_renter_path(@renter), method: :get, class: "btn btn-primary text-blue-800", remote: true do%>
+    <i class="fa-solid fa-pen mr-2"></i>
+    Sửa
+  <%end%>
+  <%= button_to renter_path(@renter), method: :delete, class: "btn btn-danger text-red-800", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa khách hàng này?" }, remote: true do%>
+    <i class="fa-solid fa-pen mr-2"></i>
+    Xóa
+  <%end%>
 </div>

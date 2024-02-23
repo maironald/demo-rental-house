@@ -31,7 +31,8 @@ class ProfilesController < BaseController
       flash.now[options[:type]] = options[:message]
       render turbo_stream: [
         turbo_stream.remove('my_modal_4'),
-        turbo_stream.replace('avatar_info', partial: 'users/topnav'),
+        turbo_stream.replace('avatar_info', partial: 'users/avatar', locals: { user: current_user }),
+        turbo_stream.replace('profile_info', partial: 'profiles/form_information'),
         render_turbo_stream_flash_messages
       ]
     end

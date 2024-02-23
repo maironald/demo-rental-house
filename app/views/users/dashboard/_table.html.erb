@@ -1,10 +1,10 @@
 <div class="w-full flex flex-col flex-wrap 2xl:flex-row items-center 2xl:justify-around">
-  <div class="card w-5/6 2xl:w-full p-10 bg-base-100 shadow-xl mt-6 m-4">
+  <div class="card w-[95%] 2xl:w-full p-6 bg-base-100 shadow-xl mt-6 m-4">
     <div class="text-2xl font-semibold ">List of empty rooms</div>
     <div class="divider mt-2"></div>
     <div class="h-full w-full pb-6 bg-base-100">
-      <div class="overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-        <table class="table w-full min-h-[350px] sm:min-h-[550px]">
+      <div class="overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] min-h-[550px] md:max-h-[600px] lg:max-w-full">
+        <table class="table w-full">
           <thead class="text-lg">
             <tr>
               <th>Number</th>
@@ -15,32 +15,34 @@
           </thead>
           <tbody>
             <% @rooms_nil.each_with_index do |room, index|%>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th>
-                  <%= index + 1%>
-                </th>
-                <td>
-                  <%= room.name%>
-                </td>
-                <td>
-                  <%= room.price_room%>
-                </td>
-                <td>
-                  <%= room.limit_residents%>
-                </td>
-              </tr>
-            <% end %>
+              <% if index < 20 %>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <th>
+                    <%= index + 1%>
+                  </th>
+                  <td>
+                    <%= room.name%>
+                  </td>
+                  <td>
+                    <%= room.price_room%>
+                  </td>
+                  <td>
+                    <%= room.limit_residents%>
+                  </td>
+                </tr>
+              <%end%>
+            <%end%>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-  <div class="card w-5/6 2xl:w-full p-10 bg-base-100 shadow-xl mt-6 m-4">
+  <div class="card w-[95%] 2xl:w-full p-6 bg-base-100 shadow-xl mt-6 m-4">
     <div class="text-2xl font-semibold ">List of no-paid rooms</div>
     <div class="divider mt-2"></div>
     <div class="h-full w-full pb-6 bg-base-100">
-      <div class="overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-        <table class="table w-full min-h-[350px] sm:min-h-[550px]">
+      <div class="overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] min-h-[550px] md:max-h-[600px] lg:max-w-full">
+        <table class="table w-full">
           <thead class="text-lg">
             <tr>
               <th>Number</th>
@@ -52,24 +54,26 @@
           </thead>
           <tbody>
             <% @invoices_not_pay.each_with_index do |invoice,index|%>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <%= index + 1%>
-                </th>
-                <td class="px-6 py-4">
-                  <%= invoice.name%>
-                </td>
-                <td class="px-6 py-4">
-                  <%= invoice.total_price%>
-                </td>
-                <td class="px-6 py-4">
-                  <%= invoice.paid_money%>
-                </td>
-                <td class="px-6 py-4">
-                  <%= invoice.total_price - invoice.paid_money%>
-                </td>
-              </tr>
-            <% end %>
+              <% if index < 20%>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <%= index + 1%>
+                  </th>
+                  <td class="px-6 py-4">
+                    <%= invoice.name%>
+                  </td>
+                  <td class="px-6 py-4">
+                    <%= invoice.total_price%>
+                  </td>
+                  <td class="px-6 py-4">
+                    <%= invoice.paid_money%>
+                  </td>
+                  <td class="px-6 py-4">
+                    <%= invoice.total_price - invoice.paid_money%>
+                  </td>
+                </tr>
+              <%end%>
+            <%end%>
           </tbody>
         </table>
       </div>

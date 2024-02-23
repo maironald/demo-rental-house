@@ -1,15 +1,17 @@
 <div class="dropdown dropdown-hover dropdown-end">
-  <div tabindex="0" role="button" class="m-2">
-    <div class="avatar online">
-      <div class="rounded-full">
-        <% if current_user.avatar.url%>
-          <%= cl_image_tag(current_user.avatar.url, :width => "34px", :height => "34px", :crop => "pad", class: "object-cover rounded-full")%>
-        <% else %>
-          <%= vite_image_tag("images/dashboard/avatar.png", class: "w-full h-full object-cover rounded-full")%>
-        <%end%>
+  <%= turbo_frame_tag "avatar_info" do%>
+    <div tabindex="0" role="button" class="m-2">
+      <div class="avatar online">
+        <div class="rounded-full">
+            <% if current_user.avatar.url%>
+              <%= cl_image_tag(current_user.avatar.url, :width => "34px", :height => "34px", :crop => "pad", class: "object-cover rounded-full")%>
+            <% else %>
+              <%= vite_image_tag("images/dashboard/avatar.png", class: "w-full h-full object-cover rounded-full")%>
+            <%end%>
+        </div>
       </div>
     </div>
-  </div>
+  <%end%>
   <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
     <li>
       <%= link_to edit_information_profiles_path, class: "flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" do %>

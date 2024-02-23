@@ -12,15 +12,50 @@
         </span>
       </h1>
       <h1 class="mt-4 text-lg">Danh sách người ở cùng: </h1>
-      <ul class="list-disc ml-10">
-        <% @renter_in_rooms.each_with_index do |renter, index|%>
-          <% if renter.renter_type != "main"  %>
-            <li>
-              Ngừoi <%= "#{index} : #{renter.name}"%>
-            </li>
-          <%end%>
-        <%end%>
-      </ul>
+      <div class="flex justify-center p-4">
+        <div class="relative border-b flex justify-center overflow-x-auto overflow-y-auto min-h-[200px] md:max-h-[500px] border-gray-200 shadow w-[300px] sm:w-full">
+          <table class="w-[300px] sm:w-full">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-2 text-md text-gray-500 ">
+                    #
+                </th>
+                <th class="px-4 py-2 text-md text-gray-500 ">
+                  Tên
+                </th>
+                <th class="px-4 py-2 text-md text-gray-500 ">
+                  Giới tính
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <% 1.times do%>
+                <% @renter_in_rooms.each_with_index do |renter, index|%>
+                  <% if renter.renter_type != "main"  %>
+                  <tr class="whitespace-nowrap">
+                      <td class="px-4 py-2 text-sm text-gray-500">
+                        <div class="flex justify-center text-sm text-gray-900">
+                          <%= index%>
+                        </div>
+                      </td>
+                      <td class="px-4 py-2 text-sm text-gray-900">
+                        <div class="flex justify-center text-sm text-gray-900">
+                          <%= renter.name%>
+                        </div>
+                      </td>
+                      <td class="px-4 py-2">
+                        <div class="flex justify-center text-sm text-gray-500">
+                          <%= renter.gender == "male"? "Nam" : "Nữ"%>
+                        </div>
+                      </td>
+                    </tr>
+                  <%end%>
+                <%end%>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
     <% end %>
     <div class="w-full mt-5 mb-5 h-0.5 bg-indigo-500"></div>
     <div class="w-full flex justify-end">
