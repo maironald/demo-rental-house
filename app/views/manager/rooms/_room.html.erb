@@ -1,0 +1,42 @@
+<div class="flex flex-col justify-around p-2 m-2 mr-10">
+  <div class="card lg:w-96 md:w-72 sm:w-full bg-base-100 shadow-xl">
+    <figure class="bg-yellow-200">
+      <%= vite_image_tag("images/room/logo_room5.png",class: "object-cover w-full h-full", alt: "logo_room")%>
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">
+        <i class="fa-solid fa-home ml-1 mr-2"></i><%= room.name %>
+      </h2>
+      <p>
+        <%= room.description %>
+      </p>
+      <%= button_to show_renters_room_renters_path(room.id), method: :get, class: "btn bg-[#063970] hover:bg-[#1e81b0] w-[155px] sm:w-full text-white", data: { turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+        <i class="fa-solid <%= !Renter.find_by(room_id: room.id).nil? ? "fa-pen": "fa-plus"%> mr-2"></i>
+        <%= !Renter.find_by(room_id: room.id).nil? ? "Cập Nhật Khách" : "Thêm Khách"  %>
+      <% end %>
+      <p>
+        <i class="fa-solid fa-user ml-1 mr-2"></i>
+        <span class="<%= Renter.find_by(room_id: room.id, renter_type: 'main')&.name.nil? && "text-red-500 text-lg font-extrabold" %>">
+          <%= Renter.find_by(room_id: room.id, renter_type: 'main')&.name.nil? ? "(trống)" : Renter.find_by(room_id: room.id, renter_type: 'main')&.name%>
+        </span>
+      </p>
+      <span>
+        <i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{room.price_room} VND"%>
+      </span>
+      <div class="flex justify-around flex-wrap w-full">
+        <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-primary m-1 w-[155px] sm:w-full text-white", data: { turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+          <i class="fa-solid fa-pencil-square mr-2"></i>Xuất Đơn
+        <% end %>
+        <%= render "shared/menu_button" do%>
+          <%= button_to edit_room_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: { turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+            <i class="fa-solid fa-pen mr-2"></i>
+            Sửa Phòng
+          <% end %>
+          <%= button_to room_path(room), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa phòng này? (lưu ý: xóa phòng sẽ xóa tất cả khách trong phòng!!)" }, remote: true do %>
+            <i class="fa-solid fa-trash mr-2"></i> Xóa
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

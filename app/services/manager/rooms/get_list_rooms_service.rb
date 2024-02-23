@@ -3,23 +3,24 @@
 module Manager
   module Rooms
     class GetListRoomsService < ApplicationService
-      def initialize(rooms, pamrams)
-        super
+      def initialize(rooms, params)
         @rooms = rooms
         @params = params
       end
 
       def call
         filter
+        rooms
       end
 
       private
 
-      attr_reader :rooms, :params
+      attr_accessor :rooms, :params
 
       def filter
-        filter_by_name if params[:search].present?
-        filter_by_type if params[:selected_value].present?
+        rooms = filter_by_name if params[:search].present?
+        rooms = filter_by_type if params[:selected_value].present?
+        rooms
       end
 
       def filter_by_name

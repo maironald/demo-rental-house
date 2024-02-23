@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   namespace :manager do
     resources :dashboard
+    resources :rooms
     root 'dashboard#index'
   end
 

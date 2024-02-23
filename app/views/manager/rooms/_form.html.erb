@@ -1,0 +1,78 @@
+<%= turbo_frame_tag 'new_room' do%>
+  <%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? room_path : rooms_path ), html: { class: "flex flex-wrap flex-col" } do |f| %>
+    <%= f.error_notification %>
+    <div class="flex flex-wrap justify-between">
+      <div>
+        <%= f.input :name,
+                    as: :string,
+                    wrapper_html: { class: 'mb-4' },
+                    label: 'Tên phòng:',
+                    label_html: { class: 'mb-2 fw-bold'} ,
+                    required: true,
+                    autofocus: true %>
+        <%= f.input :length,
+                    as: :float,
+                    wrapper_html: { class: 'mb-4' },
+                    label: "Chiều dài căn phòng (m2):",
+                    label_html: { class: 'mb-2 fw-bold' },
+                    required: true %>
+        <%= f.input :width,
+                    as: :float,
+                    wrapper_html: { class: 'mb-4' },
+                    label: "Chiều rộng căn phòng (m2):",
+                    label_html: { class: 'mb-2 fw-bold' },
+                    required: true %>
+        <%= f.input :price_room,
+                    as: :decimal,
+                    wrapper_html: { class: 'mb-4' },
+                    label: "Giá (tính theo 1 tháng): ",
+                    label_html: { class: 'mb-2 fw-bold' },
+                    required: true %>
+        <%= f.input :electric_amount_old,
+                    as: :integer,
+                    wrapper_html: { class: 'mb-4' },
+                    label: "Chỉ số điện cũ (1kwh): ",
+                    label_html: { class: 'mb-2 fw-bold' },
+                    input_html: { class: ''},
+                    required: true %>
+      </div>
+      <b><%= action_name %></b>
+      <div>
+        <%= f.input :electric_amount_new,
+                      as: :integer,
+                      wrapper_html: { class: 'mb-4' },
+                      label: "Chỉ số điện mới (1kwh): ",
+                      label_html: { class: ' mb-2 fw-bold' },
+                      input_html: { class: ''},
+                      required: true %>
+        <%= f.input :water_amout_old,
+                    as: :integer,
+                    wrapper_html: { class: 'mb-4' },
+                    label: "Chỉ số nước cũ (m3): ",
+                    label_html: { class: 'mb-2 fw-bold' },
+                    input_html: { class: '' },
+                    required: true %>
+        <%= f.input :water_amout_new,
+                      as: :integer,
+                      wrapper_html: { class: 'mb-4' },
+                      label: "Chỉ số nước mới (m3): ",
+                      label_html: { class: 'mb-2 fw-bold' },
+                      input_html: { class: '' },
+                      required: true %>
+        <%= f.input :limit_residents,
+                    as: :integer,
+                    wrapper_html: { class: 'mb-4' },
+                    label: "Số lượng khách tối đa: ",
+                    label_html: { class: 'mb-2 fw-bold' },
+                    required: true %>
+        <%= f.input :description,
+                    as: :text,
+                    wrapper_html: { class: 'mb-4' },
+                    label: 'Mô tả:',
+                    label_html: { class: 'mb-2 fw-bold' },
+                    input_html: { class: 'h-30' } %>
+      </div>
+    </div>
+    <%= f.submit 'Lưu', class: 'btn w-1/4 btn-primary' %>
+  <% end %>
+<%end%>

@@ -39,15 +39,15 @@ class Room < ApplicationRecord
   validates :length, presence: true, numericality: { less_than_or_equal_to: 20_000 }
   validates :width, presence: true, numericality: { less_than_or_equal_to: 20_000 }
   validates :electric_amount_new, presence: true
-  validates :electric_amount_old, presence: true
-
+  validates :electric_amount_old, presence: true, on: :update
   validates :price_room, presence: true
   validates :limit_residents, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
   validates :water_amout_new, presence: true
-  validates :water_amout_old, presence: true
-  validate :check_electric_amount
-  validate :check_water_amount
+  validates :water_amout_old, presence: true, on: :update
+
+  validate :check_electric_amount, on: :update
+  validate :check_water_amount, on: :update
 
   # scope
   scope :search_by_name, ->(key) { where('name ILIKE ?', "%#{key}%") }
