@@ -22,8 +22,8 @@
   </div>
   <!-- table -->
   <div
-    class="relative overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
-    <table class="w-full text-sm text-left rtl:text-right border-dashed border-b text-gray-500 dark:text-gray-400 min-h-[350px] sm:min-h-[650px]">
+    class="relative overflow-x-auto border-dashed shadow-lg sm:rounded-lg m-4 overflow-y-auto max-w-[350px] min-h-[550px] sm:max-w-[600px] md:max-h-[600px] lg:max-w-full">
+    <table class="w-full text-sm text-left rtl:text-right border-dashed border-b text-gray-500 dark:text-gray-400">
       <thead
           class="text-xs text-gray-700 uppercase bg-slate-300 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -61,13 +61,25 @@
             <td class="px-6 py-4">
               <%if action_name == "index" %>
                 <%= render "shared/menu_button" do%>
-                  <%= button_to "Đổi mật khẩu", edit_password_user_admins_dashboard_path(user) ,method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" %>
-                  <%= button_to "Vô hiệu hóa", delete_user_account_admins_dashboard_path(user), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn vô hiệu hóa tài khoản này?" }, remote: true%>
+                  <%= button_to edit_password_user_admins_dashboard_path(user) ,method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do%>
+                    <i class="fa-solid fa-key mr-2"></i>
+                      Đổi mật khẩu
+                  <%end%>
+                  <%= button_to delete_user_account_admins_dashboard_path(user), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn vô hiệu hóa tài khoản này?" }, remote: true do%>
+                    <i class="fa-solid fa-lock mr-2"></i>
+                      Vô hiệu hóa
+                  <%end%>
                 <% end %>
               <%else%>
                 <%= render "shared/menu_button" do%>
-                  <%= button_to "Khôi phục", restore_deleted_user_admins_dashboard_path(user) ,method: :put, class: "btn btn-ghost w-full text-blue-800", remote: true,  data: { turbo_confirm: "Bạn có chắc chắn muốn khôi phục tài khoản này?" } %>
-                  <%= button_to "Xóa hoàn toàn", destroy_user_account_admins_dashboard_path(user), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa hoàn toàn tài khoản này?" }, remote: true%>
+                  <%= button_to restore_deleted_user_admins_dashboard_path(user) ,method: :put, class: "btn btn-ghost w-full text-blue-800", remote: true,  data: { turbo_confirm: "Bạn có chắc chắn muốn khôi phục tài khoản này?" } do%>
+                    <i class="fa-solid fa-arrow-rotate-left mr-2"></i>
+                      Khôi phục
+                  <%end%>
+                  <%= button_to destroy_user_account_admins_dashboard_path(user), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa hoàn toàn tài khoản này?" }, remote: true do%>
+                    <i class="fa-solid fa-trash mr-2"></i>
+                      Xóa hoàn toàn
+                  <%end%>
                 <% end %>
               <%end%>
             </td>

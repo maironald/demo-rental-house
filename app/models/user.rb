@@ -119,6 +119,7 @@ class User < ApplicationRecord
   end
 
   def assign_default_role
+    # Assign the 'user' role by default
     add_role(:user)
   end
 

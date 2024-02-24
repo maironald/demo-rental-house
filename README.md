@@ -105,7 +105,7 @@ Rental House Project
 │  │  ├─ invoices
 │  │  ├─ layouts
 │  │  ├─ notifications
-│  │  ├─ pages
+│  │  ├─ profiles
 │  │  ├─ renters
 │  │  ├─ rooms
 │  │  ├─ services

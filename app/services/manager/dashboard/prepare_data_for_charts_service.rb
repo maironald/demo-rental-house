@@ -49,7 +49,7 @@ module Manager
       end
 
       def expenditure_for_month
-        group_calculate_invoice_price(:price)
+        group_calculate_invoice_price(:total_price)
       end
 
       def rooms_data

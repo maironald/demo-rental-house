@@ -1,14 +1,14 @@
-<div class="w-full flex p-6 bg-blue-300 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-controller="datepicker">
-  <div class="w-[200px]">
-    <%= vite_image_tag("images/dashboard/bell.png", class: "w-[100px] w-[100px] sm:w-[200px] sm:h-[200px] rounded-full")%>
+<div class="w-full flex border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700">
+  <div class="w-[100px] lg:w-[200px]">
+    <%= vite_image_tag("images/dashboard/bell.png", class: "w-[100px] w-[100px] lg:w-[200px] lg:h-[200px] rounded-full p-4")%>
   </div>
   <div class="m-6">
     <h1 class="text-[25px] font-bold mb-4">
-      Tiêu Đề: <span class="italic"><%= @notification_event.params[:message][:title].to_s %></span>
+      Tiêu Đề: <span class="italic text-indigo-500"><%= @notification_event.params[:message][:title].to_s %></span>
     </h1>
     <div>
       <p class="font-bold">Nội dung:</p>
-      <p class="w-[200px] sm:w-[400px] whitespace-normal overflow-ellipsis break-words">
+      <p class="ml-6 w-[200px] sm:w-[400px] whitespace-normal overflow-ellipsis break-words">
         <%= @notification_event.params[:message][:body].to_s%>
       </p>
     </div>

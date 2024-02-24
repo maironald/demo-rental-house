@@ -1,15 +1,37 @@
-<div class="card w-full bg-base-100 shadow-xl">
-  <figure>
-    <%= vite_image_tag("images/room/logo_room5.png", class: "object-cover w-full h-full", alt: "logo_room")%>
-  </figure>
-  <div class="card-body">
-    <h2 class="card-title">Thông tin chi tiết về chỉ số điện và nước!</h2>
-    <p>Chỉ số điện cũ: <span><%= @room.electric_amount_old%></span></p>
-    <p>Chỉ số điện mới: <span><%= @room.electric_amount_new%></span></p>
-    <p>Chỉ số nước cũ: <span><%= @room.water_amout_old %></span></p>
-    <p>Chỉ số nước mới: <span><%= @room.water_amout_new %></span></p>
-    <div class="card-actions justify-end">
-      <%= link_to "Sửa", edit_room_electric_waters_path(@room), method: :get, class: "btn btn-primary w-1/2", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+<div class="w-full flex flex-col justify-center">
+  <div class="bg-white border block sm:flex  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <%= vite_image_tag("images/room/room_amount.jpg", class: "rounded-t-lg  h-[300px] w-[300px]")%>
+    <div class="p-5">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Thông tin chi tiết về chỉ số điện và nước của phòng <%= @room.name%> :</h5>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra text-lg">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th class="text-lg text-blue-700">Cũ</th>
+              <th class="text-lg text-blue-700">Mới</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr>
+              <th>Điện</th>
+              <td><%= @room.electric_amount_old%></td>
+              <td><%= @room.electric_amount_new%></td>
+            </tr>
+            <!-- row 2 -->
+            <tr>
+              <th class="text-lg">Nước</th>
+              <td><%= @room.water_amout_old %></td>
+              <td><%= @room.water_amout_new %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+  <div class="card-actions w-11/12 mt-4">
+      <%= link_to "Sửa", edit_room_electric_waters_path(@room), method: :get, class: "btn btn-primary w-1/2", remote: true, data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" %>
+    </div>
 </div>

@@ -2,6 +2,7 @@
 
 class RentersController < BaseController
   include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
   before_action :set_renter, only: %i[show edit update destroy]
 
   def index
@@ -21,10 +22,11 @@ class RentersController < BaseController
   end
 
   def edit
-    # @default_rooms = current_user.rooms.select { |room| room.renter_id.nil? }
+    @renter.deposit = format_to_vnd_not_unit(@renter.deposit)
   end
 
   def create
+    params[:renter][:renter_type] == 'main' && remove_decimal_separator(params[:renter], %i[deposit])
     @room = Room.find_by(id: params[:room_id])
     @renter = @room.renters.build(renter_params)
     # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
@@ -41,7 +43,7 @@ class RentersController < BaseController
   end
 
   def update
-    # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
+    params[:renter][:renter_type] == 'main' && remove_decimal_separator(params[:renter], %i[deposit])
     respond_to do |format|
       if @renter.update(renter_params)
         reload_rooms_with_update_destroy(format, type: :success, message: "The renter '#{@renter.name}' was successfully edited.")
@@ -120,5 +122,11 @@ class RentersController < BaseController
   def render_errors(format, action)
     format.html { render action, status: :unprocessable_entity }
     format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_renter', partial: 'renters/form')] }
+  end
+
+  def remove_decimal_separator(params_hash, keys)
+    keys.each do |key|
+      params_hash[key] = params_hash[key].delete('.')
+    end
   end
 end

@@ -1,12 +1,12 @@
 import { Controller } from "@hotwired/stimulus";
-import { Dismiss } from 'flowbite';
+import { Dismiss } from "flowbite";
 
 export default class extends Controller {
   static targets = ["alert"];
 
   initialize() {
     const dismiss = new Dismiss(this.alertTarget);
-    dismiss.hide()
+    dismiss.hide();
   }
 
   connect() {
@@ -15,7 +15,6 @@ export default class extends Controller {
 
     setTimeout(() => {
       this.closeAlert();
-      // dismiss.hide()
     }, 3000);
   }
 

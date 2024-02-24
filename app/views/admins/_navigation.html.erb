@@ -4,7 +4,7 @@
       <%= vite_image_tag("images/logo/logo.png", class: "h-20 w-10 me-3 sm:h-7", alt: "Flowbite Logo")%>
       <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Rental House</span>
     <%end%>
-    <h1 class="text-xl m-6 ml-0 font-serif">Xin chào, <%= current_user.email%></h1>
+    <h1 class="text-xl text-wrap m-6 ml-0 font-serif">Xin chào, <%= current_user.email.split("@").first%></h1>
     <ul class="space-y-2 font-medium">
       <li>
         <button type="button" class="flex items-center w-full p-3 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">

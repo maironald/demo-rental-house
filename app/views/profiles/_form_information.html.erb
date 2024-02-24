@@ -1,0 +1,59 @@
+<div class="h-full w-full pb-6 bg-base-100">
+  <%= turbo_frame_tag "profile_info" do%>
+    <%= simple_form_for current_user,  method: :put, url: update_information_profiles_path , html: { class: "flex flex-wrap flex-col" } do |f| %>
+      <%= f.error_notification %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <%= f.input :fullname, as: :string, wrapper_html: {class: 'form-control w-full undefined text-md'}, label: 'Tên Người Dùng:', label_html: {class: 'label'}, input_html:{ class:'input input-bordered w-full'}, autofocus: true%>
+        <%= f.input :address, as: :string, wrapper_html: {class: 'form-control w-full undefined text-md'}, label: "Địa Chỉ:", label_html: {class: 'label'},input_html:{ class:'input input-bordered w-full'}%>
+        <%= f.input :phone_number, as: :string, wrapper_html: {class: 'form-control w-full undefined text-md'}, label: "SĐT:", label_html: {class: 'label'}, input_html:{ class:'input input-bordered w-full'}%>
+        <%= f.input :email, as: :string, wrapper_html: {class: 'form-control w-full undefined text-md'}, label: "Email:", label_html: {class: 'label'}, input_html:{ class:'input input-bordered w-full'}%>
+      </div>
+      <div class="divider"></div>
+      <div class="flex justify-around gap-6 flex-col xl:flex-row">
+        <div class="<%= current_user.has_role?(:user) ? "flex flex-col justify-center w-full xl:w-1/2": ""%>">
+          <%= f.input :avatar, as: :file, class: "file-input w-full max-w-xs", label: "Avatar: ", label_html: {class: 'mb-2 fw-bold'}%>
+          <div class="flex justify-center mt-4">
+            <%=  @user.avatar? ? cl_image_tag(@user.avatar.url, crop: :fill, class: "rounded-full object-cover h-[300px] w-[300px]") : vite_image_tag( "images/dashboard/avatar.png" , width: 300, height: 300, crop: :fill)%>
+          </div>
+        </div>
+        <%if current_user.has_role?(:user) %>
+          <div class="flex justify-center w-full xl:w-1/2">
+            <div class="card w-[450px] glass shadow-xl">
+              <div class="card-body">
+                <h2 class="card-title justify-center">Tỷ lệ phòng</h2>
+                <div>
+                  <p class="mb-1 text-base font-medium text-red-700 dark:text-red-500">Phòng Trống</p>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                    <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" style="width: 55%"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="mb-1 text-base font-medium text-indigo-700 dark:text-indigo-500">Phòng Đã Thuê</p>
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                    <div class="bg-indigo-600 h-2.5 rounded-full dark:bg-indigo-500" style="width: 45%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <h2 class="card-title justify-center">Tỷ Lệ Khách</h2>
+                <div class="flex justify-around mt-4">
+                  <div class="flex flex-col items-center">
+                    <p class="mb-1 text-base font-medium text-red-700 dark:text-red-500">Khách Đứng Tên</p>
+                    <div class="radial-progress bg-error text-error-content border-4 border-error" style="--value:30;" role="progressbar">30%</div>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <p class="mb-1 text-base font-medium text-indigo-700 dark:text-indigo-500">Khách Chung Phòng</p>
+                    <div class="radial-progress bg-primary text-primary-content border-4 border-primary" style="--value:70;" role="progressbar">70%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%end%>
+      </div>
+      <div class="mt-16">
+        <%= f.submit 'Save', class: "btn btn-primary float-right w-auto xl:w-1/6 ml-2"%>
+      </div>
+    <% end %>
+  <%end%>
+</div>

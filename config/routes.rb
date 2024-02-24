@@ -75,10 +75,10 @@ Rails.application.routes.draw do
     resources :notifications, only: %i[show]
   end
 
-  resource :pages do
+  resource :profiles do
     collection do
-      get 'edit_information', to: 'pages#edit_information'
-      put 'update_information', to: 'pages#update_information'
+      get 'edit_information', to: 'profiles#edit_information'
+      put 'update_information', to: 'profiles#update_information'
     end
   end
 

@@ -1,0 +1,22 @@
+<div class="relative">
+  <%= render "shared/flash"%>
+  <div>
+    <%if current_user.has_role?(:user)%>
+      <%= render 'users/navigation'%>
+    <%else%>
+      <%= render 'admins/navigation'%>
+    <%end%>
+    <div class="sm:ml-64">
+      <%if current_user.has_role?(:user)%>
+        <%= render 'users/topnav'%>
+      <%else%>
+        <%= render 'admins/topnav'%>
+      <%end%>
+      <!-- table -->
+      <div class="right-div">
+        <%= render 'show_information'%>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render "shared/modal"%>
