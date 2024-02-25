@@ -59,12 +59,25 @@ module Manager
             )
     end
 
-    def render_result_action(result, action, path = manager_rooms_path, model = 'room', func = prepare_index)
-      render_result(result:, path:, model:, action:, func:)
+    def render_result_action(result, action)
+      render_result(
+        name_success: 'room_list',
+        name_error: 'new_room',
+        result:,
+        path: manager_rooms_path,
+        model: 'room',
+        action:,
+        func: prepare_index
+      )
     end
 
     def render_destroy
-      render_result_destroy(name: 'room_list', path: manager_rooms_path, model: @room.name, func: prepare_index)
+      render_result_destroy(
+        name: 'room_list',
+        path: manager_rooms_path,
+        model: @room.name,
+        func: prepare_index
+      )
     end
 
     def prepare_index

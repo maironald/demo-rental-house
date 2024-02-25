@@ -3,7 +3,7 @@
 module TurboRenderable
   extend ActiveSupport::Concern
 
-  def render_result(result:, path:, model:, action:, message: nil, func: nil)
+  def render_result(name_success:, name_error:, result:, path:, model:, action:, message: nil, func: nil) # rubocop:disable Metrics/ParameterLists
     respond_to do |format|
       if result
         message ||= t("common.#{action == :new ? 'create' : 'update'}.success", model:)
@@ -12,11 +12,11 @@ module TurboRenderable
         format.turbo_stream do
           yield func if block_given?
           flash.now[:success] = message
-          render_result_success(name: 'room_list')
+          render_result_success(name: name_success)
         end
       else
         format.html { render action, status: :unprocessable_entity }
-        format.turbo_stream { turbo_stream_reform(frame_name: 'new_room') }
+        format.turbo_stream { turbo_stream_reform(frame_name: name_error) }
       end
     end
   end
