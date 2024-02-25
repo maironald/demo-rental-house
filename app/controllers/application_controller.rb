@@ -3,21 +3,23 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Pagy::Backend
+  include TurboRenderable
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
+  helper_method :user_notifications, :user_content_notification, :check_unread_noti
 
   protected
 
-  # the code below will help us to redirect to correct path after sign in (admin or user)
-  # Note: The resource parameter is a convention used in Devise to refer to the user or the authenticated entity.
-  def after_sign_in_path_for(resource)
-    if resource.has_role?(:admin)
-      admins_root_path
-    elsif resource.has_role?(:user)
-      users_root_path
-    else
-      root_path
-    end
+  def user_notifications
+    @user_notifications = current_user.notifications
+  end
+
+  def user_content_notification(event_id)
+    @user_content_notification = Noticed::Event.find_by(id: event_id)
+  end
+
+  def check_unread_noti
+    current_user.notifications.unread.exists?
   end
 
   def check_authorize(record, query = nil)
