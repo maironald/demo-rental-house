@@ -18,8 +18,8 @@ module Manager
       attr_accessor :rooms, :params
 
       def filter
-        rooms = filter_by_name if params[:search].present?
-        rooms = filter_by_type if params[:selected_value].present?
+        @rooms = filter_by_name if params[:search].present?
+        @rooms = filter_by_type if params[:selected_value].present?
         rooms
       end
 

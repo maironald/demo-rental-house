@@ -13,7 +13,7 @@
   <body>
     <div class="relative">
       <div data-controller="flash" data-flash-target="alert">
-        <%= turbo_frame_tag "flash", target:'_top'%>
+        <%= render "shared/flash"%>
       </div>
       <div>
         <%= render 'users/navigation'%>

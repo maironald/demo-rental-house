@@ -2,7 +2,7 @@
   <h1 class="text-2xl font-bold ml-4 mt-2 mb-4">Danh sách phòng</h1>
   <div class="flex">
     <div class="lg:flex-row flex flex-col">
-      <%= form_with(url: rooms_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
+      <%= form_with(url: manager_rooms_path, method: :get, class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
         <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Còn trống", "empty"],["Đã Thuê", "rented"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
         <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
         <div class="relative w-[300px] sm:w-[350px] ml-2">

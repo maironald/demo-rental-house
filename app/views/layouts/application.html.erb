@@ -11,13 +11,9 @@
     <%= vite_javascript_tag 'application', data: {"turbo-track": "reload"}, defer: true %>
   </head>
   <body>
-    <% if !user_signed_in? %>
-      <div class="container-xl mx-auto">
-        <%= yield %>
-      </div>
-    <% else %>
+    <div class="<%= !user_signed_in? ? 'container-xl mx-auto' : '' %>">
       <%= yield %>
-    <% end %>
-    <%= render "shared/modal"%>
+    </div>
+    <%= render "shared/modal" %>
   </body>
 </html>

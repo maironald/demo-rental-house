@@ -44,6 +44,23 @@ Rails.application.routes.draw do
     resource :settings
   end
 
+  resources :rooms do
+    resource :electric_waters, only: %i[edit update] do
+      member do
+        # show detail for electric and water amount
+        get 'show_detail'
+      end
+    end
+    resources :invoices
+    resources :renters, only: %i[new create]
+    resource :renters, only: %i[index] do
+      member do
+        # room and renter
+        get 'show_renters'
+      end
+    end
+  end
+
   resources :renters, only: %i[destroy index update edit show] do
     collection do
       delete 'destroy_all', to: 'renters#destroy_all'

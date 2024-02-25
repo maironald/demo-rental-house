@@ -5,7 +5,14 @@ module Manager
     before_action :prepare_index, only: %i[index]
     before_action :set_room, only: %i[show edit update destroy]
 
-    def index; end
+    def index
+      respond_to do |format|
+        format.html
+        format.turbo_stream do
+          render_result_list(name:, locals: { rooms: @rooms }, partial: 'list_room')
+        end
+      end
+    end
 
     def show; end
 
@@ -17,29 +24,11 @@ module Manager
 
     def create
       @room = current_user.rooms.new(room_params)
-      respond_to do |format|
-        if @room.save
-          message = t('common.create.success', model: 'room')
-
-          format.html { redirect_to manager_rooms_path, notice: message }
-          format.turbo_stream do
-            prepare_index
-            flash.now[:success] = message
-            render_result_success(
-              name: 'room_list',
-              locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }
-            )
-          end
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_room', partial: 'manager/rooms/form')] }
-        end
-      end
+      render_result_action(@room.save, :new)
     end
 
     def update
-      result = @room.update(room_params)
-      render_result(result, 'new_room', @room.name)
+      render_result_action(@room.update(room_params), :edit)
     end
 
     def destroy
@@ -67,6 +56,10 @@ module Manager
               :water_amout_new,
               :water_amout_old
             )
+    end
+
+    def render_result_action(result, action, path = manager_rooms_path, model = 'room', func = prepare_index)
+      render_result(result:, path:, model:, action:, func:)
     end
 
     def prepare_index
