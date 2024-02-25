@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Pagy::Backend
+  include TurboRenderable
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   helper_method :user_notifications, :user_content_notification, :check_unread_noti

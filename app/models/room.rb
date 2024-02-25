@@ -38,13 +38,13 @@ class Room < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :length, presence: true, numericality: { less_than_or_equal_to: 20_000 }
   validates :width, presence: true, numericality: { less_than_or_equal_to: 20_000 }
-  validates :electric_amount_new, presence: true
-  validates :electric_amount_old, presence: true, on: :update
+  validates :electric_amount_new, presence: true, on: :update
+  validates :electric_amount_old, presence: true
   validates :price_room, presence: true
   validates :limit_residents, presence: true, numericality: { only_integer: true }
   validates :description, presence: true
-  validates :water_amout_new, presence: true
-  validates :water_amout_old, presence: true, on: :update
+  validates :water_amout_new, presence: true, on: :update
+  validates :water_amout_old, presence: true
 
   validate :check_electric_amount, on: :update
   validate :check_water_amount, on: :update

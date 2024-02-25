@@ -1,5 +1,5 @@
 <%= turbo_frame_tag 'new_room' do%>
-  <%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? room_path : rooms_path ), html: { class: "flex flex-wrap flex-col" } do |f| %>
+  <%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? manager_room_path : manager_rooms_path ), html: { class: "flex flex-wrap flex-col" } do |f| %>
     <%= f.error_notification %>
     <div class="flex flex-wrap justify-between">
       <div>
@@ -36,15 +36,16 @@
                     input_html: { class: ''},
                     required: true %>
       </div>
-      <b><%= action_name %></b>
       <div>
-        <%= f.input :electric_amount_new,
-                      as: :integer,
-                      wrapper_html: { class: 'mb-4' },
-                      label: "Chỉ số điện mới (1kwh): ",
-                      label_html: { class: ' mb-2 fw-bold' },
-                      input_html: { class: ''},
-                      required: true %>
+        <% if @room.persisted? %>
+          <%= f.input :electric_amount_new,
+                        as: :integer,
+                        wrapper_html: { class: 'mb-4' },
+                        label: "Chỉ số điện mới (1kwh): ",
+                        label_html: { class: ' mb-2 fw-bold' },
+                        input_html: { class: ''},
+                        required: true %>
+        <% end %>
         <%= f.input :water_amout_old,
                     as: :integer,
                     wrapper_html: { class: 'mb-4' },
@@ -52,13 +53,15 @@
                     label_html: { class: 'mb-2 fw-bold' },
                     input_html: { class: '' },
                     required: true %>
-        <%= f.input :water_amout_new,
-                      as: :integer,
-                      wrapper_html: { class: 'mb-4' },
-                      label: "Chỉ số nước mới (m3): ",
-                      label_html: { class: 'mb-2 fw-bold' },
-                      input_html: { class: '' },
-                      required: true %>
+        <% if @room.persisted? %>
+          <%= f.input :water_amout_new,
+                        as: :integer,
+                        wrapper_html: { class: 'mb-4' },
+                        label: "Chỉ số nước mới (m3): ",
+                        label_html: { class: 'mb-2 fw-bold' },
+                        input_html: { class: '' },
+                        required: true %>
+        <% end %>
         <%= f.input :limit_residents,
                     as: :integer,
                     wrapper_html: { class: 'mb-4' },

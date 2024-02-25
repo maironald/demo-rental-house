@@ -5,9 +5,7 @@ module Manager
     before_action :prepare_index, only: %i[index]
     before_action :set_room, only: %i[show edit update destroy]
 
-    def index
-      @pagy, @rooms = pagy(@rooms, items: 9)
-    end
+    def index; end
 
     def show; end
 
@@ -19,7 +17,24 @@ module Manager
 
     def create
       @room = current_user.rooms.new(room_params)
-      render_result(@room.save, 'new_room', @room.name)
+      respond_to do |format|
+        if @room.save
+          message = t('common.create.success', model: 'room')
+
+          format.html { redirect_to manager_rooms_path, notice: message }
+          format.turbo_stream do
+            prepare_index
+            flash.now[:success] = message
+            render_result_success(
+              name: 'room_list',
+              locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }
+            )
+          end
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_room', partial: 'manager/rooms/form')] }
+        end
+      end
     end
 
     def update
@@ -61,6 +76,7 @@ module Manager
       @room_left = @room_total - @room_used
       @rooms = Manager::Rooms::GetListRoomsService.call(total_rooms, params)
       @total_rooms = @rooms.size
+      @pagy, @rooms = pagy(@rooms, items: 9)
     end
   end
 end

@@ -1,4 +1,27 @@
 <%= turbo_frame_tag "room_list" do%>
+  <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 m-4">
+    <div class="m-2 flex items-center">
+      <p class="text-lg">
+        Còn trống: <span class="font-bold text-red-600"><%= @room_left %></span>  |  Đã cho thuê: <span class="font-bold text-red-600"><%= @room_used%></span>
+      </p>
+    </div>
+    <div class="flex flex-col md:flex-row mb-2">
+      <%= button_to new_manager_room_path, method: :get, class: "btn btn-primary", data: {turbo_stream: "new_room" }, onClick: "my_modal_4.showModal()" do %>
+        <i class="fa-solid fa-list-ol mr-2"></i>
+        Thêm Phòng
+      <% end %>
+    </div>
+  </div>
+  <div class="flex justify-between m-2 mr-6">
+    <div class="italic">
+      <span class="text-red-700">(*) </span>
+      Đã tìm thấy: <%= @total_rooms%> phòng
+    </div>
+    <%= button_to edit_user_settings_path, method: :get, class: "btn bg-blue-300", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+      <i class="fa-solid fa-pen mr-2"></i>
+      Tùy chỉnh các loại phí
+    <% end %>
+  </div>
   <div id="room-list" class="flex flex-wrap w-full">
     <% if @rooms.empty? && current_user.rooms.count == 0 %>
       <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
