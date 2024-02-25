@@ -1,8 +1,8 @@
 <%= turbo_frame_tag 'new_room' do%>
   <%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? manager_room_path : manager_rooms_path ), html: { class: "flex flex-wrap flex-col" } do |f| %>
     <%= f.error_notification %>
-    <div class="flex flex-wrap justify-between">
-      <div>
+    <div class="flex flex-wrap sm:flex-none justify-between">
+      <div class="w-auto sm:w-2/5">
         <%= f.input :name,
                     as: :string,
                     wrapper_html: { class: 'mb-4' },
@@ -36,7 +36,7 @@
                     input_html: { class: ''},
                     required: true %>
       </div>
-      <div>
+      <div class="w-auto sm:w-2/5">
         <% if @room.persisted? %>
           <%= f.input :electric_amount_new,
                         as: :integer,

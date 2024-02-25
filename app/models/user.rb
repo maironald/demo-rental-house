@@ -119,7 +119,7 @@ class User < ApplicationRecord
   end
 
   def assign_default_role
-    add_role(:user)
+    add_role(:user) if roles.blank?
   end
 
   def create_setting

@@ -1,8 +1,10 @@
-<%= simple_form_for @invoice, method: (@invoice.persisted? ? :put : :post) , url: (@invoice.persisted? ? room_invoice_path : room_invoices_path ) do |f| %>
+<%= simple_form_for @invoice, method: (@invoice.persisted? ? :put : :post) , url: (@invoice.persisted? ? room_invoice_path : room_invoices_path ), html: {class: "p-10 w-full"} do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Name:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
-  <%= f.input :total_price, as: :decimal, input_html: { value: @total_price, disabled: true}, wrapper_html: {class: 'mb-4'}, label: "Total Price:", label_html: {class: 'mb-2 fw-bold'}, default_value: @total_price, required: true%>
-  <%= f.input :paid_money, as: :string, wrapper_html: {class: 'mb-4'}, label: "Paid Money:", label_html: {class: 'mb-2 fw-bold'} %>
-  <%= f.submit 'Lưu', class: "btn btn-primary w-1/2"%>
+  <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Invoice ID:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+  <%= f.input :total_price, as: :string, input_html: { value: format_to_vnd_not_unit(@total_price), disabled: true}, wrapper_html: {class: 'mb-4'}, label: "Tổng tiền khách phải trả:", label_html: {class: 'mb-2 fw-bold'}, default_value: @total_price%>
+  <%= f.input :paid_money, as: :string, input_html: { data: {controller: "currency-format"} }, wrapper_html: {class: 'mb-4'}, label: "Tổng tiền khách trả:", label_html: {class: 'mb-2 fw-bold'} %>
+  <div class="w-full flex justify-end">
+    <%= f.submit 'Lưu', class: "btn btn-primary w-1/2"%>
+  </div>
 <% end %>

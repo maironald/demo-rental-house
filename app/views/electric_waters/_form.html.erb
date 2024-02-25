@@ -1,9 +1,21 @@
-<%= simple_form_for @room, method: :put, url: room_electric_waters_path do |f| %>
-  <%= f.error_notification %>
+<%= turbo_frame_tag "new_electric_water" do%>
+  <%= simple_form_for @room, method: :put, url: room_electric_waters_path do |f| %>
+    <% if @room.errors[:base_electric].present? %>
+      <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400">
+        <%= @room.errors[:base_electric].join(', ') %>
+      </div>
+    <% elsif @room.errors[:base_water].present? %>
+      <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400">
+        <%= @room.errors[:base_water].join(', ') %>
+      </div>
+    <% else %>
+      <%= f.error_notification %>
+    <% end %>
 
-  <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: 'Chỉ số điện cũ:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
-  <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới:", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ:", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới:", label_html: {class: 'mb-2 fw-bold'}%>
-  <%= f.submit 'Lưu', class: 'btn w-1/2 btn-primary' %>
-<% end %>
+    <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: 'Chỉ số điện cũ:', label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'},input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true, autofocus: true%>
+    <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới:", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'},input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
+    <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ:", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true %>
+    <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới:", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true %>
+    <%= f.submit 'Lưu', class: 'btn w-1/2 btn-primary' %>
+  <% end %>
+<%end%>

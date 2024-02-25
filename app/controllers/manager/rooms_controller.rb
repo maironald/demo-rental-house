@@ -9,7 +9,8 @@ module Manager
       respond_to do |format|
         format.html
         format.turbo_stream do
-          render_result_list(name:, locals: { rooms: @rooms }, partial: 'list_room')
+          prepare_index
+          render_result_list(name: 'room_list', partial: 'table')
         end
       end
     end
@@ -33,7 +34,7 @@ module Manager
 
     def destroy
       @room.really_destroy!
-      redirect_to rooms_path, notice: t('common.destroy.success', model: @room.name)
+      render_destroy
     end
 
     private
@@ -60,6 +61,10 @@ module Manager
 
     def render_result_action(result, action, path = manager_rooms_path, model = 'room', func = prepare_index)
       render_result(result:, path:, model:, action:, func:)
+    end
+
+    def render_destroy
+      render_result_destroy(name: 'room_list', path: manager_rooms_path, model: @room.name, func: prepare_index)
     end
 
     def prepare_index

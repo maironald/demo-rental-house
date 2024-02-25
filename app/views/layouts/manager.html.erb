@@ -12,11 +12,9 @@
   </head>
   <body>
     <div class="relative">
-      <div data-controller="flash" data-flash-target="alert">
-        <%= render "shared/flash"%>
-      </div>
       <div>
-        <%= render 'users/navigation'%>
+        <%= render 'layouts/manager/asidebar'%>
+        <%= turbo_frame_tag 'flash', target: '_top' %>
         <div class="sm:ml-64">
           <%= render 'users/topnav'%>
           <%= yield %>

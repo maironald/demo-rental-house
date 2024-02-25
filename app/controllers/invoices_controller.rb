@@ -2,6 +2,7 @@
 
 class InvoicesController < BaseController
   include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
   before_action :calculate_total_price, only: %i[new create edit update]
   before_action :set_total_price_param, only: %i[create update]
   before_action :set_room, only: %i[create]
@@ -18,9 +19,11 @@ class InvoicesController < BaseController
   def edit
     @room = Room.find(params[:room_id])
     @invoice = Invoice.find(params[:id])
+    @invoice.paid_money = format_to_vnd_not_unit(@invoice.paid_money)
   end
 
   def create
+    remove_decimal_separator(params[:invoice], %i[paid_money])
     respond_to do |format|
       @invoice = @room.invoices.build(invoice_params)
       if @invoice.save
@@ -42,6 +45,7 @@ class InvoicesController < BaseController
   end
 
   def update
+    remove_decimal_separator(params[:invoice], %i[paid_money])
     respond_to do |format|
       if @invoice.update(invoice_params)
         reload_invoices_with_update_destroy(format, type: :success, message: "The invoice '#{@invoice.name}' was successfully edited.")
@@ -125,5 +129,11 @@ class InvoicesController < BaseController
   def render_errors(format, action)
     format.html { render action, status: :unprocessable_entity }
     format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_invoice', partial: 'invoices/invoice_room')] }
+  end
+
+  def remove_decimal_separator(params_hash, keys)
+    keys.each do |key|
+      params_hash[key] = params_hash[key].delete('.')
+    end
   end
 end
