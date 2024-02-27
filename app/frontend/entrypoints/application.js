@@ -5,7 +5,7 @@ import "flowbite/dist/flowbite.turbo";
 import "apexcharts/dist/apexcharts";
 
 import "@/controllers";
-import "@/controllers/admins";
+import "@/controllers/admin";
 import "@/controllers/shared";
 import "@/controllers/users";
 import "@/controllers/rooms";

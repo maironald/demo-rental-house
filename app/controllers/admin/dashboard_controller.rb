@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Admins
+module Admin
   class DashboardController < BaseController
     def index
       @users = User.with_role(:user).without_deleted
@@ -17,7 +17,7 @@ module Admins
     def update_password_user
       @user = User.find(params[:id])
       if @user.update(user_params)
-        redirect_to admins_dashboard_index_path, notice: 'Password updated successfully.'
+        redirect_to admin_dashboard_index_path, notice: 'Password updated successfully.'
       else
         render :edit_password
       end
@@ -35,7 +35,7 @@ module Admins
       @user = User.find(params[:id])
       @user.destroy!
       respond_to do |format|
-        format.html { redirect_to admins_dashboard_index_path, notice: 'User was successfully inactived.' }
+        format.html { redirect_to admin_dashboard_index_path, notice: 'User was successfully inactived.' }
       end
     end
 
@@ -44,7 +44,7 @@ module Admins
       return unless @user.restore(recursive: true)
 
       respond_to do |format|
-        format.html { redirect_to admins_dashboard_index_path, notice: 'User was successfully actived again.' }
+        format.html { redirect_to admin_dashboard_index_path, notice: 'User was successfully actived again.' }
       end
     end
 
@@ -54,7 +54,7 @@ module Admins
       @user = User.find(params[:id])
       @user.really_destroy!
       respond_to do |format|
-        format.html { redirect_to show_all_users_deleted_admins_dashboard_index_path, notice: 'User was successfully permanently deleted.' }
+        format.html { redirect_to show_all_users_deleted_admin_dashboard_index_path, notice: 'User was successfully permanently deleted.' }
       end
     end
 

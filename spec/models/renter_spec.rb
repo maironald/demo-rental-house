@@ -52,8 +52,12 @@ RSpec.describe Renter, type: :model do
       expect(Renter).to respond_to(:search_by_name)
     end
 
-    it '.filter_renter_type' do
-      expect(Renter).to respond_to(:filter_renter_type)
+    it '.renters_main' do
+      expect(Renter).to respond_to(:renters_main)
+    end
+
+    it '.renters_member' do
+      expect(Renter).to respond_to(:renters_member)
     end
   end
 end

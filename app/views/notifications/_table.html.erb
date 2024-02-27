@@ -1,13 +1,13 @@
 <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col mt-6 pb-8 mr-4 ml-4">
-  <div class="flex justify-between sm:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
+  <div class="flex justify-between lg:flex-row flex-col border-b border-gray-300 ml-4 mr-4">
     <h1 class="text-2xl m-2 font-bold">Danh Sách Thông Báo</h1>
     <div class="m-2 flex">
-        <%= button_to new_admins_notification_path, method: :get, class: "btn btn-primary", data:{turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %><i
+        <%= button_to new_admin_notification_path, method: :get, class: "btn btn-primary", data:{turbo_stream: ""}, onClick: "my_modal_4.showModal()" do %><i
                 class="fa-solid fa-pen mr-2"></i>Tạo Thông Báo Mới<% end %>
     </div>
   </div>
   <div class="m-4">
-    <%= form_with(url: admins_notifications_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
+    <%= form_with(url: admin_notifications_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
       <div class="relative w-[300px] sm:w-[350px] ml-2">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <%= vite_image_tag("images/icons/glass.svg", class: "w-4 h-4 text-gray-500 dark:text-gray-400")%>
@@ -66,11 +66,11 @@
               </td>
               <td class="px-6 py-4">
                   <%= render "shared/menu_button" do%>
-                    <%= button_to edit_admins_notification_path(notification), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do%>
+                    <%= button_to edit_admin_notification_path(notification), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true, data: {turbo_stream: ""}, onClick: "my_modal_4.showModal()" do%>
                       <i class="fa-solid fa-pen mr-2"></i>
                       Sửa
                     <%end%>
-                    <%= button_to admins_notification_path(notification), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa thông báo này?" }, remote: true do%>
+                    <%= button_to admin_notification_path(notification), method: :delete, class: "btn btn-ghost w-full text-red-500", data: { turbo_confirm: "Bạn có chắc chắn muốn xóa thông báo này?" }, remote: true do%>
                       <i class="fa-solid fa-trash mr-2"></i>
                       Xóa
                     <%end%>

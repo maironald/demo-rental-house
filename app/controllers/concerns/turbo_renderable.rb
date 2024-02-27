@@ -3,7 +3,7 @@
 module TurboRenderable
   extend ActiveSupport::Concern
 
-  def render_result(result:, path:, model:, action:)
+  def render_result(result:, path:, model:, action:, name:, frame_back_name:, partial: 'table')
     respond_to do |format|
       if result
         message = t("common.#{action == :new ? 'create' : 'update'}.success", model:)
@@ -12,11 +12,11 @@ module TurboRenderable
         format.turbo_stream do
           prepare_index
           flash.now[:success] = message
-          render_result_success(name: 'room_list')
+          render_result_success(name:, partial:)
         end
       else
         format.html { render action, status: :unprocessable_entity }
-        format.turbo_stream { turbo_stream_reform(frame_name: 'new_room') }
+        format.turbo_stream { turbo_stream_reform(frame_back_name:) }
       end
     end
   end
@@ -25,9 +25,9 @@ module TurboRenderable
     render turbo_stream: turbo_action_base(name:, locals:, partial:, modal:)
   end
 
-  def turbo_stream_reform(frame_name:, partial: 'form')
+  def turbo_stream_reform(frame_back_name:, partial: 'form')
     render turbo_stream: [
-      turbo_stream.replace(frame_name, partial:),
+      turbo_stream.replace(frame_back_name, partial:),
       turbo_stream.prepend('flash', partial: 'shared/flash')
     ], status: :unprocessable_entity
   end

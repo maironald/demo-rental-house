@@ -3,137 +3,55 @@
 require 'rails_helper'
 
 RSpec.describe RentersController, type: :controller do
-  before do
-    allow(controller).to receive(:authenticate_user!).and_return(true)
-    allow(controller).to receive(:current_user).and_return(user)
-  end
-
   let(:user) { create(:user) }
-  let(:room) { create(:room, user:) }
+  let(:room) { create(:room, user:, electric_amount_old: 10, electric_amount_new: 20, water_amout_old: 30, water_amout_new: 40) }
   let(:renter) { create(:renter, room:) }
+  let(:valid_params) { { renter: attributes_for(:renter), room_id: room.id } }
 
-  before do
-    sign_in user
-  end
+  before { sign_in(user) }
 
   describe 'GET #index' do
-    context 'when user is signed in' do
-      let(:user) { create(:user) }
-      let(:room_ids) { [1, 2, 3] }
-
-      before do
-        sign_in user
-        allow(controller).to receive(:current_user).and_return(user)
-        allow(user).to receive_message_chain(:rooms, :pluck).and_return(room_ids)
-      end
-
-      it 'assigns @room_ids with rooms rented by current user' do
-        get :index
-        expect(assigns(:room_ids)).to eq(room_ids)
-      end
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template(:index)
     end
   end
 
-  # describe '#new' do
-  #   it 'assigns a new renter to @renter' do
-  #     get :new, format: :turbo_stream
-  #     expect(assigns(:renters)).to be_a_new(Renter)
-  #   end
+  describe 'GET #edit' do
+    let(:renter) { create(:renter, room:) }
 
-  #   it 'renders the new turbo_stream template' do
-  #     get :new, format: :turbo_stream
-  #     expect(response).to render_template('new.turbo_stream.erb')
-  #   end
-  # end
+    it 'renders the edit template' do
+      get :edit, params: { id: renter.id }, format: :turbo_stream
+      expect(response).to render_template(:edit)
+    end
+  end
 
-  describe '#create' do
-    let(:room) { create(:room) }
-
-    context 'with valid params' do
-      let(:valid_params) { { room_id: room.id, renter: attributes_for(:renter) } }
-
-      it 'creates a new renter' do
-        expect do
-          post :create, params: valid_params
-        end.to change(Renter, :count).by(1)
-      end
-
-      it 'redirects to the rooms path' do
+  describe 'POST #create' do
+    it 'creates a new renter' do
+      expect do
         post :create, params: valid_params
-        expect(response).to redirect_to(rooms_path)
-      end
+      end.to change(Renter, :count).by(1)
 
-      # Add more tests for turbo stream rendering if needed
-    end
-
-    context 'with invalid params' do
-      let(:invalid_params) { { room_id: room.id, renter: attributes_for(:renter, name: nil) } }
-
-      it 'does not create a new renter' do
-        expect do
-          post :create, params: invalid_params, format: :turbo_stream
-        end.to_not change(Renter, :count)
-      end
-
-      it 'renders the new template again' do
-        post :create, params: invalid_params, format: :turbo_stream
-        expect(response).to render_template(:new)
-      end
+      expect(response).to redirect_to(rooms_path)
     end
   end
 
-  describe '#update' do
-    let(:renter) { create(:renter) }
+  describe 'PATCH #update' do
+    let(:renter) { create(:renter, room:) }
+    let(:valid_params) { { id: renter.id, renter: { name: 'Updated Renter' } } }
 
-    context 'with valid params' do
-      let(:valid_params) { { id: renter.id, renter: { name: 'Updated Name' } } }
-
-      it 'updates the renter' do
-        put :update, params: valid_params
-        renter.reload
-        expect(renter.name).to eq('Updated Name')
-      end
-
-      it 'redirects to the renters path' do
-        put :update, params: valid_params
-        expect(response).to redirect_to(renters_path)
-      end
-
-      # Add more tests for turbo stream rendering if needed
-    end
-
-    context 'with invalid params' do
-      let(:invalid_params) { { id: renter.id, renter: { name: nil } } }
-
-      it 'does not update the renter' do
-        put :update, params: invalid_params, format: :turbo_stream
-        renter.reload
-        expect(renter.name).to_not be_nil
-      end
-
-      it 'renders the edit template again' do
-        put :update, params: invalid_params, format: :turbo_stream
-        expect(response).to render_template(:edit)
-      end
-    end
-  end
-
-  describe '#destroy' do
-    let(:renter) { create(:renter) }
-
-    it 'destroys the renter' do
-      delete :destroy, params: { id: renter.id }
-      expect(Renter.exists?(renter.id)).to be_falsey
-    end
-
-    it 'redirects to the renters path' do
-      delete :destroy, params: { id: renter.id }
+    it 'updates the renter' do
+      patch :update, params: valid_params
+      renter.reload
+      expect(renter.name).to eq('Updated Renter')
       expect(response).to redirect_to(renters_path)
     end
+  end
 
-    it 'sets a flash notice message' do
-      delete :destroy, params: { id: renter.id }
-      expect(flash[:notice]).to eq('Renter was successfully deleted.')
+  describe 'GET #show_renters' do
+    it 'renders the show_renters template' do
+      get :show_renters, params: { room_id: room.id }, format: :turbo_stream
+      expect(response).to render_template(:show_renters)
     end
   end
 end

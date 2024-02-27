@@ -24,7 +24,7 @@
                     <%= room.name%>
                   </td>
                   <td>
-                    <%= room.price_room%>
+                    <%= format_to_vnd(room.price_room)%>
                   </td>
                   <td>
                     <%= room.limit_residents%>
@@ -63,13 +63,13 @@
                     <%= invoice.name%>
                   </td>
                   <td class="px-6 py-4">
-                    <%= invoice.total_price%>
+                    <%= format_to_vnd(invoice.total_price)%>
                   </td>
                   <td class="px-6 py-4">
-                    <%= invoice.paid_money%>
+                    <%= format_to_vnd(invoice.paid_money)%>
                   </td>
                   <td class="px-6 py-4">
-                    <%= invoice.total_price - invoice.paid_money%>
+                    <%= format_to_vnd(invoice.total_price - invoice.paid_money)%>
                   </td>
                 </tr>
               <%end%>

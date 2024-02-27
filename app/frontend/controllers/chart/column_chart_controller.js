@@ -6,6 +6,8 @@ export default class extends Controller {
 
   connect() {
     this.renderChart();
+    console.log(this.getBenefitValue());
+    console.log(this.getExpenseValue());
   }
 
   getBenefitValue() {
@@ -23,8 +25,8 @@ export default class extends Controller {
       return 0;
     }
     return this.getBenefitValue().map((benefit) => {
-      if (benefit[0] === month) {
-        return benefit[1];
+      if (benefit[1] === month) {
+        return benefit[0];
       }
       return 0;
     });
@@ -35,8 +37,8 @@ export default class extends Controller {
       return 0;
     }
     return this.getExpenseValue().map((expense) => {
-      if (expense[0] === month) {
-        return expense[1];
+      if (expense[1] === month) {
+        return expense[0];
       }
       return 0;
     });

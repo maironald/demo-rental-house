@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'authentication/sessions' }
+  devise_for :users, controllers: { omniauth_callbacks: 'authentication/omniauth_callbacks', sessions: 'authentication/sessions' }
   root 'home#index'
 
   # it will redirect to users dashboard with url 127:0:0:1/users
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   # it will redirect to users dashboard with url 127:0:0:1/admins
-  namespace :admins do
+  namespace :admin do
     resources :dashboard do
       delete 'delete_user_account', on: :member, to: 'dashboard#delete_user_account'
       put 'restore_deleted_user', on: :member, to: 'dashboard#restore_deleted_user'
@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :admins do
+  resource :admin do
     resources :notifications
   end
 

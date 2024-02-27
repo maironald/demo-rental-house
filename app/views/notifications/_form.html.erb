@@ -1,4 +1,4 @@
-<%= form_with(url: admins_notifications_path, method: 'post', class: "w-[250px] md:w-full flex flex-col flex-wrap") do |form| %>
+<%= form_with(url: admin_notifications_path, method: 'post', class: "w-[250px] md:w-full flex flex-col flex-wrap") do |form| %>
   <%= form.label "Tiêu Đề:", class: 'mb-2 font-bold'%>
   <%= form.text_field :title, as: :text, class: "input input-bordered input-info w-full", required: true, autofocus: true %>
   <%= form.label "Nội dung:", class: 'mb-2 mt-2 font-bold'%>

@@ -4,13 +4,13 @@
     <%if current_user.has_role?(:user)%>
       <%= render 'users/navigation'%>
     <%else%>
-      <%= render 'admins/navigation'%>
+      <%= render 'admin/navigation'%>
     <%end%>
     <div class="sm:ml-64">
       <%if current_user.has_role?(:user)%>
         <%= render 'users/topnav'%>
       <%else%>
-        <%= render 'admins/topnav'%>
+        <%= render 'admin/topnav'%>
       <%end%>
       <!-- table -->
       <div class="right-div">

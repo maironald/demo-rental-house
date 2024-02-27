@@ -14,6 +14,11 @@ export default class extends Controller {
     // Check the selected value and disable the input if needed
     const shouldDisable = selectedValue !== "main";
 
-    this.inputToDisableTarget.disabled = shouldDisable;
+    this.inputToDisableTargets.forEach((input) => {
+      // eslint-disable-next-line no-param-reassign
+      input.disabled = shouldDisable;
+      // eslint-disable-next-line no-param-reassign
+      input.value = shouldDisable ? "0" : ""; // Set value to "0" if shouldDisable is true, otherwise set an empty string
+    });
   }
 }

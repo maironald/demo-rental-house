@@ -24,7 +24,7 @@ class NotificationsController < BaseController
   def create
     NotificationsNotifier.with(message: { title: params[:title], body: params[:body] }).deliver(User.where.not(id: current_user.id))
     respond_to do |format|
-      format.html { redirect_to admins_notifications_path, notice: 'Thông báo được tạo thành công.' }
+      format.html { redirect_to admin_notifications_path, notice: 'Thông báo được tạo thành công.' }
     end
   end
 
@@ -32,7 +32,7 @@ class NotificationsController < BaseController
     @params = { message: { title: params[:title], body: params[:body] } }
     if @notification.update(params: @params)
       respond_to do |format|
-        format.html { redirect_to admins_notifications_path, notice: 'Notification was successfully edited.' }
+        format.html { redirect_to admin_notifications_path, notice: 'Notification was successfully edited.' }
       end
     else
       render :edit, status: :unprocessable_entity
@@ -45,7 +45,7 @@ class NotificationsController < BaseController
     return unless @notification.destroy && @notification_sending.destroy
 
     respond_to do |format|
-      format.html { redirect_to admins_notifications_path, notice: 'Notification was successfully deleted.' }
+      format.html { redirect_to admin_notifications_path, notice: 'Notification was successfully deleted.' }
     end
   end
 

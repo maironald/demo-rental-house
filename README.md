@@ -88,8 +88,11 @@ Rental House Project
 |  |  └─ concerns
 │  ├─ notifiters
 │  ├─ policies
+│  ├─ services
+|  |  └─ users
+|  |  |  └─ dashboard
 │  ├─ uploaders
-│  └─ views
+│  └─ view
 │  │  ├─ admins
 │  │  │  └─ dashboard
 │  │  ├─ devise

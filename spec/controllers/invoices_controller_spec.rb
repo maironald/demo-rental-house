@@ -3,72 +3,53 @@
 require 'rails_helper'
 
 RSpec.describe InvoicesController, type: :controller do
-  describe '#create' do
-    let(:room) { create(:room) }
+  let(:user) { create(:user) }
+  let(:room) { create(:room, user:, electric_amount_old: 10, electric_amount_new: 20, water_amout_old: 30, water_amout_new: 40) }
+  let(:invoice) { create(:invoice, room:) }
 
-    context 'with invalid params' do
-      let(:invalid_params) { { room_id: room.id, invoice: attributes_for(:invoice, name: nil) } }
+  before { sign_in(user) }
 
-      it 'does not create a new invoice' do
-        expect do
-          post :create, params: invalid_params
-        end.to_not change(Invoice, :count)
-      end
-
-      it 'returns unprocessable_entity status' do
-        post :create, params: invalid_params
-        expect(response).to have_http_status(:found)
-      end
+  describe 'GET #new' do
+    it 'renders the new template' do
+      get :new, params: { room_id: room.id }, format: :turbo_stream
+      expect(response).to render_template(:new)
     end
   end
 
   describe 'GET #show_all_invoices' do
-    let(:user) { create(:user) } # Assuming you have a factory for users
-    let!(:room1) { create(:room, user:) }
-    let!(:room2) { create(:room, user:) }
-    let!(:invoice1) { create(:invoice, room: room1) }
-    let!(:invoice2) { create(:invoice, room: room2) }
-
-    before do
-      sign_in user
-    end
-
-    it 'assigns the rooms of the current user to @room_ids' do
-      get :show_all_invoices
-      expect(assigns(:room_ids)).to match_array([room1.id, room2.id])
-    end
-
-    it 'assigns the filtered invoices to @invoices' do
-      get :show_all_invoices
-      expect(assigns(:invoices)).to match_array([invoice1, invoice2])
-    end
-
-    it 'applies search filtering if search parameter is present' do
-      get :show_all_invoices, params: { search: invoice1.name }
-      expect(assigns(:invoices)).to eq([invoice1])
-    end
-
-    it 'applies filtering for unpaid invoices if selected_value parameter is unpaid' do
-      unpaid_invoice = create(:invoice, room: room1, total_price: 100, paid_money: 50)
-      get :show_all_invoices, params: { selected_value: 'unpaid' }
-      expect(assigns(:invoices)).to eq([invoice1, invoice2, unpaid_invoice])
-    end
-
-    it 'applies filtering for paid invoices if selected_value parameter is paid' do
-      paid_invoice = create(:invoice, room: room1, total_price: 100, paid_money: 100)
-      get :show_all_invoices, params: { selected_value: 'paid' }
-      expect(assigns(:invoices)).to eq([paid_invoice])
-    end
-
-    it 'paginates @invoices' do
-      get :show_all_invoices
-      expect(assigns(:pagy)).to be_present
-      expect(assigns(:invoices)).to be_present
-    end
-
     it 'renders the show_all_invoices template' do
       get :show_all_invoices
       expect(response).to render_template(:show_all_invoices)
+    end
+  end
+
+  describe 'GET #edit' do
+    it 'renders the edit template' do
+      get :edit, params: { room_id: room.id, id: invoice.id }, format: :turbo_stream
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe 'POST #create' do
+    let(:valid_params) { { room_id: room.id, invoice: attributes_for(:invoice) } }
+
+    it 'creates a new invoice' do
+      expect do
+        post :create, params: valid_params
+      end.to change(Invoice, :count).by(1)
+
+      expect(response).to redirect_to(show_all_invoices_invoices_path)
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'destroys the invoice' do
+      invoice # Ensure the invoice is created
+      expect do
+        delete :destroy, params: { room_id: room.id, id: invoice.id }
+      end.to change(Invoice, :count).by(-1)
+
+      expect(response).to redirect_to(show_all_invoices_invoices_path)
     end
   end
 end

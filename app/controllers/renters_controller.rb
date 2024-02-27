@@ -3,17 +3,10 @@
 class RentersController < BaseController
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
+  before_action :prepare_index, only: %i[index]
   before_action :set_renter, only: %i[show edit update destroy]
 
-  def index
-    # get all the renters id who have rented a room through current user
-    @room_ids = current_user.rooms.pluck(:id)
-    @renters = Renter.where(room_id: @room_ids)
-    @renters = @renters.search_by_name(params[:search], @room_ids) if params[:search]
-    @renters = @renters.filter_renter_type(params[:selected_value]) if params[:selected_value] == 'main' || params[:selected_value] == 'member'
-
-    @pagy, @renters = pagy(@renters, items: 9)
-  end
+  def index; end
 
   def show; end
 
@@ -26,38 +19,20 @@ class RentersController < BaseController
   end
 
   def create
-    params[:renter][:renter_type] == 'main' && remove_decimal_separator(params[:renter], %i[deposit])
+    remove_decimal_separator(params[:renter], %i[deposit])
     @room = Room.find_by(id: params[:room_id])
-    @renter = @room.renters.build(renter_params)
-    # @room_info = Room.find_by(id: renter_params[:rooms_attributes]['0'][:id])
+    @renter = @room.renters.new(renter_params)
 
-    # Find the main renter of the room to replace another new main renter in the same room.
-    Renter.find_by(room_id: params[:room_id], renter_type: 'main')&.update(renter_type: 'member') if renter_params[:renter_type] == 'main'
-    respond_to do |format|
-      if @renter.save
-        reload_rooms_with_create(format, type: :success, message: "The renter '#{@renter.name}' was successfully created.")
-      else
-        render_errors(format, :new)
-      end
-    end
+    render_result_with_room(@renter.save, :new, @room)
   end
 
   def update
-    params[:renter][:renter_type] == 'main' && remove_decimal_separator(params[:renter], %i[deposit])
-    respond_to do |format|
-      if @renter.update(renter_params)
-        reload_rooms_with_update_destroy(format, type: :success, message: "The renter '#{@renter.name}' was successfully edited.")
-      else
-        render_errors(format, :edit)
-      end
-    end
+    remove_decimal_separator(params[:renter], %i[deposit])
+    render_result_action(@renter.update(renter_params), :edit)
   end
 
   def destroy
-    @renter.really_destroy!
-    respond_to do |format|
-      reload_rooms_with_update_destroy(format, type: :success, message: "The renter '#{@renter.name}' was successfully deleted.")
-    end
+    render_result_action(@renter.really_destroy!, :destroy)
   end
 
   def destroy_all
@@ -82,51 +57,58 @@ class RentersController < BaseController
     params.require(:renter).permit(:name, :phone_number, :identity, :address, :gender, :renter_type, :deposit)
   end
 
-  def count_people_in_room
-    @room_total = current_user.rooms.count
-    @room_used = Renter.where(room_id: current_user.rooms.pluck(:id), renter_type: 'main').count
-    @room_left = @room_total - @room_used
-  end
-
-  def reload_rooms_with_create(format, options = {})
-    @rooms = current_user.rooms.all
-    @total_rooms = @rooms.count
-    count_people_in_room
-    @pagy, @rooms = pagy(@rooms, items: 9)
-    format.html { redirect_to rooms_path, notice: options[:message] }
-    format.turbo_stream do
-      flash.now[options[:type]] = options[:message]
-      render turbo_stream: [
-        turbo_stream.remove('my_modal_4'),
-        turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }),
-        render_turbo_stream_flash_messages
-      ]
-    end
-  end
-
-  def reload_rooms_with_update_destroy(format, options = {})
-    @room_ids = current_user.rooms.pluck(:id)
-    @renters = Renter.where(room_id: @room_ids)
-    @pagy, @renters = pagy(@renters, items: 9)
-    format.html { redirect_to renters_path, notice: options[:message] }
-    format.turbo_stream do
-      flash.now[options[:type]] = options[:message]
-      render turbo_stream: [
-        turbo_stream.remove('my_modal_4'),
-        turbo_stream.replace('renter_list', partial: 'renters/table', locals: { renters: @renters }),
-        render_turbo_stream_flash_messages
-      ]
-    end
-  end
-
-  def render_errors(format, action)
-    format.html { render action, status: :unprocessable_entity }
-    format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_renter', partial: 'renters/form')] }
-  end
-
   def remove_decimal_separator(params_hash, keys)
+    return unless params_hash.present? && keys.present?
+
     keys.each do |key|
+      next if params_hash[key].blank?
+
       params_hash[key] = params_hash[key].delete('.')
     end
+  end
+
+  def render_result_action(result, action, path = renters_path, model = "renter: #{@renter.name}")
+    name = 'renter_list'
+    frame_back_name = 'new_renter'
+    render_result(result:, path:, model:, action:, name:, frame_back_name:)
+  end
+
+  def render_result_with_room(result, action, renter)
+    total_rooms = current_user.rooms
+    @room_total = total_rooms.size
+    @room_used = total_rooms.rooms_rented.size
+    @room_left = @room_total - @room_used
+    @rooms = Rooms::GetListRoomsService.call(total_rooms, params)
+    @total_rooms = @rooms.size
+    @pagy, @rooms = pagy(@rooms, items: 9)
+    if result
+      message = "The renter '#{renter.name}' was successfully edited."
+      respond_to do |format|
+        format.html { redirect_to rooms_path, notice: message }
+        format.turbo_stream do
+          flash.now[:success] = message
+          render turbo_stream: [
+            turbo_stream.remove('my_modal_4'),
+            turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }),
+            render_turbo_stream_flash_messages
+          ]
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { render action, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_renter', partial: 'renters/form')] }
+      end
+    end
+  end
+
+  def prepare_index
+    # get all the renters id who have rented a room through current user
+    @renters = Renter.includes(:room).where(rooms: { user_id: current_user.id })
+    @renters = @renters.search_by_name(params[:search]) if params[:search]
+    @renters = @renters.renters_main if params[:selected_value] == 'main'
+    @renters = @renters.renters_member if params[:selected_value] == 'member'
+
+    @pagy, @renters = pagy(@renters, items: 9)
   end
 end

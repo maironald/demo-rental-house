@@ -39,6 +39,15 @@ class Renter < ApplicationRecord
   validates :gender, inclusion: { in: GENDERS }
   validates :renter_type, inclusion: { in: TYPES }
 
-  scope :search_by_name, ->(key, room_ids) { where('renters.name LIKE ? AND room_id IN (?)', "%#{key}%", room_ids) }
-  scope :filter_renter_type, ->(key) { where(renter_type: key) }
+  # validate :check_main_renter_in_room
+
+  scope :search_by_name, ->(key) { where('renters.name LIKE ?', "%#{key}%") }
+  scope :renters_main, -> { where(renter_type: 'main') }
+  scope :renters_member, -> { where(renter_type: 'member') }
+
+  # def check_main_renter_in_room(_renter, _room_id)
+  #   return unless (renter_type == 'member' && room)
+
+  #   errors.add(:base_renter, 'Main renter must exist in the room before adding a member renter') unless room.renters.exists?(renter_type: 'main')
+  # end
 end
