@@ -23,8 +23,9 @@
 #
 # Indexes
 #
-#  index_rooms_on_deleted_at  (deleted_at)
-#  index_rooms_on_user_id     (user_id)
+#  index_rooms_on_deleted_at        (deleted_at)
+#  index_rooms_on_name_and_user_id  (name,user_id) UNIQUE
+#  index_rooms_on_user_id           (user_id)
 #
 class Room < ApplicationRecord
   acts_as_paranoid
@@ -35,7 +36,7 @@ class Room < ApplicationRecord
   has_many :invoices, dependent: :destroy
 
   # validations
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { scope: :user_id }
   validates :length, presence: true, numericality: { less_than_or_equal_to: 20_000 }
   validates :width, presence: true, numericality: { less_than_or_equal_to: 20_000 }
   validates :electric_amount_new, presence: true

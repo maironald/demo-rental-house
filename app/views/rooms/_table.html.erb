@@ -7,7 +7,7 @@
       <div class="flex m-4">
         <div class="lg:flex-row flex flex-col">
           <%= form_with(url: rooms_path, method: 'get', class: "w-[250px] md:w-full flex flex-wrap") do |form| %>
-            <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Còn trống", "empty"],["Đã Thuê", "rented"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
+            <%= form.select :selected_value, options_for_select([["Tất cả", "all"],["Chưa Đăng Ký", "empty"],["Đã Đăng Ký", "rented"]]), class: "flex items-center ml-0 mr-2 mb-2 sm:mb-0 sm:ml-2" %>
             <%= form.label :search, 'Tìm:', class: "mb-2 ml-2 text-sm font-medium text-gray-900 sr-only dark:text-white" %>
             <div class="relative w-[300px] sm:w-[350px] ml-2">
               <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -22,7 +22,7 @@
       <div class="flex justify-between md:flex-row flex-col border-b border-gray-300 m-4">
         <div class="m-2 flex items-center">
             <p class="text-lg">
-              Còn trống: <span class="font-bold text-red-600"><%= @room_left%></span>  |  Đã cho thuê: <span class="font-bold text-red-600"><%= @room_used%></span>
+              Chưa Đăng Ký: <span class="font-bold text-red-600"><%= @room_left%></span>  |  Đã Đăng Ký: <span class="font-bold text-red-600"><%= @room_used%></span>
             </p>
         </div>
         <div class="flex flex-col md:flex-row mb-2">
