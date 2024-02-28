@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class RoomsController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index]
   before_action :set_room, only: %i[show edit update destroy]
 
@@ -25,11 +23,13 @@ class RoomsController < BaseController
   end
 
   def update
+    remove_decimal_separator(params[:room], %i[price_room])
     render_result_action(@room.update(room_params), :edit)
   end
 
   def destroy
-    render_result_action(@room.really_destroy!, :destroy)
+    @room.really_destroy!
+    redirect_to rooms_path, notice: 'Room was successfully deleted.'
   end
 
   private

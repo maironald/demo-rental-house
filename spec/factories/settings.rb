@@ -27,11 +27,11 @@
 #
 FactoryBot.define do
   factory :setting do
-    price_electric { 0 }
-    price_internet { 0 }
-    price_security { 0 }
-    price_trash { 0 }
-    price_water { 0 }
+    price_electric { Faker::Number.between(from: 10_000.0, to: 15_000.0) }
+    price_internet { Faker::Number.between(from: 10_000.0, to: 15_000.0) }
+    price_security { Faker::Number.between(from: 10_000.0, to: 15_000.0) }
+    price_trash { Faker::Number.between(from: 10_000.0, to: 15_000.0) }
+    price_water { Faker::Number.between(from: 10_000.0, to: 15_000.0) }
     created_at { DateTime.now }
     updated_at { DateTime.now }
     association :user, factory: :user

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class InvoicesController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index show_all_invoices]
-  before_action :set_room, only: %i[create edit]
+  before_action :calculate_total_price, only: %i[new edit create update]
+  before_action :set_total_price_param, only: %i[create update]
+  before_action :set_room, only: %i[new update create edit]
   before_action :set_invoice, only: %i[destroy update edit]
   before_action :set_renter, only: %i[new create edit update]
+  before_action :set_setting, only: %i[new create edit update]
 
   def index; end
 
@@ -14,17 +15,13 @@ class InvoicesController < BaseController
 
   def new
     @invoice = Invoice.new
-    @settings = current_user.setting
     @invoice.name = generate_random_code
-    calculate_total_price(@room)
   end
 
   def show_all_invoices; end
 
   def edit
     @invoice.paid_money = format_to_vnd_not_unit(@invoice.paid_money)
-    @settings = current_user.setting
-    calculate_total_price(@room)
   end
 
   def create
@@ -39,7 +36,8 @@ class InvoicesController < BaseController
   end
 
   def destroy
-    render_result_action(@invoice.really_destroy!, :destroy)
+    @invoice.really_destroy!
+    redirect_to show_all_invoices_invoices_path, notice: 'Invoices was successfully deleted.'
   end
 
   private
@@ -56,8 +54,12 @@ class InvoicesController < BaseController
     @invoice = Invoice.find(params[:id])
   end
 
+  def set_setting
+    @settings = current_user.setting
+  end
+
   def set_total_price_param
-    params[:invoice][:total_price] = @total_price
+    params[:invoice][:total_price] = @result[:total_invoice_price]
   end
 
   def set_renter
@@ -72,10 +74,9 @@ class InvoicesController < BaseController
     end
   end
 
-  def calculate_total_price(room)
-    @total_electric_price = Invoice.calculate_electric_price(room, current_user)
-    @total_water_price = Invoice.calculate_water_price(room, current_user)
-    @total_price = Invoice.calculate_total_price(room, current_user)
+  def calculate_total_price
+    room = Room.find(params[:room_id])
+    @result = Invoices::GetTotalPriceService.call(room, current_user)
   end
 
   def render_result_action(result, action, path = show_all_invoices_invoices_path, model = "Invoice: #{@invoice.name}")

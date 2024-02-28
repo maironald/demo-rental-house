@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ProfilesController < BaseController
-  include ApplicationHelper
   before_action :set_user, only: %i[edit_information update_information]
   before_action :prepare_show, only: %i[edit_information]
   def edit_information; end

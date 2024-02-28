@@ -30,14 +30,14 @@
 FactoryBot.define do
   factory :room do
     description { Faker::Lorem.paragraph }
-    electric_amount_new { 1 }
-    electric_amount_old { 0 }
+    electric_amount_new { Faker::Number.between(from: 100, to: 200) }
+    electric_amount_old { Faker::Number.between(from: 50, to: 99) }
     length { Faker::Number.digit }
     limit_residents { Faker::Number.digit }
     name { Faker::Lorem.word }
     price_room { Faker::Number.decimal }
-    water_amout_new { 1 }
-    water_amout_old { 0 }
+    water_amout_new { Faker::Number.between(from: 100, to: 200) }
+    water_amout_old { Faker::Number.between(from: 50, to: 99) }
     width { Faker::Number.digit }
     association :user, factory: :user
   end

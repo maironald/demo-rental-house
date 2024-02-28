@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class RentersController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index]
   before_action :set_renter, only: %i[show edit update destroy]
 
@@ -32,7 +30,8 @@ class RentersController < BaseController
   end
 
   def destroy
-    render_result_action(@renter.really_destroy!, :destroy)
+    @renter.really_destroy!
+    redirect_to renters_path, notice: 'Renter was successfully deleted.'
   end
 
   def destroy_all

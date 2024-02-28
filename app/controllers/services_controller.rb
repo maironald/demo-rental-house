@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ServicesController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index]
   before_action :set_service, only: %i[show edit update destroy]
 
@@ -30,7 +28,8 @@ class ServicesController < BaseController
   end
 
   def destroy
-    render_result_action(@service.really_destroy!, :destroy)
+    @service.really_destroy!
+    redirect_to services_path_path, notice: 'Service was successfully deleted.'
   end
 
   private

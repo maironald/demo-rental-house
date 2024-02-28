@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :service do
     name { Faker::Lorem.sentence }
     note { Faker::Lorem.paragraph }
-    price { 0 }
+    price { Faker::Number.decimal }
     created_at { DateTime.now }
     updated_at { DateTime.now }
     association :user, factory: :user

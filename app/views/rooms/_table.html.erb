@@ -42,7 +42,7 @@
             Tùy chỉnh các loại phí
           <% end %>
       </div>
-      <div id="room-list" class="flex flex-wrap w-full">
+      <div id="room-list" class="flex flex-wrap w-full justify-around 2xl:justify-between">
         <%if @rooms.empty? && current_user.rooms.count == 0 %>
           <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
             <h1 class="text-3xl text-red-500">HIỆN TẠI CHƯA CÓ PHÒNG NÀO. CẦN THÊM PHÒNG!!!</h1>

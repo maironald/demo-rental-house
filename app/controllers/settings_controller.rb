@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SettingsController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index edit update]
   before_action :set_setting, only: %i[edit update]
   before_action :set_room, only: %i[edit update]

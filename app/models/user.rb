@@ -121,10 +121,12 @@ class User < ApplicationRecord
 
   def assign_default_role
     # Assign the 'user' role by default
-    add_role(:user)
+    add_role(:user) if roles.blank?
   end
 
   def create_setting
-    self.setting = Setting.new
+    return unless has_role?(:user)
+
+    self.setting = Setting.new(price_electric: 10_000, price_internet: 10_000, price_water: 10_000, price_security: 10_000, price_trash: 10_000)
   end
 end
