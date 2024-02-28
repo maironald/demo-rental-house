@@ -101,6 +101,7 @@ class User < ApplicationRecord
 
   # scope
   scope :search_by_email, ->(key) { where('email ILIKE ?', "%#{key}%") }
+  scope :with_role_user, -> { with_role(:user).without_role(:admin) }
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

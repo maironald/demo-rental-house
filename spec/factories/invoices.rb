@@ -21,7 +21,7 @@
 FactoryBot.define do
   factory :invoice do
     name { Faker::Lorem.sentence }
-    paid_money { 0 }
+    paid_money { Faker::Number.decimal }
     total_price { Faker::Number.decimal }
     created_at { DateTime.now }
     updated_at { DateTime.now }

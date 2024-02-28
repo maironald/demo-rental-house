@@ -4,26 +4,27 @@ class InvoicesController < BaseController
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index show_all_invoices]
-  before_action :calculate_total_price, only: %i[new create edit update]
-  before_action :set_total_price_param, only: %i[create update]
-  before_action :set_room, only: %i[create]
-  before_action :set_invoice, only: %i[destroy update]
+  before_action :set_room, only: %i[create edit]
+  before_action :set_invoice, only: %i[destroy update edit]
+  before_action :set_renter, only: %i[new create edit update]
 
   def index; end
 
   def show; end
 
   def new
+    @invoice = Invoice.new
     @settings = current_user.setting
     @invoice.name = generate_random_code
+    calculate_total_price(@room)
   end
 
   def show_all_invoices; end
 
   def edit
-    @room = Room.find(params[:room_id])
-    @invoice = Invoice.find(params[:id])
     @invoice.paid_money = format_to_vnd_not_unit(@invoice.paid_money)
+    @settings = current_user.setting
+    calculate_total_price(@room)
   end
 
   def create
@@ -59,6 +60,10 @@ class InvoicesController < BaseController
     params[:invoice][:total_price] = @total_price
   end
 
+  def set_renter
+    @renter = Renter.find_by(room_id: params[:room_id], renter_type: 'main') || nil
+  end
+
   def remove_decimal_separator(params_hash, keys)
     keys.each do |key|
       next if params_hash[key].blank? # Skip if the key is blank or nil
@@ -67,13 +72,10 @@ class InvoicesController < BaseController
     end
   end
 
-  def calculate_total_price
-    @invoice = Invoice.new
-    @room = Room.find(params[:room_id])
-    @renter = Renter.find_by(room_id: params[:room_id], renter_type: 'main') || nil
-    @total_electric_price = (@room.electric_amount_new - @room.electric_amount_old).to_d * current_user.setting.price_electric
-    @total_water_price = (@room.water_amout_new - @room.water_amout_old).to_d * current_user.setting.price_water
-    @total_price = @total_electric_price + @total_water_price + @room.price_room + current_user.setting.price_internet + current_user.setting.price_security + current_user.setting.price_trash
+  def calculate_total_price(room)
+    @total_electric_price = Invoice.calculate_electric_price(room, current_user)
+    @total_water_price = Invoice.calculate_water_price(room, current_user)
+    @total_price = Invoice.calculate_total_price(room, current_user)
   end
 
   def render_result_action(result, action, path = show_all_invoices_invoices_path, model = "Invoice: #{@invoice.name}")
