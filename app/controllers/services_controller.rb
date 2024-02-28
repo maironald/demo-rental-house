@@ -29,7 +29,7 @@ class ServicesController < BaseController
 
   def destroy
     @service.really_destroy!
-    redirect_to services_path_path, notice: 'Service was successfully deleted.'
+    redirect_to services_path, notice: t('common.delete.success', model: "Service: #{@service.name}")
   end
 
   private

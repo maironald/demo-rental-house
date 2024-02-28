@@ -31,7 +31,7 @@ class RentersController < BaseController
 
   def destroy
     @renter.really_destroy!
-    redirect_to renters_path, notice: 'Renter was successfully deleted.'
+    redirect_to renters_path, notice: t('common.delete.success', model: "Renter #{renter.name}")
   end
 
   def destroy_all

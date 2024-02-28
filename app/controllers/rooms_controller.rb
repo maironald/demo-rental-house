@@ -29,7 +29,7 @@ class RoomsController < BaseController
 
   def destroy
     @room.really_destroy!
-    redirect_to rooms_path, notice: 'Room was successfully deleted.'
+    redirect_to rooms_path, notice: t('common.delete.success', model: "Room: #{@room.name}")
   end
 
   private

@@ -63,7 +63,8 @@ class InvoicesController < BaseController
   end
 
   def set_renter
-    @renter = Renter.find_by(room_id: params[:room_id], renter_type: 'main') || nil
+    set_room
+    @renter = @room.renters.find_by(renter_type: :main) || nil
   end
 
   def remove_decimal_separator(params_hash, keys)
@@ -75,8 +76,8 @@ class InvoicesController < BaseController
   end
 
   def calculate_total_price
-    room = Room.find(params[:room_id])
-    @result = Invoices::GetTotalPriceService.call(room, current_user)
+    set_room
+    @result = Invoices::GetTotalPriceService.call(@room, current_user)
   end
 
   def render_result_action(result, action, path = show_all_invoices_invoices_path, model = "Invoice: #{@invoice.name}")

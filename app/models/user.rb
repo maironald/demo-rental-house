@@ -127,6 +127,6 @@ class User < ApplicationRecord
   def create_setting
     return unless has_role?(:user)
 
-    self.setting = Setting.new(price_electric: 10_000, price_internet: 10_000, price_water: 10_000, price_security: 10_000, price_trash: 10_000)
+    self.setting = Setting.new(price_electric: 12_000, price_internet: 40_000, price_water: 12_000, price_security: 10_000, price_trash: 40_000)
   end
 end
