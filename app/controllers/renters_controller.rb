@@ -3,6 +3,7 @@
 class RentersController < BaseController
   before_action :prepare_index, only: %i[index]
   before_action :set_renter, only: %i[show edit update destroy]
+  before_action :set_room, only: %i[create update]
 
   def index; end
 
@@ -18,7 +19,6 @@ class RentersController < BaseController
 
   def create
     remove_decimal_separator(params[:renter], %i[deposit])
-    @room = Room.find_by(id: params[:room_id])
     @renter = @room.renters.new(renter_params)
 
     render_result_with_room(@renter.save, :new, @room)
@@ -52,6 +52,10 @@ class RentersController < BaseController
     @renter = Renter.find(params[:id])
   end
 
+  def set_room
+    @room = Room.find(params[:room_id])
+  end
+
   def renter_params
     params.require(:renter).permit(:name, :phone_number, :identity, :address, :gender, :renter_type, :deposit)
   end
@@ -74,9 +78,7 @@ class RentersController < BaseController
 
   def render_result_with_room(result, action, renter)
     total_rooms = current_user.rooms
-    @room_total = total_rooms.size
-    @room_used = total_rooms.rooms_rented.size
-    @room_left = @room_total - @room_used
+    @room_info = Rooms::GetInfoRoomsService.call(total_rooms)
     @rooms = Rooms::GetListRoomsService.call(total_rooms, params)
     @total_rooms = @rooms.size
     @pagy, @rooms = pagy(@rooms, items: 9)
@@ -88,7 +90,7 @@ class RentersController < BaseController
           flash.now[:success] = message
           render turbo_stream: [
             turbo_stream.remove('my_modal_4'),
-            turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_used: @room_used, room_left: @room_left }),
+            turbo_stream.replace('room_list', partial: 'rooms/table', locals: { rooms: @rooms, pagy: @pagy, total_rooms: @total_rooms, room_info: @room_info }),
             render_turbo_stream_flash_messages
           ]
         end
@@ -103,10 +105,8 @@ class RentersController < BaseController
 
   def prepare_index
     # get all the renters id who have rented a room through current user
-    @renters = Renter.includes(:room).where(rooms: { user_id: current_user.id })
-    @renters = @renters.search_by_name(params[:search]) if params[:search]
-    @renters = @renters.renters_main if params[:selected_value] == 'main'
-    @renters = @renters.renters_member if params[:selected_value] == 'member'
+    renters = Renter.includes(:room).where(rooms: { user_id: current_user.id })
+    @renters = Renters::GetListRentersService.call(renters, params)
 
     @pagy, @renters = pagy(@renters, items: 9)
   end

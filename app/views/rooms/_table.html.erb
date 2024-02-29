@@ -22,7 +22,7 @@
       <div class="flex justify-between md:flex-row flex-col border-b border-gray-300 m-4">
         <div class="m-2 flex items-center">
             <p class="text-lg">
-              Chưa Đăng Ký: <span class="font-bold text-red-600"><%= @room_left%></span>  |  Đã Đăng Ký: <span class="font-bold text-red-600"><%= @room_used%></span>
+              Chưa Đăng Ký: <span class="font-bold text-red-600"><%= @room_info[:room_left]%></span>  |  Đã Đăng Ký: <span class="font-bold text-red-600"><%= @room_info[:room_used]%></span>
             </p>
         </div>
         <div class="flex flex-col md:flex-row mb-2">
@@ -42,7 +42,7 @@
             Tùy chỉnh các loại phí
           <% end %>
       </div>
-      <div id="room-list" class="flex flex-wrap w-full justify-around 2xl:justify-between">
+      <div id="room-list" class="flex flex-wrap w-full gap-10 justify-around 2xl:gap-2 2xl:justify-start">
         <%if @rooms.empty? && current_user.rooms.count == 0 %>
           <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
             <h1 class="text-3xl text-red-500">HIỆN TẠI CHƯA CÓ PHÒNG NÀO. CẦN THÊM PHÒNG!!!</h1>

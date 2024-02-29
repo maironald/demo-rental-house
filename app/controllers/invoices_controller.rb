@@ -27,7 +27,7 @@ class InvoicesController < BaseController
   def create
     remove_decimal_separator(params[:invoice], %i[paid_money])
     @invoice = @room.invoices.new(invoice_params)
-    render_result_action(@invoice.save, :new)
+    render_result_action(@invoice.save, :invoice_form)
   end
 
   def update
@@ -87,17 +87,13 @@ class InvoicesController < BaseController
   end
 
   def prepare_index
-    @invoices = Invoice.joins(:room).where(rooms: { user_id: current_user.id })
-    @invoices = @invoices.search_by_name(params[:search]) if params[:search]
-    @invoices = @invoices.total_price_greater_than_paid_money if params[:selected_value] == 'unpaid'
-    @invoices = @invoices.total_price_equal_with_paid_money if params[:selected_value] == 'paid'
+    invoices = Invoice.joins(:room).where(rooms: { user_id: current_user.id })
+    @invoices = Invoices::GetListInvoicesService.call(invoices, params)
 
     @pagy, @invoices = pagy(@invoices, items: 9)
   end
 
   def generate_random_code
-    # Generate a random code here. This is just a simple example.
-    # You might want to use a more sophisticated method to generate a unique code.
     SecureRandom.hex(3).upcase
   end
 end

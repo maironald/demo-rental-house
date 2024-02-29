@@ -64,9 +64,7 @@ class RoomsController < BaseController
 
   def prepare_index
     total_rooms = current_user.rooms
-    @room_total = total_rooms.size
-    @room_used = total_rooms.rooms_rented.size
-    @room_left = @room_total - @room_used
+    @room_info = Rooms::GetInfoRoomsService.call(total_rooms)
     @rooms = Rooms::GetListRoomsService.call(total_rooms, params)
     @total_rooms = @rooms.size
     @pagy, @rooms = pagy(@rooms, items: 9)

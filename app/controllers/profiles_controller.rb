@@ -34,7 +34,7 @@ class ProfilesController < BaseController
       flash.now[options[:type]] = options[:message]
       render turbo_stream: [
         turbo_stream.remove('my_modal_4'),
-        turbo_stream.replace('avatar_info', partial: 'users/avatar', locals: { user: current_user, room_tota: @room_total, room_used: @room_used, room_left: @room_left, renters: @renters, renter_main: @renter_main, renter_member: @renter_member }),
+        turbo_stream.replace('avatar_info', partial: 'users/avatar', locals: { user: current_user, renters: @renters, renter_main: @renter_main, renter_member: @renter_member }),
         turbo_stream.replace('profile_info', partial: 'profiles/form_information'),
         render_turbo_stream_flash_messages
       ]
@@ -47,10 +47,8 @@ class ProfilesController < BaseController
   end
 
   def prepare_show
-    @rooms = current_user.rooms
-    @room_total = @rooms.size
-    @room_used = @rooms.rooms_rented.size
-    @room_left = @room_total - @room_used
+    total_rooms = current_user.rooms
+    @room_info = Rooms::GetInfoRoomsService.call(total_rooms)
     current_user_renters = Renter.joins(room: :user).where(users: { id: current_user.id })
     @renters = current_user_renters.size
     @renter_main = current_user_renters.renters_main.size

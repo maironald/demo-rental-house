@@ -1,32 +1,33 @@
-<%= turbo_frame_tag 'new_room' do%>
-  <%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? room_path : rooms_path ), html: { class: "flex flex-wrap flex-col" } do |f| %>
-    <% if @room.errors[:base_electric].present? %>
-      <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400">
-        <%= @room.errors[:base_electric].join(', ') %>
-      </div>
-    <% elsif @room.errors[:base_water].present? %>
-      <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400">
-        <%= @room.errors[:base_water].join(', ') %>
-      </div>
-    <% else %>
-      <%= f.error_notification %>
-    <% end %>
-    <div class="flex flex-wrap sm:flex-none justify-between">
-      <div class="w-auto sm:w-2/5">
-        <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Tên phòng:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
-        <%= f.input :length, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều dài căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
-        <%= f.input :width, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều rộng căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true %>
-        <%= f.input :price_room, as: :string, wrapper_html: {class: 'mb-4'}, label: "Giá (tính theo 1 tháng): ", input_html: { data: {controller: "currency-format"} }, label_html: {class: 'mb-2 fw-bold'}, required: true%>
-        <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện cũ (1kwh): ", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
-      </div>
-      <div class="w-auto sm:w-2/5">
-        <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới (1kwh): ", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
-        <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ (m3): ", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true%>
-        <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới (m3): ", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true%>
-        <%= f.input :limit_residents, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Số lượng khách tối đa: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
-        <%= f.input :description, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Mô tả:', label_html: {class: 'mb-2 fw-bold'}, input_html: {class: 'h-30'} %>
-      </div>
+
+<%= simple_form_for @room, method: (@room.persisted? ? :put : :post), url: (@room.persisted? ? room_path : rooms_path ), html: { class: "flex flex-wrap flex-col" } do |f| %>
+  <% if @room.errors[:base_electric].present? %>
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400">
+      <%= @room.errors[:base_electric].join(', ') %>
     </div>
-    <%= f.submit 'Lưu', class: "btn w-1/4 btn-primary"%>
+  <% elsif @room.errors[:base_water].present? %>
+    <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400">
+      <%= @room.errors[:base_water].join(', ') %>
+    </div>
+  <% else %>
+    <%= f.error_notification %>
   <% end %>
-<%end%>
+  <div class="flex flex-wrap sm:flex-none justify-between">
+    <div class="w-auto sm:w-2/5">
+      <%= f.input :name, as: :string, wrapper_html: {class: 'mb-4'}, label: 'Tên phòng:', label_html: {class: 'mb-2 fw-bold'}, required: true, autofocus: true%>
+      <%= f.input :length, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều dài căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+      <%= f.input :width, as: :float, wrapper_html: {class: 'mb-4'}, label: "Chiều rộng căn phòng (m2):", label_html: {class: 'mb-2 fw-bold'}, required: true %>
+      <%= f.input :price_room, as: :string, wrapper_html: {class: 'mb-4'}, label: "Giá (tính theo 1 tháng): ", input_html: { data: {controller: "currency-format"} }, label_html: {class: 'mb-2 fw-bold'}, required: true%>
+      <%= f.input :electric_amount_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện cũ (1kwh): ", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
+    </div>
+    <div class="w-auto sm:w-2/5">
+      <%= f.input :electric_amount_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số điện mới (1kwh): ", label_html: {class: (@room.errors[:base_electric].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_electric].present? ? 'border-red-500' : ''}, required: true%>
+      <%= f.input :water_amout_old, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước cũ (m3): ", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true%>
+      <%= f.input :water_amout_new, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Chỉ số nước mới (m3): ", label_html: {class: (@room.errors[:base_water].present? ? 'text-red-500' : '') + ' mb-2 fw-bold'}, input_html: {class: @room.errors[:base_water].present? ? 'border-red-500' : ''}, required: true%>
+      <%= f.input :limit_residents, as: :integer, wrapper_html: {class: 'mb-4'}, label: "Số lượng khách tối đa: ", label_html: {class: 'mb-2 fw-bold'}, required: true%>
+      <%= f.input :description, as: :text, wrapper_html: {class: 'mb-4'}, label: 'Mô tả:', label_html: {class: 'mb-2 fw-bold'}, input_html: {class: 'h-30'} %>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <%= f.submit 'Lưu', class: "btn w-1/4 btn-primary"%>
+  </div>
+<% end %>

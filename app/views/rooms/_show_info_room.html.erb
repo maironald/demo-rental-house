@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "room_list" do%>
+  <main class="flex-1 overflow-y-auto md:pt-4 pt-4 px-6  bg-base-200">
+    <div class="card w-full p-6 bg-base-100 shadow-xl mt-2">
+      <div class="flex">
+        <%= link_to rooms_path do%>
+          <%= vite_image_tag("images/icons/back.svg", class: "w-6 h-6 mr-6")%>
+        <%end%>
+        <div class="text-xl font-semibold">Thông Tin Phòng</div>
+      </div>
+      <div class="divider mt-2"></div>
+      <figure class="mb-5 flex justify-center">
+        <%= vite_image_tag("images/room/logo_room5.png",class: "object-cover w-[300px] h-[300px] xl:w-[500px] xl:h-[500px] ", alt: "logo_room")%>
+      </figure>
+      <%= render "form"%>
+    </div>
+  </main>
+<%end%>
