@@ -187,6 +187,10 @@ link Simple Form: <https://github.com/heartcombo/simple_form>
 - <https://github.com/ddnexus/pagy?tab=readme-ov-file>
 - Note: you can customize css by using tailwind css (see file pagy.scss)
 
+## Knowledge about gem Rolify
+
+<https://github.com/RolifyCommunity/rolify>
+
 ## Knowledge about gem Notifier
 
 see video at: <https://www.youtube.com/watch?v=SzX-aBEqnAc>

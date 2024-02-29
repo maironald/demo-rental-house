@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class SettingsController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index edit update]
   before_action :set_setting, only: %i[edit update]
   before_action :set_room, only: %i[edit update]
@@ -40,12 +38,6 @@ class SettingsController < BaseController
     end
   end
 
-  def count_people_in_room
-    @room_total = current_user.rooms.count
-    @room_used = Renter.where(room_id: current_user.rooms.pluck(:id), renter_type: 'main').count
-    @room_left = @room_total - @room_used
-  end
-
   def render_result_action(result, action, path = rooms_path, model = 'the value price of all services room')
     name = 'room_list'
     frame_back_name = 'new_room'
@@ -54,9 +46,7 @@ class SettingsController < BaseController
 
   def prepare_index
     total_rooms = current_user.rooms
-    @room_total = total_rooms.size
-    @room_used = total_rooms.rooms_rented.size
-    @room_left = @room_total - @room_used
+    @room_info = Rooms::GetInfoRoomsService.call(total_rooms)
     @rooms = Rooms::GetListRoomsService.call(total_rooms, params)
     @total_rooms = @rooms.size
     @pagy, @rooms = pagy(@rooms, items: 9)

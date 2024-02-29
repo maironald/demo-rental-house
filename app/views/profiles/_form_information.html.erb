@@ -24,13 +24,13 @@
                 <div>
                   <p class="mb-1 text-base font-medium text-red-700 dark:text-red-500">Phòng Trống</p>
                   <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                    <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" style="width: <%= ((@room_left.to_f / @room_total.to_f) * 100).round.to_s%>%"></div>
+                    <div class="bg-red-600 h-2.5 rounded-full dark:bg-red-500" style="width: <%= ((@room_info[:room_left].to_f / @room_info[:room_total].to_f) * 100).round%>%"></div>
                   </div>
                 </div>
                 <div>
                   <p class="mb-1 text-base font-medium text-indigo-700 dark:text-indigo-500">Phòng Đã Thuê</p>
                   <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                    <div class="bg-indigo-600 h-2.5 rounded-full dark:bg-indigo-500" style="width: <%= ((@room_used.to_f / @room_total.to_f) * 100).round%>%"></div>
+                    <div class="bg-indigo-600 h-2.5 rounded-full dark:bg-indigo-500" style="width: <%= ((@room_info[:room_used].to_f / @room_info[:room_total].to_f) * 100).round%>%"></div>
                   </div>
                 </div>
               </div>

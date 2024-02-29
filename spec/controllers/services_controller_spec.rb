@@ -179,10 +179,10 @@ RSpec.describe ServicesController, type: :controller do
     it 'destroys the service' do
       service # Ensure the service is created
       expect do
-        delete :destroy, params: { id: service.id }, format: :turbo_stream
+        delete :destroy, params: { id: service.id }
       end.to change(Service, :count).by(-1)
 
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:found)
     end
   end
 end

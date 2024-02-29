@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ElectricWatersController < BaseController
-  include ApplicationHelper
   before_action :prepare_index, only: %i[index show]
   before_action :set_room, only: %i[edit update show_detail]
 

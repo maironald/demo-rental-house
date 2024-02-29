@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class RoomsController < BaseController
-  include ApplicationHelper
-  include ActionView::Helpers::NumberHelper
   before_action :prepare_index, only: %i[index]
   before_action :set_room, only: %i[show edit update destroy]
 
@@ -25,11 +23,13 @@ class RoomsController < BaseController
   end
 
   def update
+    remove_decimal_separator(params[:room], %i[price_room])
     render_result_action(@room.update(room_params), :edit)
   end
 
   def destroy
-    render_result_action(@room.really_destroy!, :destroy)
+    @room.really_destroy!
+    redirect_to rooms_path, notice: t('common.delete.success', model: "Room: #{@room.name}")
   end
 
   private
@@ -64,9 +64,7 @@ class RoomsController < BaseController
 
   def prepare_index
     total_rooms = current_user.rooms
-    @room_total = total_rooms.size
-    @room_used = total_rooms.rooms_rented.size
-    @room_left = @room_total - @room_used
+    @room_info = Rooms::GetInfoRoomsService.call(total_rooms)
     @rooms = Rooms::GetListRoomsService.call(total_rooms, params)
     @total_rooms = @rooms.size
     @pagy, @rooms = pagy(@rooms, items: 9)

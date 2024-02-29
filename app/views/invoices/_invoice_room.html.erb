@@ -66,7 +66,7 @@
                     </div>
                   </td>
                   <td class="px-6 py-4">
-                    <div class="text-sm text-gray-500"><%= format_to_vnd(@total_electric_price)%></div>
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(@result[:total_electric_price])%></div>
                   </td>
                 </tr>
                 <tr class="border-b-2 whitespace-nowrap">
@@ -79,7 +79,7 @@
                     </div>
                   </td>
                   <td class="px-6 py-4">
-                    <div class="text-sm text-gray-500"><%= format_to_vnd(@total_water_price)%></div>
+                    <div class="text-sm text-gray-500"><%= format_to_vnd(@result[:total_water_price])%></div>
                   </td>
                 </tr>
                   <tr class="border-b-2 whitespace-nowrap">
@@ -127,7 +127,7 @@
                 <tr class="text-white bg-gray-800">
                   <th colspan="1"></th>
                   <td class="text-sm font-bold"><b>Total: </b></td>
-                  <td class="text-sm font-bold px-6 py-4"><b><%= format_to_vnd(@total_price)%></b></td>
+                  <td class="text-sm font-bold px-6 py-4"><b><%= format_to_vnd(@result[:total_invoice_price])%></b></td>
                 </tr>
               </tbody>
             </table>
@@ -135,7 +135,7 @@
       </div>
       <div class="w-full h-0.5 bg-indigo-500"></div>
       <div class="flex w-full justify-between p-4">
-        <%= render 'form', locals: {renter: @renter, total_price: @total_price}%>
+        <%= render 'form', locals: {renter: @renter}%>
       </div>
     </div>
   </div>

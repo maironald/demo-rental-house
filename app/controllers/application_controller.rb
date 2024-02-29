@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Pagy::Backend
+  include ApplicationHelper
+  include ActionView::Helpers::NumberHelper
   include TurboRenderable
 
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized

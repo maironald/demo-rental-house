@@ -11,7 +11,7 @@ RSpec.describe InvoicesController, type: :controller do
 
   describe 'GET #new' do
     it 'renders the new template' do
-      get :new, params: { room_id: room.id }, format: :turbo_stream
+      get :new, params: { room_id: room.id }
       expect(response).to render_template(:new)
     end
   end
