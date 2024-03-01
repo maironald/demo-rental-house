@@ -32,12 +32,6 @@ class SettingsController < BaseController
     @rooms = current_user.rooms
   end
 
-  def remove_decimal_separator(params_hash, keys)
-    keys.each do |key|
-      params_hash[key] = params_hash[key].delete('.')
-    end
-  end
-
   def render_result_action(result, action, path = rooms_path, model = 'the value price of all services room')
     name = 'room_list'
     frame_back_name = 'new_room'

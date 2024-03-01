@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-03-01T07:45:18+07:00">2024-03-01T07:45:18+07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-03-01T10:33:42+07:00">2024-03-01T10:33:42+07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  84.21%
+  84.54%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.4
+         1.41
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>513</b> relevant lines,
+    <b>511</b> relevant lines,
     <span class="green"><b>432</b> lines covered</span> and
-    <span class="red"><b>81</b> lines missed. </span>
+    <span class="red"><b>79</b> lines missed. </span>
     (<span class="yellow">
-  84.21%
+  84.54%
 </span>
 )
   </div>
@@ -127,12 +127,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#902eff98f62688530f0e1155adc3d0bbbfea014a" class="src_link" title="app/controllers/invoices_controller.rb">app/controllers/invoices_controller.rb</a></td>
-            <td class="yellow strong cell--number t-file__coverage">88.52 %</td>
-            <td class="cell--number">117</td>
-            <td class="cell--number">61</td>
+            <td class="green strong cell--number t-file__coverage">91.53 %</td>
+            <td class="cell--number">108</td>
+            <td class="cell--number">59</td>
             <td class="cell--number">54</td>
-            <td class="cell--number">7</td>
-            <td class="cell--number">1.11</td>
+            <td class="cell--number">5</td>
+            <td class="cell--number">1.15</td>
             
           </tr>
         
@@ -547,14 +547,14 @@
     <span class="group_name">Controllers</span>
     (<span class="covered_percent">
       <span class="yellow">
-  86.4%
+  87.1%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.12
+         1.13
        </span>
     </span> hits/line
     )
@@ -567,11 +567,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>250</b> relevant lines,
+    <b>248</b> relevant lines,
     <span class="green"><b>216</b> lines covered</span> and
-    <span class="red"><b>34</b> lines missed. </span>
+    <span class="red"><b>32</b> lines missed. </span>
     (<span class="yellow">
-  86.4%
+  87.1%
 </span>
 )
   </div>
@@ -629,12 +629,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#902eff98f62688530f0e1155adc3d0bbbfea014a" class="src_link" title="app/controllers/invoices_controller.rb">app/controllers/invoices_controller.rb</a></td>
-            <td class="yellow strong cell--number t-file__coverage">88.52 %</td>
-            <td class="cell--number">117</td>
-            <td class="cell--number">61</td>
+            <td class="green strong cell--number t-file__coverage">91.53 %</td>
+            <td class="cell--number">108</td>
+            <td class="cell--number">59</td>
             <td class="cell--number">54</td>
-            <td class="cell--number">7</td>
-            <td class="cell--number">1.11</td>
+            <td class="cell--number">5</td>
+            <td class="cell--number">1.15</td>
             
           </tr>
         
@@ -2580,8 +2580,8 @@
   <div class="header">
     <h3>app/controllers/invoices_controller.rb</h3>
     <h4>
-      <span class="yellow">
-  88.52%
+      <span class="green">
+  91.53%
 </span>
 
       lines covered
@@ -2590,9 +2590,9 @@
     
 
     <div class="t-line-summary">
-      <b>61</b> relevant lines.
+      <b>59</b> relevant lines.
       <span class="green"><b>54</b> lines covered</span> and
-      <span class="red"><b>7</b> lines missed.</span>
+      <span class="red"><b>5</b> lines missed.</span>
     </div>
 
     
@@ -2785,7 +2785,7 @@
 
             
 
-            <code class="ruby">    if @renter.nil?</code>
+            <code class="ruby">    @invoice = Invoice.new</code>
           </li>
         </div>
       
@@ -2796,7 +2796,7 @@
 
             
 
-            <code class="ruby">      render_result_destroy(</code>
+            <code class="ruby">    @invoice.name = generate_random_code</code>
           </li>
         </div>
       
@@ -2807,7 +2807,7 @@
 
             
 
-            <code class="ruby">        name: &#39;room_list&#39;,</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -2818,111 +2818,12 @@
 
             
 
-            <code class="ruby">        path: rooms_path,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="21">
-            
-            
-
-            
-
-            <code class="ruby">        model: &#39;You can not create invoice when room is empty&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="22">
-            
-            
-
-            
-
-            <code class="ruby">        func: prepare_index</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="23">
-            
-            
-
-            
-
-            <code class="ruby">      )</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="24">
-            
-            
-
-            
-
-            <code class="ruby">    else</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="25">
-            
-            
-
-            
-
-            <code class="ruby">      @invoice = Invoice.new</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="26">
-            
-            
-
-            
-
-            <code class="ruby">      @invoice.name = generate_random_code</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="27">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="28">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="29">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="30">
+          <li class="covered" data-hits="1" data-linenumber="21">
             <span class="hits">1</span>
             
 
@@ -2933,7 +2834,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="31">
+          <li class="never" data-hits="" data-linenumber="22">
             
             
 
@@ -2944,7 +2845,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="32">
+          <li class="covered" data-hits="1" data-linenumber="23">
             <span class="hits">1</span>
             
 
@@ -2955,7 +2856,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="33">
+          <li class="covered" data-hits="1" data-linenumber="24">
             <span class="hits">1</span>
             
 
@@ -2966,7 +2867,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="34">
+          <li class="never" data-hits="" data-linenumber="25">
             
             
 
@@ -2977,7 +2878,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="35">
+          <li class="never" data-hits="" data-linenumber="26">
             
             
 
@@ -2988,7 +2889,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="36">
+          <li class="covered" data-hits="1" data-linenumber="27">
             <span class="hits">1</span>
             
 
@@ -2999,7 +2900,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="37">
+          <li class="covered" data-hits="1" data-linenumber="28">
             <span class="hits">1</span>
             
 
@@ -3010,7 +2911,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="38">
+          <li class="covered" data-hits="1" data-linenumber="29">
             <span class="hits">1</span>
             
 
@@ -3021,7 +2922,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="39">
+          <li class="covered" data-hits="1" data-linenumber="30">
             <span class="hits">1</span>
             
 
@@ -3032,7 +2933,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="40">
+          <li class="never" data-hits="" data-linenumber="31">
             
             
 
@@ -3043,7 +2944,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="41">
+          <li class="never" data-hits="" data-linenumber="32">
             
             
 
@@ -3054,7 +2955,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="42">
+          <li class="covered" data-hits="1" data-linenumber="33">
             <span class="hits">1</span>
             
 
@@ -3065,7 +2966,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="43">
+          <li class="missed" data-hits="0" data-linenumber="34">
             
             
 
@@ -3076,7 +2977,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="44">
+          <li class="missed" data-hits="0" data-linenumber="35">
             
             
 
@@ -3087,7 +2988,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="never" data-hits="" data-linenumber="36">
             
             
 
@@ -3098,7 +2999,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="46">
+          <li class="never" data-hits="" data-linenumber="37">
             
             
 
@@ -3109,7 +3010,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="47">
+          <li class="covered" data-hits="1" data-linenumber="38">
             <span class="hits">1</span>
             
 
@@ -3120,7 +3021,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="48">
+          <li class="covered" data-hits="1" data-linenumber="39">
             <span class="hits">1</span>
             
 
@@ -3131,7 +3032,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="49">
+          <li class="covered" data-hits="1" data-linenumber="40">
             <span class="hits">1</span>
             
 
@@ -3142,7 +3043,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="50">
+          <li class="never" data-hits="" data-linenumber="41">
             
             
 
@@ -3153,7 +3054,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="51">
+          <li class="never" data-hits="" data-linenumber="42">
             
             
 
@@ -3164,7 +3065,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="52">
+          <li class="covered" data-hits="1" data-linenumber="43">
             <span class="hits">1</span>
             
 
@@ -3175,7 +3076,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="53">
+          <li class="never" data-hits="" data-linenumber="44">
             
             
 
@@ -3186,7 +3087,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="54">
+          <li class="covered" data-hits="1" data-linenumber="45">
             <span class="hits">1</span>
             
 
@@ -3197,7 +3098,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
+          <li class="covered" data-hits="1" data-linenumber="46">
             <span class="hits">1</span>
             
 
@@ -3208,7 +3109,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="56">
+          <li class="never" data-hits="" data-linenumber="47">
             
             
 
@@ -3219,7 +3120,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="57">
+          <li class="never" data-hits="" data-linenumber="48">
             
             
 
@@ -3230,7 +3131,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="58">
+          <li class="covered" data-hits="1" data-linenumber="49">
             <span class="hits">1</span>
             
 
@@ -3241,7 +3142,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="6" data-linenumber="59">
+          <li class="covered" data-hits="6" data-linenumber="50">
             <span class="hits">6</span>
             
 
@@ -3252,7 +3153,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="60">
+          <li class="never" data-hits="" data-linenumber="51">
             
             
 
@@ -3263,7 +3164,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="61">
+          <li class="never" data-hits="" data-linenumber="52">
             
             
 
@@ -3274,7 +3175,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="62">
+          <li class="covered" data-hits="1" data-linenumber="53">
             <span class="hits">1</span>
             
 
@@ -3285,7 +3186,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="63">
+          <li class="covered" data-hits="2" data-linenumber="54">
             <span class="hits">2</span>
             
 
@@ -3296,7 +3197,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="64">
+          <li class="never" data-hits="" data-linenumber="55">
             
             
 
@@ -3307,7 +3208,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="65">
+          <li class="never" data-hits="" data-linenumber="56">
             
             
 
@@ -3318,7 +3219,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="66">
+          <li class="covered" data-hits="1" data-linenumber="57">
             <span class="hits">1</span>
             
 
@@ -3329,13 +3230,112 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="67">
+          <li class="covered" data-hits="2" data-linenumber="58">
             <span class="hits">2</span>
             
 
             
 
             <code class="ruby">    @settings = current_user.setting</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="59">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="60">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="61">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def set_total_price_param</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="62">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    params[:invoice][:total_price] = @result[:total_invoice_price]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="63">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="64">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="65">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def set_renter</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="66">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    set_room</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="67">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @renter = @room.renters.find_by(renter_type: :main) || nil</code>
           </li>
         </div>
       
@@ -3368,7 +3368,7 @@
 
             
 
-            <code class="ruby">  def set_total_price_param</code>
+            <code class="ruby">  def remove_decimal_separator(params_hash, keys)</code>
           </li>
         </div>
       
@@ -3379,18 +3379,18 @@
 
             
 
-            <code class="ruby">    params[:invoice][:total_price] = @result[:total_invoice_price]</code>
+            <code class="ruby">    keys.each do |key|</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="72">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="72">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">      next if params_hash[key].blank? # Skip if the key is blank or nil</code>
           </li>
         </div>
       
@@ -3412,34 +3412,23 @@
 
             
 
-            <code class="ruby">  def set_renter</code>
+            <code class="ruby">      params_hash[key] = params_hash[key].delete(&#39;.&#39;) if params_hash[key].respond_to?(:delete)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="75">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="75">
+            
             
 
             
 
-            <code class="ruby">    set_room</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="76">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    @renter = @room.renters.find_by(renter_type: :main) || nil</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="77">
+          <li class="never" data-hits="" data-linenumber="76">
             
             
 
@@ -3450,7 +3439,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="78">
+          <li class="never" data-hits="" data-linenumber="77">
             
             
 
@@ -3461,35 +3450,46 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="79">
+          <li class="covered" data-hits="1" data-linenumber="78">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def remove_decimal_separator(params_hash, keys)</code>
+            <code class="ruby">  def calculate_total_price</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="80">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="2" data-linenumber="79">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    keys.each do |key|</code>
+            <code class="ruby">    set_room</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="81">
-            <span class="hits">1</span>
+          <li class="covered" data-hits="2" data-linenumber="80">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">      next if params_hash[key].blank? # Skip if the key is blank or nil</code>
+            <code class="ruby">    @result = Invoices::GetTotalPriceService.call(@room, current_user)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="81">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -3511,111 +3511,12 @@
 
             
 
-            <code class="ruby">      params_hash[key] = params_hash[key].delete(&#39;.&#39;) if params_hash[key].respond_to?(:delete)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="84">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="85">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="86">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="87">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def calculate_total_price</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="88">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    set_room</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="89">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    @result = Invoices::GetTotalPriceService.call(@room, current_user)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="90">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="91">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="92">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">  def render_result_action(result, action, path = show_all_invoices_invoices_path, model = &quot;Invoice: #{@invoice.name}&quot;)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="93">
+          <li class="covered" data-hits="1" data-linenumber="84">
             <span class="hits">1</span>
             
 
@@ -3626,7 +3527,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="94">
+          <li class="covered" data-hits="1" data-linenumber="85">
             <span class="hits">1</span>
             
 
@@ -3637,13 +3538,112 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="95">
+          <li class="covered" data-hits="1" data-linenumber="86">
             <span class="hits">1</span>
             
 
             
 
             <code class="ruby">    render_result(result:, path:, model:, action:, name:, frame_back_name:)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="87">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="88">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="89">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def render_destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="90">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    render_result_destroy(</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="91">
+            
+            
+
+            
+
+            <code class="ruby">      name: &#39;invoice_list&#39;,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="92">
+            
+            
+
+            
+
+            <code class="ruby">      path: show_all_invoices_invoices_path,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="93">
+            
+            
+
+            
+
+            <code class="ruby">      model: @invoice.name,</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="94">
+            
+            
+
+            
+
+            <code class="ruby">      func: prepare_index</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="95">
+            
+            
+
+            
+
+            <code class="ruby">    )</code>
           </li>
         </div>
       
@@ -3676,111 +3676,12 @@
 
             
 
-            <code class="ruby">  def render_destroy</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="99">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    render_result_destroy(</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="100">
-            
-            
-
-            
-
-            <code class="ruby">      name: &#39;invoice_list&#39;,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="101">
-            
-            
-
-            
-
-            <code class="ruby">      path: show_all_invoices_invoices_path,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="102">
-            
-            
-
-            
-
-            <code class="ruby">      model: @invoice.name,</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="103">
-            
-            
-
-            
-
-            <code class="ruby">      func: prepare_index</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="104">
-            
-            
-
-            
-
-            <code class="ruby">    )</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="105">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="106">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="107">
-            <span class="hits">1</span>
-            
-
-            
-
             <code class="ruby">  def prepare_index</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="108">
+          <li class="covered" data-hits="2" data-linenumber="99">
             <span class="hits">2</span>
             
 
@@ -3791,7 +3692,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="109">
+          <li class="covered" data-hits="2" data-linenumber="100">
             <span class="hits">2</span>
             
 
@@ -3802,7 +3703,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="110">
+          <li class="never" data-hits="" data-linenumber="101">
             
             
 
@@ -3813,7 +3714,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="111">
+          <li class="covered" data-hits="2" data-linenumber="102">
             <span class="hits">2</span>
             
 
@@ -3824,7 +3725,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="112">
+          <li class="never" data-hits="" data-linenumber="103">
             
             
 
@@ -3835,7 +3736,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="113">
+          <li class="never" data-hits="" data-linenumber="104">
             
             
 
@@ -3846,7 +3747,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="114">
+          <li class="covered" data-hits="1" data-linenumber="105">
             <span class="hits">1</span>
             
 
@@ -3857,7 +3758,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="115">
+          <li class="missed" data-hits="0" data-linenumber="106">
             
             
 
@@ -3868,7 +3769,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="116">
+          <li class="never" data-hits="" data-linenumber="107">
             
             
 
@@ -3879,7 +3780,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="117">
+          <li class="never" data-hits="" data-linenumber="108">
             
             
 

@@ -26,9 +26,10 @@
       <span>
         <i class="fa-solid fa-home ml-1 mr-2"></i><%= "#{format_to_vnd_not_unit(room.price_room)} VND"%>
       </span>
-      <div class="flex justify-around flex-wrap w-full">
+      <div class="flex justify-between 2xl:justify-around flex-wrap w-full">
         <%= button_to new_room_invoice_path(room), method: :get, class: "btn btn-primary m-1 w-[155px] sm:w-full text-white" do %>
-          <i class="fa-solid fa-pencil-square mr-2"></i>Xuất Đơn
+          <i class="fa-solid fa-pencil-square mr-2"></i>
+          <span class="text-xs">Xuất Đơn</span>
         <% end %>
         <%= render "shared/menu_button" do%>
           <%= button_to edit_room_path(room), method: :get, class: "btn btn-ghost w-full text-blue-800", remote: true do %>

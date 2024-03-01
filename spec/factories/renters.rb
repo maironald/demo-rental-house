@@ -24,7 +24,7 @@
 #
 FactoryBot.define do
   factory :renter do
-    address { Faker::Address.street_name }
+    address { Faker::Address.city(options: { with_state: true }) }
     deposit { 0 }
     gender { %w[male female].sample }
     identity { Faker::IDNumber.valid }

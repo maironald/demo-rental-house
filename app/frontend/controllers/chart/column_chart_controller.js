@@ -6,8 +6,6 @@ export default class extends Controller {
 
   connect() {
     this.renderChart();
-    console.log(this.getBenefitValue());
-    console.log(this.getExpenseValue());
   }
 
   getBenefitValue() {

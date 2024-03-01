@@ -46,16 +46,6 @@ class RoomsController < BaseController
     old <= new
   end
 
-  def remove_decimal_separator(params_hash, keys)
-    return unless params_hash.present? && keys.present?
-
-    keys.each do |key|
-      next if params_hash[key].blank?
-
-      params_hash[key] = params_hash[key].delete('.')
-    end
-  end
-
   def render_result_action(result, action, path = rooms_path, model = "room: #{@room.name}")
     name = 'room_list'
     frame_back_name = 'new_room'

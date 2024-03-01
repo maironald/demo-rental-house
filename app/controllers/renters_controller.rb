@@ -53,16 +53,6 @@ class RentersController < BaseController
     params.require(:renter).permit(:name, :phone_number, :identity, :address, :gender, :renter_type, :deposit)
   end
 
-  def remove_decimal_separator(params_hash, keys)
-    return unless params_hash.present? && keys.present?
-
-    keys.each do |key|
-      next if params_hash[key].blank?
-
-      params_hash[key] = params_hash[key].delete('.')
-    end
-  end
-
   def render_result_action(result, action, path = renters_path, model = "renter: #{@renter.name}")
     name = 'renter_list'
     frame_back_name = 'new_renter'

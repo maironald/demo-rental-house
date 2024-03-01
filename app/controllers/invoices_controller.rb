@@ -14,17 +14,8 @@ class InvoicesController < BaseController
   def show; end
 
   def new
-    if @renter.nil?
-      render_result_destroy(
-        name: 'room_list',
-        path: rooms_path,
-        model: 'You can not create invoice when room is empty',
-        func: prepare_index
-      )
-    else
-      @invoice = Invoice.new
-      @invoice.name = generate_random_code
-    end
+    @invoice = Invoice.new
+    @invoice.name = generate_random_code
   end
 
   def show_all_invoices; end
@@ -74,14 +65,6 @@ class InvoicesController < BaseController
   def set_renter
     set_room
     @renter = @room.renters.find_by(renter_type: :main) || nil
-  end
-
-  def remove_decimal_separator(params_hash, keys)
-    keys.each do |key|
-      next if params_hash[key].blank? # Skip if the key is blank or nil
-
-      params_hash[key] = params_hash[key].delete('.') if params_hash[key].respond_to?(:delete)
-    end
   end
 
   def calculate_total_price

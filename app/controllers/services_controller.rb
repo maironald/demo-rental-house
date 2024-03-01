@@ -42,12 +42,6 @@ class ServicesController < BaseController
     params.require(:service).permit(:name, :price, :note)
   end
 
-  def remove_decimal_separator(params_hash, keys)
-    keys.each do |key|
-      params_hash[key] = params_hash[key].delete('.') if params_hash[key].present?
-    end
-  end
-
   def render_result_action(result, action, path = services_path, model = "Service: #{@service.name}")
     name = 'service_list'
     frame_back_name = 'new_service'
