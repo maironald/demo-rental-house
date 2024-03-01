@@ -5,6 +5,6 @@
   <%= f.input :total_price, as: :string, input_html: { value: format_to_vnd_not_unit(@result[:total_invoice_price]), disabled: true}, wrapper_html: {class: 'mb-4'}, label: "Tổng tiền khách phải trả:", label_html: {class: 'mb-2 fw-bold'}, default_value: @total_price%>
   <%= f.input :paid_money, as: :string, input_html: { data: {controller: "currency-format"} }, wrapper_html: {class: 'mb-4'}, label: "Tổng tiền khách trả:", label_html: {class: 'mb-2 fw-bold'} %>
   <div class="w-full flex justify-end">
-    <%= f.submit 'Lưu', class: "btn btn-primary w-1/2"%>
+    <%= f.submit 'Lưu', class: "btn btn-primary w-1/4"%>
   </div>
 <% end %>

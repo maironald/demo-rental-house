@@ -21,7 +21,7 @@ RSpec.describe RentersController, type: :controller do
     let(:renter) { create(:renter, room:) }
 
     it 'renders the edit template' do
-      get :edit, params: { id: renter.id }, format: :turbo_stream
+      get :edit, params: { id: renter.id }
       expect(response).to render_template(:edit)
     end
   end

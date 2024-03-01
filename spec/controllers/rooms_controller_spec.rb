@@ -24,7 +24,7 @@ RSpec.describe RoomsController, type: :controller do
 
   describe 'GET #edit' do
     it 'renders the edit template' do
-      get :edit, params: { id: room.id }, format: :turbo_stream
+      get :edit, params: { id: room.id }
       expect(response).to render_template(:edit)
     end
   end

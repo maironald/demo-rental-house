@@ -29,7 +29,7 @@ class ServicesController < BaseController
 
   def destroy
     @service.really_destroy!
-    redirect_to services_path, notice: t('common.delete.success', model: "Service: #{@service.name}")
+    render_destroy
   end
 
   private
@@ -52,6 +52,15 @@ class ServicesController < BaseController
     name = 'service_list'
     frame_back_name = 'new_service'
     render_result(result:, path:, model:, action:, name:, frame_back_name:)
+  end
+
+  def render_destroy
+    render_result_destroy(
+      name: 'service_list',
+      path: services_path,
+      model: @service.name,
+      func: prepare_index
+    )
   end
 
   def prepare_index

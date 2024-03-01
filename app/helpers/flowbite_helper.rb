@@ -5,7 +5,8 @@ module FlowbiteHelper
     {
       success: 'text-green-800 bg-green-200 rounded-lg dark:bg-green-800 dark:text-green-200',
       notice: 'text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200',
-      danger: 'text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200'
+      alert: 'text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200',
+      danger: 'text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200',
     }[type.to_sym] || type.to_s
   end
 
@@ -13,7 +14,8 @@ module FlowbiteHelper
     {
       success: 'border-green-500',
       notice: 'border-orange-500',
-      danger: 'border-red-500'
+      danger: 'border-red-500',
+      alert: 'border-orange-500',
     }[type.to_sym] || type.to_s
   end
 
@@ -21,7 +23,8 @@ module FlowbiteHelper
     {
       success: 'images/icons/success.svg',
       notice: 'images/icons/notice.svg',
-      danger: 'images/icons/danger.svg'
+      danger: 'images/icons/danger.svg',
+      alert: 'images/icons/notice.svg',
     }[type.to_sym] || type.to_s
   end
 end

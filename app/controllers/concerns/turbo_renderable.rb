@@ -25,6 +25,18 @@ module TurboRenderable
     render turbo_stream: turbo_action_base(name:, locals:, partial:, modal:)
   end
 
+  def render_result_destroy(name:, path:, model:, func:)
+    message = t('common.delete.success', model:)
+    respond_to do |format|
+      format.html { redirect_to path, notice: message }
+      format.turbo_stream do
+        yield func if block_given?
+        flash.now[:success] = message
+        render_result_success(name:)
+      end
+    end
+  end
+
   def turbo_stream_reform(frame_back_name:, partial: 'form')
     render turbo_stream: [
       turbo_stream.replace(frame_back_name, partial:),

@@ -39,11 +39,11 @@
                 <div class="flex justify-around mt-4">
                   <div class="flex flex-col items-center">
                     <p class="mb-1 text-base font-medium text-red-700 dark:text-red-500">Khách Đứng Tên</p>
-                    <div class="radial-progress bg-error text-error-content border-4 border-error" style="--value:<%= ((@renter_main.to_f / @renters.to_f) * 100).round(2)%>;" role="progressbar"><%= ((@renter_main.to_f / @renters.to_f) * 100).round(2)%>%</div>
+                    <div class="radial-progress bg-error text-error-content border-4 border-error" style="--value:<%= ((@renter_info[:renter_main].to_f / @renter_info[:renter_total].to_f) * 100).round(2)%>;" role="progressbar"><%= ((@renter_info[:renter_main].to_f / @renter_info[:renter_total].to_f) * 100).round(2)%>%</div>
                   </div>
                   <div class="flex flex-col items-center">
                     <p class="mb-1 text-base font-medium text-indigo-700 dark:text-indigo-500">Khách Chung Phòng</p>
-                    <div class="radial-progress bg-primary text-primary-content border-4 border-primary" style="--value:<%= ((@renter_member.to_f / @renters.to_f) * 100).round(2)%>;" role="progressbar"><%= ((@renter_member.to_f / @renters.to_f) * 100).round(2)%>%</div>
+                    <div class="radial-progress bg-primary text-primary-content border-4 border-primary" style="--value:<%= ((@renter_info[:renter_member].to_f / @renter_info[:renter_total].to_f) * 100).round(2)%>;" role="progressbar"><%= ((@renter_info[:renter_member].to_f / @renter_info[:renter_total].to_f) * 100).round(2)%>%</div>
                   </div>
                 </div>
               </div>

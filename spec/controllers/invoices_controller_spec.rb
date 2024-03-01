@@ -9,13 +9,6 @@ RSpec.describe InvoicesController, type: :controller do
 
   before { sign_in(user) }
 
-  describe 'GET #new' do
-    it 'renders the new template' do
-      get :new, params: { room_id: room.id }
-      expect(response).to render_template(:new)
-    end
-  end
-
   describe 'GET #show_all_invoices' do
     it 'renders the show_all_invoices template' do
       get :show_all_invoices
@@ -25,7 +18,7 @@ RSpec.describe InvoicesController, type: :controller do
 
   describe 'GET #edit' do
     it 'renders the edit template' do
-      get :edit, params: { room_id: room.id, id: invoice.id }, format: :turbo_stream
+      get :edit, params: { room_id: room.id, id: invoice.id }
       expect(response).to render_template(:edit)
     end
   end

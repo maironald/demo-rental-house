@@ -1,6 +1,5 @@
-<%= turbo_frame_tag "flash" do%>
-  <% if flash.to_hash.present?%>
-  <div class="fixed z-50 top-3 min-w-1/2 w-auto left-1/2 transform -translate-x-1/2">
+<% if flash.to_hash.present?%>
+  <div id="flash" class="fixed z-50 top-3 min-w-1/2 w-auto left-1/2 transform -translate-x-1/2">
     <div id="toast-success" class="flex items-center max-w-2/3 p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-gray-800 border-solid border-2 border-gray-500" data-controller="flash" data-flash-target="alert" data-action="click->flash#closeAlert">
 
       <% flash.each do |type, message| %>
@@ -18,5 +17,4 @@
       <% end %>
     </div>
   </div>
-  <%end%>
 <%end%>

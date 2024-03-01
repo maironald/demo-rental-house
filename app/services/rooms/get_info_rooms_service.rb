@@ -2,8 +2,8 @@
 
 module Rooms
   class GetInfoRoomsService < ApplicationService
-    def initialize(room) # rubocop:disable Lint/MissingSuper
-      @room = room
+    def initialize(rooms) # rubocop:disable Lint/MissingSuper
+      @rooms = rooms
     end
 
     def call
@@ -12,7 +12,7 @@ module Rooms
 
     private
 
-    attr_accessor :room
+    attr_accessor :rooms
 
     def info_data
       {
@@ -23,11 +23,11 @@ module Rooms
     end
 
     def room_total
-      room.size
+      rooms.size
     end
 
     def room_used
-      room.rooms_rented.size
+      rooms.rooms_rented.size
     end
 
     def room_left

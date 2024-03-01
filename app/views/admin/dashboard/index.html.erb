@@ -1,13 +1,10 @@
 <% if current_user&.has_role?(:admin)%>
-  <div class="relative">
-    <%= render "shared/flash"%>
-    <div>
-      <%= render 'admin/navigation'%>
-      <div class="sm:ml-64">
-        <%= render 'admin/topnav'%>
-        <!-- table -->
-        <%= render 'table'%>
-      </div>
+  <div>
+    <%= render 'admin/navigation'%>
+    <div class="sm:ml-64">
+      <%= render 'admin/topnav'%>
+      <!-- table -->
+      <%= render 'table'%>
     </div>
   </div>
 <% else %>

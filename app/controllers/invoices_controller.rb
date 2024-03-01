@@ -14,8 +14,17 @@ class InvoicesController < BaseController
   def show; end
 
   def new
-    @invoice = Invoice.new
-    @invoice.name = generate_random_code
+    if @renter.nil?
+      render_result_destroy(
+        name: 'room_list',
+        path: rooms_path,
+        model: 'You can not create invoice when room is empty',
+        func: prepare_index
+      )
+    else
+      @invoice = Invoice.new
+      @invoice.name = generate_random_code
+    end
   end
 
   def show_all_invoices; end
@@ -37,7 +46,7 @@ class InvoicesController < BaseController
 
   def destroy
     @invoice.really_destroy!
-    redirect_to show_all_invoices_invoices_path, notice: 'Invoices was successfully deleted.'
+    render_destroy
   end
 
   private
@@ -84,6 +93,15 @@ class InvoicesController < BaseController
     name = 'invoice_list'
     frame_back_name = 'new_invoice'
     render_result(result:, path:, model:, action:, name:, frame_back_name:)
+  end
+
+  def render_destroy
+    render_result_destroy(
+      name: 'invoice_list',
+      path: show_all_invoices_invoices_path,
+      model: @invoice.name,
+      func: prepare_index
+    )
   end
 
   def prepare_index

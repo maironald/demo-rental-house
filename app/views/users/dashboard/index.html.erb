@@ -1,14 +1,10 @@
-<div class="relative">
-  <%= render "shared/flash"%>
-  <div>
-    <%= render 'users/navigation'%>
-    <div class="sm:ml-64">
-      <%= render 'users/topnav'%>
-      <!-- table -->
-      <%= render 'chart', locals: {data_room: @data_room, data_benefit: @data_benefit, benefits: @benefits, expenses: @expenses} do%>
-        <%= render 'table', locals: {rooms_nil: @rooms_nil, invoices_not_pay: @invoices_not_pay}%>
-      <%end%>
-    </div>
+<div>
+  <%= render 'users/navigation'%>
+  <div class="sm:ml-64">
+    <%= render 'users/topnav'%>
+    <!-- table -->
+    <%= render 'chart', locals: {data_room: @data_room, data_benefit: @data_benefit, benefits: @benefits, expenses: @expenses} do%>
+      <%= render 'table', locals: {rooms_nil: @rooms_nil, invoices_not_pay: @invoices_not_pay}%>
+    <%end%>
   </div>
 </div>
-<%= render "shared/modal"%>

@@ -31,14 +31,7 @@ class RentersController < BaseController
 
   def destroy
     @renter.really_destroy!
-    redirect_to renters_path, notice: t('common.delete.success', model: "Renter #{renter.name}")
-  end
-
-  def destroy_all
-    Renter.destroy_all
-    respond_to do |format|
-      reload_rooms_with_update_destroy(format, type: :success, message: 'Renter was successfully deleted all.')
-    end
+    render_destroy
   end
 
   def show_renters
@@ -53,7 +46,7 @@ class RentersController < BaseController
   end
 
   def set_room
-    @room = Room.find(params[:room_id])
+    @room = Room.find_by(id: params[:room_id])
   end
 
   def renter_params
@@ -101,6 +94,15 @@ class RentersController < BaseController
         format.turbo_stream { render turbo_stream: [turbo_stream.replace('new_renter', partial: 'renters/form')] }
       end
     end
+  end
+
+  def render_destroy
+    render_result_destroy(
+      name: 'renter_list',
+      path: renters_path,
+      model: @renter.name,
+      func: prepare_index
+    )
   end
 
   def prepare_index

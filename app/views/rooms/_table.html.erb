@@ -26,7 +26,7 @@
             </p>
         </div>
         <div class="flex flex-col md:flex-row mb-2">
-          <%= button_to new_room_path, method: :get, class: "btn btn-primary", data: {turbo_stream: "" }, onClick: "my_modal_4.showModal()" do %>
+          <%= button_to new_room_path, method: :get, class: "btn btn-primary" do %>
             <i class="fa-solid fa-list-ol mr-2"></i>
             Thêm Phòng
           <% end %>
@@ -42,7 +42,7 @@
             Tùy chỉnh các loại phí
           <% end %>
       </div>
-      <div id="room-list" class="flex flex-wrap w-full gap-10 justify-around 2xl:gap-2 2xl:justify-start">
+      <div id="room-list" class="flex flex-wrap w-full pl-0 xl:pl-4">
         <%if @rooms.empty? && current_user.rooms.count == 0 %>
           <div class="flex justify-center items-center w-full flex-wrap h-[25vw]">
             <h1 class="text-3xl text-red-500">HIỆN TẠI CHƯA CÓ PHÒNG NÀO. CẦN THÊM PHÒNG!!!</h1>

@@ -29,7 +29,7 @@ class RoomsController < BaseController
 
   def destroy
     @room.really_destroy!
-    redirect_to rooms_path, notice: t('common.delete.success', model: "Room: #{@room.name}")
+    render_destroy
   end
 
   private
@@ -60,6 +60,15 @@ class RoomsController < BaseController
     name = 'room_list'
     frame_back_name = 'new_room'
     render_result(result:, path:, model:, action:, name:, frame_back_name:)
+  end
+
+  def render_destroy
+    render_result_destroy(
+      name: 'room_list',
+      path: rooms_path,
+      model: @room.name,
+      func: prepare_index
+    )
   end
 
   def prepare_index

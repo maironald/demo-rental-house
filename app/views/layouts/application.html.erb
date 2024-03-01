@@ -14,10 +14,18 @@
   <body>
     <% if !user_signed_in? %>
       <div class="container-xl mx-auto">
-        <%= yield %>
+        <div class="relative">
+           <%= turbo_frame_tag 'flash', target: '_top' %>
+          <%= yield %>
+        </div>
       </div>
     <% else %>
-      <%= yield %>
+      <div class="container-xl mx-auto">
+        <div class="relative">
+          <%= turbo_frame_tag 'flash', target: '_top' %>
+          <%= yield %>
+        </div>
+      </div>
     <% end %>
   </body>
 </html>
