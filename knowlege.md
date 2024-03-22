@@ -90,7 +90,7 @@ link Simple Form: <https://github.com/heartcombo/simple_form>
 
   - you can create model by (it will auto generate migration):
     - rails g model Room <attribute_name>
-    - rails g model Service string:name decimal:price text:note <attribute_name>
+    - rails g model Service string:name price:decimal note:text <attribute_name>
     - rails g model RoomService
   - After that, in migration room_service, you can type two keys references:
     - t.belongs_to :room
